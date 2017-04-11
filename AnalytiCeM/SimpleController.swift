@@ -137,21 +137,43 @@ class SimpleController: UIViewController, IXNMuseConnectionListener, IXNMuseData
     func connect() {
         muse?.register(self)
         muse?.register(self, type: .artifacts)
-        muse?.register(self, type: .alphaAbsolute)
+        //muse?.register(self, type: .alphaAbsolute)
         /*
          [self.muse registerDataListener:self
          type:IXNMuseDataPacketTypeEeg];
          */
+        muse?.register(self, type: .alphaRelative)
+        muse?.register(self, type: .betaRelative)
+        muse?.register(self, type: .deltaRelative)
+        muse?.register(self, type: .gammaRelative)
+        muse?.register(self, type: .thetaRelative)
         muse?.runAsynchronously()
     }
     
     func receive(_ packet: IXNMuseDataPacket?, muse: IXNMuse?) {
         
-        if (packet!.packetType() == .alphaAbsolute || packet?.packetType() == .eeg) {
-            
-            log(String(format: "%5.2f %5.2f %5.2f %5.2f", CDouble((packet?.values()[IXNEeg.EEG1.rawValue])!), CDouble((packet?.values()[IXNEeg.EEG2.rawValue])!), CDouble((packet?.values()[IXNEeg.EEG3.rawValue])!), CDouble((packet?.values()[IXNEeg.EEG4.rawValue])!)))
-            
+        var type: String?;
+        switch packet!.packetType() {
+        case .alphaRelative:
+            type = "Alpha"
+        case .betaRelative:
+            type = "Beta"
+        case .deltaRelative:
+            type = "Delta"
+        case .gammaRelative:
+            type = "Gamma"
+        case .thetaRelative:
+            type = "Theta"
+        default: break
         }
+        
+        //if (packet!.packetType() == .alphaRelative /*|| packet?.packetType() == .eeg*/) {
+            
+        if let type = type {
+            
+            log(String(format: "\(type) = %5.2f %5.2f %5.2f %5.2f", CDouble((packet?.values()[IXNEeg.EEG1.rawValue])!), CDouble((packet?.values()[IXNEeg.EEG2.rawValue])!), CDouble((packet?.values()[IXNEeg.EEG3.rawValue])!), CDouble((packet?.values()[IXNEeg.EEG4.rawValue])!)))
+        }
+        
     }
     
     func receive(_ packet: IXNMuseArtifactPacket, muse: IXNMuse?) {
