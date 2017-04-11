@@ -8,20 +8,29 @@
 
 /* Begin PBXBuildFile section */
 		9374B30E1E9D80DB00052AA5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9374B30D1E9D80DB00052AA5 /* AppDelegate.swift */; };
-		9374B3101E9D80DB00052AA5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9374B30F1E9D80DB00052AA5 /* ViewController.swift */; };
 		9374B3131E9D80DB00052AA5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9374B3111E9D80DB00052AA5 /* Main.storyboard */; };
 		9374B3151E9D80DB00052AA5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9374B3141E9D80DB00052AA5 /* Assets.xcassets */; };
 		9374B3181E9D80DB00052AA5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9374B3161E9D80DB00052AA5 /* LaunchScreen.storyboard */; };
+		9374B3211E9D81D600052AA5 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9374B3201E9D81D600052AA5 /* libc++.tbd */; };
+		9374B3231E9D81DE00052AA5 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9374B3221E9D81DE00052AA5 /* CoreBluetooth.framework */; };
+		9374B3251E9D820100052AA5 /* Muse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9374B3241E9D820100052AA5 /* Muse.framework */; };
+		9374B32B1E9D828600052AA5 /* SimpleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9374B3291E9D828600052AA5 /* SimpleController.swift */; };
+		9374B32C1E9D828600052AA5 /* SimpleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9374B32A1E9D828600052AA5 /* SimpleController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9374B30A1E9D80DB00052AA5 /* AnalytiCeM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnalytiCeM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9374B30D1E9D80DB00052AA5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9374B30F1E9D80DB00052AA5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9374B3121E9D80DB00052AA5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9374B3141E9D80DB00052AA5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9374B3171E9D80DB00052AA5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9374B3191E9D80DB00052AA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9374B3201E9D81D600052AA5 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		9374B3221E9D81DE00052AA5 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		9374B3241E9D820100052AA5 /* Muse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Muse.framework; path = AnalytiCeM/Frameworks/Muse.framework; sourceTree = "<group>"; };
+		9374B3261E9D824300052AA5 /* AnalytiCeM-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AnalytiCeM-Bridging-Header.h"; sourceTree = "<group>"; };
+		9374B3291E9D828600052AA5 /* SimpleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleController.swift; sourceTree = "<group>"; };
+		9374B32A1E9D828600052AA5 /* SimpleController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SimpleController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +38,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9374B3231E9D81DE00052AA5 /* CoreBluetooth.framework in Frameworks */,
+				9374B3251E9D820100052AA5 /* Muse.framework in Frameworks */,
+				9374B3211E9D81D600052AA5 /* libc++.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +52,7 @@
 			children = (
 				9374B30C1E9D80DB00052AA5 /* AnalytiCeM */,
 				9374B30B1E9D80DB00052AA5 /* Products */,
+				9374B31F1E9D81D600052AA5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +67,26 @@
 		9374B30C1E9D80DB00052AA5 /* AnalytiCeM */ = {
 			isa = PBXGroup;
 			children = (
+				9374B3291E9D828600052AA5 /* SimpleController.swift */,
+				9374B32A1E9D828600052AA5 /* SimpleController.xib */,
 				9374B30D1E9D80DB00052AA5 /* AppDelegate.swift */,
-				9374B30F1E9D80DB00052AA5 /* ViewController.swift */,
 				9374B3111E9D80DB00052AA5 /* Main.storyboard */,
 				9374B3141E9D80DB00052AA5 /* Assets.xcassets */,
 				9374B3161E9D80DB00052AA5 /* LaunchScreen.storyboard */,
 				9374B3191E9D80DB00052AA5 /* Info.plist */,
+				9374B3261E9D824300052AA5 /* AnalytiCeM-Bridging-Header.h */,
 			);
 			path = AnalytiCeM;
+			sourceTree = "<group>";
+		};
+		9374B31F1E9D81D600052AA5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9374B3241E9D820100052AA5 /* Muse.framework */,
+				9374B3221E9D81DE00052AA5 /* CoreBluetooth.framework */,
+				9374B3201E9D81D600052AA5 /* libc++.tbd */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -96,6 +121,8 @@
 				TargetAttributes = {
 					9374B3091E9D80DB00052AA5 = {
 						CreatedOnToolsVersion = 8.3.1;
+						DevelopmentTeam = 6PRG74AB66;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -126,6 +153,7 @@
 				9374B3181E9D80DB00052AA5 /* LaunchScreen.storyboard in Resources */,
 				9374B3151E9D80DB00052AA5 /* Assets.xcassets in Resources */,
 				9374B3131E9D80DB00052AA5 /* Main.storyboard in Resources */,
+				9374B32C1E9D828600052AA5 /* SimpleController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,7 +164,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9374B3101E9D80DB00052AA5 /* ViewController.swift in Sources */,
+				9374B32B1E9D828600052AA5 /* SimpleController.swift in Sources */,
 				9374B30E1E9D80DB00052AA5 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -260,10 +288,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = 6PRG74AB66;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AnalytiCeM/Frameworks",
+				);
 				INFOPLIST_FILE = AnalytiCeM/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.polytech-marseille.AnalytiCeM";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "AnalytiCeM/AnalytiCeM-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -272,10 +309,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = 6PRG74AB66;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AnalytiCeM/Frameworks",
+				);
 				INFOPLIST_FILE = AnalytiCeM/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.polytech-marseille.AnalytiCeM";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "AnalytiCeM/AnalytiCeM-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -299,6 +344,7 @@
 				9374B31E1E9D80DB00052AA5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
