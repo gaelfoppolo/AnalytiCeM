@@ -9,6 +9,7 @@
 import UIKit
 import CoreBluetooth
 
+
 class SimpleController: UIViewController, IXNMuseConnectionListener, IXNMuseDataListener, IXNMuseListener, IXNLogListener, UITableViewDelegate, UITableViewDataSource {
     
     var manager: IXNMuseManagerIos?
@@ -18,15 +19,23 @@ class SimpleController: UIViewController, IXNMuseConnectionListener, IXNMuseData
     var btManager: CBCentralManager?
     var isBtState: Bool = false
     
+    let maxDataPoints: Int = 500
+    var emptyEEGHistory: Array<EEGSnapshot> = Array<EEGSnapshot>()
+    
+    var eegHistory: [EEGSnapshot] = [EEGSnapshot]()
+    
     @IBOutlet var tableView: UITableView!
     @IBOutlet var logView: UITextView!
-
+    @IBOutlet weak var waveView: WaveView!
+    
     override func viewDidLoad() {
-            super.viewDidLoad()
-            UIApplication.shared.isIdleTimerDisabled = true
-            if manager == nil {
-                manager = IXNMuseManagerIos.sharedManager()
-            }
+        super.viewDidLoad()
+        UIApplication.shared.isIdleTimerDisabled = true
+        if manager == nil {
+           manager = IXNMuseManagerIos.sharedManager()
+        }
+        refreshViews()
+
     }
     
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: Bundle!) {
@@ -45,7 +54,8 @@ class SimpleController: UIViewController, IXNMuseConnectionListener, IXNMuseData
         print("\(dateStr)")
         btManager = CBCentralManager(delegate: self as? CBCentralManagerDelegate, queue: nil, options: nil)
         isBtState = false
-        
+        emptyEEGHistory = Array<EEGSnapshot>(repeating: EEGSnapshot.allZeros, count: maxDataPoints)
+        eegHistory = emptyEEGHistory
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -138,41 +148,39 @@ class SimpleController: UIViewController, IXNMuseConnectionListener, IXNMuseData
         muse?.register(self)
         muse?.register(self, type: .artifacts)
         //muse?.register(self, type: .alphaAbsolute)
-        /*
-         [self.muse registerDataListener:self
-         type:IXNMuseDataPacketTypeEeg];
-         */
-        muse?.register(self, type: .alphaRelative)
+//        muse?.register(self, type: .alphaRelative)
+//        muse?.register(self, type: .alphaScore)
+        //muse?.unregisterAllListeners()
+        
         muse?.register(self, type: .betaRelative)
-        muse?.register(self, type: .deltaRelative)
-        muse?.register(self, type: .gammaRelative)
-        muse?.register(self, type: .thetaRelative)
+        
         muse?.runAsynchronously()
     }
     
     func receive(_ packet: IXNMuseDataPacket?, muse: IXNMuse?) {
         
-        var type: String?;
-        switch packet!.packetType() {
-        case .alphaRelative:
-            type = "Alpha"
-        case .betaRelative:
-            type = "Beta"
-        case .deltaRelative:
-            type = "Delta"
-        case .gammaRelative:
-            type = "Gamma"
-        case .thetaRelative:
-            type = "Theta"
-        default: break
+        guard let packet = packet else { return }
+        
+        log(String(format: "%5.2f %5.2f %5.2f %5.2f", CDouble((packet.values()[IXNEeg.EEG1.rawValue])), CDouble((packet.values()[IXNEeg.EEG2.rawValue])), CDouble((packet.values()[IXNEeg.EEG3.rawValue])), CDouble((packet.values()[IXNEeg.EEG4.rawValue]))))
+        
+        // add data if valid
+        let snapshot = EEGSnapshot(data: packet)
+        if let snapshot = snapshot {
+            eegHistory.append(snapshot)
+            // forget surplus points
+            eegHistory.removeSubrange(0 ..< max(0, eegHistory.count - maxDataPoints))
+            refreshViews()
         }
         
-        //if (packet!.packetType() == .alphaRelative /*|| packet?.packetType() == .eeg*/) {
-            
-        if let type = type {
-            
-            log(String(format: "\(type) = %5.2f %5.2f %5.2f %5.2f", CDouble((packet?.values()[IXNEeg.EEG1.rawValue])!), CDouble((packet?.values()[IXNEeg.EEG2.rawValue])!), CDouble((packet?.values()[IXNEeg.EEG3.rawValue])!), CDouble((packet?.values()[IXNEeg.EEG4.rawValue])!)))
-        }
+        
+//        if (packet.packetType() == .alphaRelative /*|| packet?.packetType() == .eeg*/) {
+        
+//        if let type = type {
+        
+        //let eeg1 = (packet.values()[IXNEeg.EEG1.rawValue])
+//            
+//            log(String(format: "%5.2f %5.2f %5.2f %5.2f", CDouble((packet.values()[IXNEeg.EEG1.rawValue])), CDouble((packet.values()[IXNEeg.EEG2.rawValue])), CDouble((packet.values()[IXNEeg.EEG3.rawValue])), CDouble((packet.values()[IXNEeg.EEG4.rawValue]))))
+//        }
         
     }
     
@@ -206,6 +214,21 @@ class SimpleController: UIViewController, IXNMuseConnectionListener, IXNMuseData
     @IBAction func stopScan(_ sender: Any) {
         manager?.stopListening()
         tableView.reloadData()
+    }
+    
+    func refreshViews() {
+        
+        // on recupère juste l'attribut valeur de chaque snapshot
+        waveView.points = eegHistory.map({
+            return $0.value
+        })
+        
+//        func extractBand(_ extractValue: (EEGSnapshot) -> Double) -> [Double] {
+//            return eegHistory.map(extractValue)
+//        }
+//        
+//        waveView.points = extractBand { $0.value }
+        
     }
     
 }

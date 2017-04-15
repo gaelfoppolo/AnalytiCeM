@@ -16,6 +16,7 @@
                 <outlet property="logView" destination="Z7U-W4-20a" id="Rfx-W2-nHe"/>
                 <outlet property="tableView" destination="rq1-4H-oxz" id="Yx9-0f-A72"/>
                 <outlet property="view" destination="lm7-5o-2V1" id="Pyu-1f-gDj"/>
+                <outlet property="waveView" destination="Ozs-79-t7l" id="Zwi-AC-sh1"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -45,7 +46,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pna-bx-1Ay">
-                    <rect key="frame" x="170.5" y="195" width="35" height="30"/>
+                    <rect key="frame" x="170" y="195" width="35" height="30"/>
                     <state key="normal" title="Scan">
                         <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
@@ -54,7 +55,7 @@
                     </connections>
                 </button>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Z7U-W4-20a">
-                    <rect key="frame" x="0.0" y="240" width="374" height="427"/>
+                    <rect key="frame" x="0.0" y="408" width="374" height="259"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="Z7U-W4-20a" secondAttribute="height" multiplier="80:53" id="0cS-yq-pfA"/>
@@ -78,24 +79,32 @@
                         <outlet property="delegate" destination="-1" id="IFm-4h-XWn"/>
                     </connections>
                 </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ozs-79-t7l" customClass="WaveView" customModule="AnalytiCeM">
+                    <rect key="frame" x="0.0" y="233" width="375" height="145"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="Ozs-79-t7l" secondAttribute="trailing" id="0Wm-TN-mrZ"/>
                 <constraint firstItem="rq1-4H-oxz" firstAttribute="leading" secondItem="lm7-5o-2V1" secondAttribute="leadingMargin" id="1Pt-AT-NL4"/>
                 <constraint firstItem="rq1-4H-oxz" firstAttribute="top" secondItem="lm7-5o-2V1" secondAttribute="top" constant="20" id="5C4-XJ-OJa"/>
                 <constraint firstItem="rq1-4H-oxz" firstAttribute="centerX" secondItem="Z7U-W4-20a" secondAttribute="centerX" id="Cf8-eO-PLd"/>
                 <constraint firstItem="iXa-y5-eOw" firstAttribute="baseline" secondItem="pna-bx-1Ay" secondAttribute="baseline" id="N5d-iI-fLW"/>
+                <constraint firstItem="Ozs-79-t7l" firstAttribute="leading" secondItem="lm7-5o-2V1" secondAttribute="leading" id="Oe0-Or-i8l"/>
+                <constraint firstItem="Ozs-79-t7l" firstAttribute="top" secondItem="pna-bx-1Ay" secondAttribute="bottom" constant="8" id="Ozv-tw-dyZ"/>
                 <constraint firstAttribute="bottom" secondItem="Z7U-W4-20a" secondAttribute="bottom" id="XqA-Vt-sU3"/>
                 <constraint firstItem="Z7U-W4-20a" firstAttribute="leading" secondItem="lm7-5o-2V1" secondAttribute="leading" id="aCm-dg-UA3"/>
                 <constraint firstItem="pna-bx-1Ay" firstAttribute="baseline" secondItem="KAV-Im-e8l" secondAttribute="baseline" id="aFJ-tT-3xK"/>
-                <constraint firstItem="Z7U-W4-20a" firstAttribute="top" secondItem="iXa-y5-eOw" secondAttribute="bottom" constant="15" id="bQg-ZR-qdx"/>
+                <constraint firstItem="Z7U-W4-20a" firstAttribute="top" secondItem="iXa-y5-eOw" secondAttribute="bottom" constant="183" id="bQg-ZR-qdx"/>
                 <constraint firstItem="rq1-4H-oxz" firstAttribute="leading" secondItem="iXa-y5-eOw" secondAttribute="leading" id="bgg-PH-tpi"/>
                 <constraint firstItem="rq1-4H-oxz" firstAttribute="centerX" secondItem="pna-bx-1Ay" secondAttribute="centerX" id="ctQ-Ob-AC5"/>
+                <constraint firstItem="Z7U-W4-20a" firstAttribute="top" secondItem="Ozs-79-t7l" secondAttribute="bottom" constant="30" id="khO-6Z-Jz5"/>
                 <constraint firstItem="rq1-4H-oxz" firstAttribute="trailing" secondItem="lm7-5o-2V1" secondAttribute="trailingMargin" id="lbF-gd-9c6"/>
                 <constraint firstItem="iXa-y5-eOw" firstAttribute="top" secondItem="rq1-4H-oxz" secondAttribute="bottom" constant="8" symbolic="YES" id="ytn-iZ-Abh"/>
                 <constraint firstAttribute="trailing" secondItem="KAV-Im-e8l" secondAttribute="trailing" constant="7" id="zRP-A2-GLY"/>
             </constraints>
-            <point key="canvasLocation" x="277.5" y="292"/>
+            <point key="canvasLocation" x="277.5" y="291.5"/>
         </view>
     </objects>
 </document>
