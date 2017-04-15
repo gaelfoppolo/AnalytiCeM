@@ -16,6 +16,7 @@
 		9374B3251E9D820100052AA5 /* Muse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9374B3241E9D820100052AA5 /* Muse.framework */; };
 		9374B32B1E9D828600052AA5 /* SimpleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9374B3291E9D828600052AA5 /* SimpleController.swift */; };
 		9374B32C1E9D828600052AA5 /* SimpleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9374B32A1E9D828600052AA5 /* SimpleController.xib */; };
+		939085B81EA220C7007495D1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939085B71EA220C7007495D1 /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		9374B3261E9D824300052AA5 /* AnalytiCeM-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AnalytiCeM-Bridging-Header.h"; sourceTree = "<group>"; };
 		9374B3291E9D828600052AA5 /* SimpleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleController.swift; sourceTree = "<group>"; };
 		9374B32A1E9D828600052AA5 /* SimpleController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SimpleController.xib; sourceTree = "<group>"; };
+		939085B71EA220C7007495D1 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				9374B3291E9D828600052AA5 /* SimpleController.swift */,
+				939085B71EA220C7007495D1 /* MainViewController.swift */,
 				9374B32A1E9D828600052AA5 /* SimpleController.xib */,
 				9374B30D1E9D80DB00052AA5 /* AppDelegate.swift */,
 				9374B3111E9D80DB00052AA5 /* Main.storyboard */,
@@ -164,6 +167,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				939085B81EA220C7007495D1 /* MainViewController.swift in Sources */,
 				9374B32B1E9D828600052AA5 /* SimpleController.swift in Sources */,
 				9374B30E1E9D80DB00052AA5 /* AppDelegate.swift in Sources */,
 			);
