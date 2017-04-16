@@ -1,5 +1,5 @@
 //
-//  MainViewController.swift
+//  ActivityViewController.swift
 //  AnalytiCeM
 //
 //  Created by Gaël on 16/04/2017.
@@ -8,12 +8,12 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class ActivityViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("Main did load")
+        print("Activity did load")
         // Do any additional setup after loading the view.
     }
 

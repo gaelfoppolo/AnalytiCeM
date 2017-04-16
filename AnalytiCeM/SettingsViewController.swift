@@ -1,5 +1,5 @@
 //
-//  MainViewController.swift
+//  SettingsViewController.swift
 //  AnalytiCeM
 //
 //  Created by Gaël on 16/04/2017.
@@ -8,12 +8,12 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class SettingsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("Main did load")
+        print("Settings did load")
         // Do any additional setup after loading the view.
     }
 
