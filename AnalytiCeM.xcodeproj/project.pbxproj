@@ -75,9 +75,9 @@
 			isa = PBXGroup;
 			children = (
 				9374B30C1E9D80DB00052AA5 /* AnalytiCeM */,
-				9374B30B1E9D80DB00052AA5 /* Products */,
 				9374B31F1E9D81D600052AA5 /* Frameworks */,
 				3E5FBE26322AFFC71FD35E42 /* Pods */,
+				9374B30B1E9D80DB00052AA5 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -92,12 +92,12 @@
 		9374B30C1E9D80DB00052AA5 /* AnalytiCeM */ = {
 			isa = PBXGroup;
 			children = (
-				938237701EA3C76100CE8D1E /* View */,
-				9382376F1EA3C75600CE8D1E /* Data */,
 				9382376E1EA3C70100CE8D1E /* Controller */,
+				9382376F1EA3C75600CE8D1E /* Data */,
+				938237701EA3C76100CE8D1E /* View */,
+				9374B3261E9D824300052AA5 /* AnalytiCeM-Bridging-Header.h */,
 				9374B30D1E9D80DB00052AA5 /* AppDelegate.swift */,
 				9374B3191E9D80DB00052AA5 /* Info.plist */,
-				9374B3261E9D824300052AA5 /* AnalytiCeM-Bridging-Header.h */,
 			);
 			path = AnalytiCeM;
 			sourceTree = "<group>";
@@ -116,14 +116,15 @@
 		9382376E1EA3C70100CE8D1E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				93C6D3521EA375AA00A21FB4 /* SettingsViewController.swift */,
-				93C6D3531EA375AA00A21FB4 /* SettingsViewController.xib */,
 				93C6D3561EA375D000A21FB4 /* ActivityViewController.swift */,
 				93C6D3571EA375D000A21FB4 /* ActivityViewController.xib */,
 				93C6D35A1EA3761900A21FB4 /* MainViewController.swift */,
 				93C6D35B1EA3761900A21FB4 /* MainViewController.xib */,
+				93C6D3521EA375AA00A21FB4 /* SettingsViewController.swift */,
+				93C6D3531EA375AA00A21FB4 /* SettingsViewController.xib */,
 			);
 			name = Controller;
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		9382376F1EA3C75600CE8D1E /* Data */ = {
@@ -132,16 +133,18 @@
 				939085B91EA22610007495D1 /* EEGSnapshot.swift */,
 			);
 			name = Data;
+			path = Data;
 			sourceTree = "<group>";
 		};
 		938237701EA3C76100CE8D1E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				9374B3161E9D80DB00052AA5 /* LaunchScreen.storyboard */,
 				9374B3141E9D80DB00052AA5 /* Assets.xcassets */,
+				9374B3161E9D80DB00052AA5 /* LaunchScreen.storyboard */,
 				939085BB1EA270CE007495D1 /* WaveView.swift */,
 			);
 			name = View;
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -289,6 +292,7 @@
 				9374B3171E9D80DB00052AA5 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

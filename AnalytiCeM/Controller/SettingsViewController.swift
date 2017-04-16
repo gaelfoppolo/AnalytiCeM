@@ -231,7 +231,7 @@ class SettingsViewController: UIViewController, IXNMuseConnectionListener, IXNMu
     // MARK: - Business
     
     func log(_ message: String) {
-        //print("\(message)")
+        print("\(message)")
         logLines?.insert(message, at: 0)
         DispatchQueue.main.async(execute: {() -> Void in
             self.logView.text = self.logLines?.joined(separator: "\n")
