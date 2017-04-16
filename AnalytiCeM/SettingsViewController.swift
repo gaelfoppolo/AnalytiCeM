@@ -137,6 +137,8 @@ class SettingsViewController: UIViewController, IXNMuseConnectionListener, IXNMu
                 
             }
             connect()
+            saveMuse(name: self.muse!.getName())
+            print(self.muse?.getConfiguration())
             log(String(format: "======Choose to connect muse %@ %@======\n", (self.muse?.getName())!, (self.muse?.getMacAddress())!))
         }
     }
@@ -163,6 +165,8 @@ class SettingsViewController: UIViewController, IXNMuseConnectionListener, IXNMu
             state = "disconnected"
         case .connected:
             state = "connected"
+            // only get configuration when connected
+            // print(self.muse?.getConfiguration()?.getBatteryPercentRemaining())
         case .connecting:
             state = "connecting"
         case .needsUpdate:
@@ -227,7 +231,7 @@ class SettingsViewController: UIViewController, IXNMuseConnectionListener, IXNMu
     // MARK: - Business
     
     func log(_ message: String) {
-        print("\(message)")
+        //print("\(message)")
         logLines?.insert(message, at: 0)
         DispatchQueue.main.async(execute: {() -> Void in
             self.logView.text = self.logLines?.joined(separator: "\n")
@@ -252,6 +256,10 @@ class SettingsViewController: UIViewController, IXNMuseConnectionListener, IXNMu
         //
         //        waveView.points = extractBand { $0.value }
         
+    }
+    
+    func saveMuse(name: String) {
+        UserDefaults.standard.set(name, forKey: "lastMuse")
     }
 
     /*

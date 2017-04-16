@@ -92,19 +92,12 @@
 		9374B30C1E9D80DB00052AA5 /* AnalytiCeM */ = {
 			isa = PBXGroup;
 			children = (
-				93C6D3521EA375AA00A21FB4 /* SettingsViewController.swift */,
-				93C6D3531EA375AA00A21FB4 /* SettingsViewController.xib */,
-				93C6D3561EA375D000A21FB4 /* ActivityViewController.swift */,
-				93C6D3571EA375D000A21FB4 /* ActivityViewController.xib */,
-				93C6D35A1EA3761900A21FB4 /* MainViewController.swift */,
-				93C6D35B1EA3761900A21FB4 /* MainViewController.xib */,
+				938237701EA3C76100CE8D1E /* View */,
+				9382376F1EA3C75600CE8D1E /* Data */,
+				9382376E1EA3C70100CE8D1E /* Controller */,
 				9374B30D1E9D80DB00052AA5 /* AppDelegate.swift */,
-				9374B3141E9D80DB00052AA5 /* Assets.xcassets */,
-				9374B3161E9D80DB00052AA5 /* LaunchScreen.storyboard */,
 				9374B3191E9D80DB00052AA5 /* Info.plist */,
 				9374B3261E9D824300052AA5 /* AnalytiCeM-Bridging-Header.h */,
-				939085B91EA22610007495D1 /* EEGSnapshot.swift */,
-				939085BB1EA270CE007495D1 /* WaveView.swift */,
 			);
 			path = AnalytiCeM;
 			sourceTree = "<group>";
@@ -118,6 +111,37 @@
 				DA481F5BA3FC0EB0FE72F433 /* Pods_AnalytiCeM.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9382376E1EA3C70100CE8D1E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				93C6D3521EA375AA00A21FB4 /* SettingsViewController.swift */,
+				93C6D3531EA375AA00A21FB4 /* SettingsViewController.xib */,
+				93C6D3561EA375D000A21FB4 /* ActivityViewController.swift */,
+				93C6D3571EA375D000A21FB4 /* ActivityViewController.xib */,
+				93C6D35A1EA3761900A21FB4 /* MainViewController.swift */,
+				93C6D35B1EA3761900A21FB4 /* MainViewController.xib */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		9382376F1EA3C75600CE8D1E /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				939085B91EA22610007495D1 /* EEGSnapshot.swift */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
+		938237701EA3C76100CE8D1E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9374B3161E9D80DB00052AA5 /* LaunchScreen.storyboard */,
+				9374B3141E9D80DB00052AA5 /* Assets.xcassets */,
+				939085BB1EA270CE007495D1 /* WaveView.swift */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

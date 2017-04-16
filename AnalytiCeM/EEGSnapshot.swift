@@ -75,7 +75,6 @@ public struct EEGSnapshot {
             returnn = sum/count
         }
         
-        print(returnn)
         return returnn
         
     }

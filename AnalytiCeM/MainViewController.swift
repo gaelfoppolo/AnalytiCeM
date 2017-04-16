@@ -8,21 +8,53 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, IXNMuseConnectionListener {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         print("Main did load")
-        
-        // Do any additional setup after loading the view.
-        
-        // todo move simplecontroller here and remove old data
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if let lastMuse = loadSavedMuse() {
+            print(lastMuse)
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - Muse
+    
+    func receive(_ packet: IXNMuseConnectionPacket, muse: IXNMuse?) {
+        print(muse?.getName())
+        print(muse?.getMacAddress())
+        
+        var state: String
+        switch packet.currentConnectionState {
+            case .disconnected:
+                state = "disconnected"
+            case .connected:
+                state = "connected"
+            case .connecting:
+                state = "connecting"
+            case .needsUpdate:
+                state = "needs update"
+            case .unknown:
+                state = "unknown"
+        }
+        
+        print(state)
+    }
+    
+    // MARK: - Business
+    
+    func loadSavedMuse() -> String? {
+        
+        return UserDefaults.standard.string(forKey: "lastMuse")
     }
     
 
