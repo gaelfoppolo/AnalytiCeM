@@ -24,9 +24,12 @@
 		93C6D3591EA375D000A21FB4 /* ActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93C6D3571EA375D000A21FB4 /* ActivityViewController.xib */; };
 		93C6D35C1EA3761900A21FB4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C6D35A1EA3761900A21FB4 /* MainViewController.swift */; };
 		93C6D35D1EA3761900A21FB4 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93C6D35B1EA3761900A21FB4 /* MainViewController.xib */; };
+		EFEAA179F796F07DAA2643E0 /* Pods_AnalytiCeM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA481F5BA3FC0EB0FE72F433 /* Pods_AnalytiCeM.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		207AB5D81A51F8A11F7C08F4 /* Pods-AnalytiCeM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnalytiCeM.release.xcconfig"; path = "Pods/Target Support Files/Pods-AnalytiCeM/Pods-AnalytiCeM.release.xcconfig"; sourceTree = "<group>"; };
+		55FA2FDC7F83D0417C9D232F /* Pods-AnalytiCeM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnalytiCeM.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AnalytiCeM/Pods-AnalytiCeM.debug.xcconfig"; sourceTree = "<group>"; };
 		9374B30A1E9D80DB00052AA5 /* AnalytiCeM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnalytiCeM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9374B30D1E9D80DB00052AA5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9374B3141E9D80DB00052AA5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -47,6 +50,7 @@
 		93C6D3571EA375D000A21FB4 /* ActivityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityViewController.xib; sourceTree = "<group>"; };
 		93C6D35A1EA3761900A21FB4 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		93C6D35B1EA3761900A21FB4 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		DA481F5BA3FC0EB0FE72F433 /* Pods_AnalytiCeM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AnalytiCeM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,18 +61,29 @@
 				9374B3231E9D81DE00052AA5 /* CoreBluetooth.framework in Frameworks */,
 				9374B3251E9D820100052AA5 /* Muse.framework in Frameworks */,
 				9374B3211E9D81D600052AA5 /* libc++.tbd in Frameworks */,
+				EFEAA179F796F07DAA2643E0 /* Pods_AnalytiCeM.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E5FBE26322AFFC71FD35E42 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				55FA2FDC7F83D0417C9D232F /* Pods-AnalytiCeM.debug.xcconfig */,
+				207AB5D81A51F8A11F7C08F4 /* Pods-AnalytiCeM.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		9374B3011E9D80DB00052AA5 = {
 			isa = PBXGroup;
 			children = (
 				9374B30C1E9D80DB00052AA5 /* AnalytiCeM */,
 				9374B30B1E9D80DB00052AA5 /* Products */,
 				9374B31F1E9D81D600052AA5 /* Frameworks */,
+				3E5FBE26322AFFC71FD35E42 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -109,6 +124,7 @@
 				9374B3241E9D820100052AA5 /* Muse.framework */,
 				9374B3221E9D81DE00052AA5 /* CoreBluetooth.framework */,
 				9374B3201E9D81D600052AA5 /* libc++.tbd */,
+				DA481F5BA3FC0EB0FE72F433 /* Pods_AnalytiCeM.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -120,9 +136,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9374B31C1E9D80DB00052AA5 /* Build configuration list for PBXNativeTarget "AnalytiCeM" */;
 			buildPhases = (
+				1A70AC6CBB6744DCE4D202F2 /* [CP] Check Pods Manifest.lock */,
 				9374B3061E9D80DB00052AA5 /* Sources */,
 				9374B3071E9D80DB00052AA5 /* Frameworks */,
 				9374B3081E9D80DB00052AA5 /* Resources */,
+				925F84C3F1C6D14E8371C7DA /* [CP] Embed Pods Frameworks */,
+				02602D861508DDE7E247DB2E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -184,6 +203,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		02602D861508DDE7E247DB2E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AnalytiCeM/Pods-AnalytiCeM-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1A70AC6CBB6744DCE4D202F2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		925F84C3F1C6D14E8371C7DA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AnalytiCeM/Pods-AnalytiCeM-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9374B3061E9D80DB00052AA5 /* Sources */ = {
@@ -310,6 +377,7 @@
 		};
 		9374B31D1E9D80DB00052AA5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 55FA2FDC7F83D0417C9D232F /* Pods-AnalytiCeM.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -331,6 +399,7 @@
 		};
 		9374B31E1E9D80DB00052AA5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 207AB5D81A51F8A11F7C08F4 /* Pods-AnalytiCeM.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
