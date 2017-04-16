@@ -14,7 +14,10 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         print("Main did load")
+        
         // Do any additional setup after loading the view.
+        
+        // todo move simplecontroller here and remove old data
     }
 
     override func didReceiveMemoryWarning() {
