@@ -13,6 +13,7 @@
 		9374B3211E9D81D600052AA5 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9374B3201E9D81D600052AA5 /* libc++.tbd */; };
 		9374B3231E9D81DE00052AA5 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9374B3221E9D81DE00052AA5 /* CoreBluetooth.framework */; };
 		9374B3251E9D820100052AA5 /* Muse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9374B3241E9D820100052AA5 /* Muse.framework */; };
+		937D669E1EA6179600A8E3DC /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937D669D1EA6179600A8E3DC /* BluetoothManager.swift */; };
 		939085BA1EA22610007495D1 /* EEGSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939085B91EA22610007495D1 /* EEGSnapshot.swift */; };
 		939085BC1EA270CE007495D1 /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939085BB1EA270CE007495D1 /* WaveView.swift */; };
 		93C6D3541EA375AA00A21FB4 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C6D3521EA375AA00A21FB4 /* SettingsViewController.swift */; };
@@ -36,6 +37,7 @@
 		9374B3221E9D81DE00052AA5 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		9374B3241E9D820100052AA5 /* Muse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Muse.framework; path = AnalytiCeM/Frameworks/Muse.framework; sourceTree = "<group>"; };
 		9374B3261E9D824300052AA5 /* AnalytiCeM-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AnalytiCeM-Bridging-Header.h"; sourceTree = "<group>"; };
+		937D669D1EA6179600A8E3DC /* BluetoothManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
 		939085B91EA22610007495D1 /* EEGSnapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EEGSnapshot.swift; sourceTree = "<group>"; };
 		939085BB1EA270CE007495D1 /* WaveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
 		93C6D3521EA375AA00A21FB4 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -121,9 +123,9 @@
 				93C6D35A1EA3761900A21FB4 /* MainViewController.swift */,
 				93C6D35B1EA3761900A21FB4 /* MainViewController.xib */,
 				93C6D3521EA375AA00A21FB4 /* SettingsViewController.swift */,
+				937D669D1EA6179600A8E3DC /* BluetoothManager.swift */,
 				93C6D3531EA375AA00A21FB4 /* SettingsViewController.xib */,
 			);
-			name = Controller;
 			path = Controller;
 			sourceTree = "<group>";
 		};
@@ -132,7 +134,6 @@
 			children = (
 				939085B91EA22610007495D1 /* EEGSnapshot.swift */,
 			);
-			name = Data;
 			path = Data;
 			sourceTree = "<group>";
 		};
@@ -143,7 +144,6 @@
 				9374B3161E9D80DB00052AA5 /* LaunchScreen.storyboard */,
 				939085BB1EA270CE007495D1 /* WaveView.swift */,
 			);
-			name = View;
 			path = View;
 			sourceTree = "<group>";
 		};
@@ -277,6 +277,7 @@
 				939085BC1EA270CE007495D1 /* WaveView.swift in Sources */,
 				939085BA1EA22610007495D1 /* EEGSnapshot.swift in Sources */,
 				93C6D3581EA375D000A21FB4 /* ActivityViewController.swift in Sources */,
+				937D669E1EA6179600A8E3DC /* BluetoothManager.swift in Sources */,
 				9374B30E1E9D80DB00052AA5 /* AppDelegate.swift in Sources */,
 				93C6D3541EA375AA00A21FB4 /* SettingsViewController.swift in Sources */,
 				93C6D35C1EA3761900A21FB4 /* MainViewController.swift in Sources */,
