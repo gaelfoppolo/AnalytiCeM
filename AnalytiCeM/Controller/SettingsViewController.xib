@@ -100,7 +100,20 @@
                 <constraint firstItem="4m8-VQ-4CI" firstAttribute="leading" secondItem="1Ib-ay-Ggc" secondAttribute="leading" id="pg8-iE-fEg"/>
                 <constraint firstAttribute="trailing" secondItem="4m8-VQ-4CI" secondAttribute="trailing" id="yzE-n3-cgQ"/>
             </constraints>
-            <point key="canvasLocation" x="268" y="292"/>
+            <point key="canvasLocation" x="291" y="259"/>
+        </view>
+        <view contentMode="scaleToFill" id="TdO-wD-Ueg">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Tiz-Pl-V9G">
+                    <rect key="frame" x="0.0" y="20" width="375" height="113"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <point key="canvasLocation" x="710.5" y="258.5"/>
         </view>
     </objects>
 </document>
