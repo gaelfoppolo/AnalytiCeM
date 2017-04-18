@@ -8,5 +8,6 @@ target 'AnalytiCeM' do
  	use_frameworks!
  	 # Pods for AnalytiCeM
  	pod 'ESTabBarController-swift', '~> 2.3'
+ 	pod 'SCLAlertView', '~> 0.7'
 end
 
