@@ -25,24 +25,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabViewControllerMain = MainViewController(
             nibName: "MainViewController",
             bundle: nil)
+        let navMainController = UINavigationController(rootViewController: tabViewControllerMain)
         
         // activity controller
         let tabViewControllerActivity = ActivityViewController(
             nibName:"ActivityViewController",
             bundle: nil)
+        let navActivityController = UINavigationController(rootViewController: tabViewControllerActivity)
         
         // settings controller
         let tabViewControllerSettings = SettingsViewController(
             nibName:"SettingsViewController",
             bundle: nil)
+        let navSettingsController = UINavigationController(rootViewController: tabViewControllerSettings)
         
         // add title and image
-        tabViewControllerMain.tabBarItem = UITabBarItem(title: "Main", image: nil, tag: 1)
-        tabViewControllerActivity.tabBarItem = UITabBarItem(title: "Activity", image: nil, tag: 2)
-        tabViewControllerSettings.tabBarItem = UITabBarItem(title: "Settings", image: nil, tag: 3)
+        navMainController.tabBarItem = UITabBarItem(title: "Main", image: nil, tag: 1)
+        navActivityController.tabBarItem = UITabBarItem(title: "Activity", image: nil, tag: 2)
+        navSettingsController.tabBarItem = UITabBarItem(title: "Settings", image: nil, tag: 3)
         
         // add the controllers to the tab bar
-        let controllers: [UIViewController] = [tabViewControllerMain, tabViewControllerActivity, tabViewControllerSettings]
+        let controllers: [UIViewController] = [navMainController, navActivityController, navSettingsController]
         tabBarController.viewControllers = controllers
         
         // add the tab bar to our window
