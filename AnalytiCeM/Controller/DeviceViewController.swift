@@ -8,14 +8,20 @@
 
 import UIKit
 
-class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuseListener {
+class DeviceViewController: UIViewController, IXNMuseConnectionListener, ChooseMuseDelegate {
     
     // MARK: - Properties
     
-    var manager: IXNMuseManagerIos?
+    //var manager: IXNMuseManagerIos?
     weak var muse: IXNMuse?
     
-    var btManager: BluetoothManager!
+    var btManager: BluetoothManager?
+    
+    // MARK: - IBOutlet
+    
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var deviceName: UILabel!
+    @IBOutlet weak var button: UIButton!
     
     // MARK: - View
 
@@ -24,18 +30,35 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuse
         
         self.navigationItem.title = "Device"
         
+        self.deviceName.adjustsFontSizeToFitWidth = true
+        
+        if let currentMuse = loadSavedMuse() {
+            
+            self.deviceName.text = currentMuse
+            self.button.setTitle("Remove", for: UIControlState.normal)
+            
+        } else {
+        
+            self.deviceName.text = "Setup a new device"
+            self.button.setTitle("Add a new Muse", for: UIControlState.normal)
+        
+        }
+        
         //UIApplication.shared.isIdleTimerDisabled = true
         
         // get the manager of Muse (singleton)
-        manager = IXNMuseManagerIos.sharedManager()
+        //manager = IXNMuseManagerIos.sharedManager()
         
         // set the view as delegate
-        manager?.museListener = self
+        //manager?.museListener = self
         
         // manager of Bluetooth devices
         //btManager = BluetoothManager()
-
-        // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        self.imageView.image = UIImage(named: "settings-link-device")
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,14 +66,38 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuse
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: - Muse
+    // MARK: - IBAction
     
-    func museListChanged() {
-        //tableView.reloadData()
-        print("Before \(manager!.getMuses().count)")
-        manager?.stopListening()
-        print("After \(manager!.getMuses().count)")
+    @IBAction func actionBtn(_ sender: UIButton) {
+        
+        // the view to display
+        let lPopupVC = AddMuseViewController(nibName: "AddMuseViewController", bundle: nil)
+        
+        // no background
+        lPopupVC.view.backgroundColor = UIColor.clear
+        
+        // on top of the parent view
+        lPopupVC.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
+        
+        lPopupVC.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+
+        // register as delegate
+        lPopupVC.delegate = self
+        
+        // display
+        self.present(lPopupVC, animated: true, completion: nil)
+        
     }
+    
+    // MARK: - ChooseMuseDelegate
+    
+    func didChoose(muse: IXNMuse) {
+        print("Choosen: \(muse.getName())")
+        self.muse = muse
+        connect()
+    }
+    
+    // MARK: - Muse
     
     func receive(_ packet: IXNMuseConnectionPacket, muse: IXNMuse?) {
         var state: String
@@ -60,7 +107,7 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuse
         case .connected:
             state = "connected"
             // only get configuration when connected
-        // print(self.muse?.getConfiguration()?.getBatteryPercentRemaining())
+            print("Battery \(self.muse?.getConfiguration()?.getBatteryPercentRemaining())")
         case .connecting:
             state = "connecting"
         case .needsUpdate:
@@ -75,32 +122,15 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuse
         muse?.register(self)
         muse?.runAsynchronously()
     }
-
-    
-    // number of Muse found
-    //return manager!.getMuses().count
     
     //cellForRowAt
-    /*let simpleTableIdentifier: String = "nil"
-     
-     var cell: UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: simpleTableIdentifier)
-     if cell == nil {
-     cell = UITableViewCell(style: .default, reuseIdentifier: simpleTableIdentifier)
-     }
-     let muses: [Any] = manager!.getMuses()
-     if indexPath.row < muses.count {
-     let muse: IXNMuse? = (manager?.getMuses()[indexPath.row])
+    /*
      cell?.textLabel?.text = muse?.getName()
      if !(muse?.isLowEnergy())! {
      cell?.textLabel?.text = (cell?.textLabel?.text)! + (muse?.getMacAddress())!
      }
      }
-     return cell!*/
-    
-    /*func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-     var muses: [Any] = manager!.getMuses()
-     if indexPath.row < muses.count {
-     let muse: IXNMuse? = (muses[indexPath.row] as? IXNMuse)
+     
      let lockQueue = DispatchQueue(label: "self.muse")
      lockQueue.sync {
      if self.muse == nil {
@@ -133,6 +163,11 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuse
     
     func saveMuse(name: String) {
         UserDefaults.standard.set(name, forKey: "lastMuse")
+    }
+    
+    func loadSavedMuse() -> String? {
+        
+        return UserDefaults.standard.string(forKey: "lastMuse")
     }
     
 

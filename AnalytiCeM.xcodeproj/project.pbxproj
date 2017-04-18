@@ -19,6 +19,10 @@
 		937D66A61EA69DF600A8E3DC /* UserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937D66A41EA69DF600A8E3DC /* UserViewController.xib */; };
 		937D66A91EA69FC700A8E3DC /* DeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937D66A71EA69FC700A8E3DC /* DeviceViewController.swift */; };
 		937D66AA1EA69FC700A8E3DC /* DeviceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937D66A81EA69FC700A8E3DC /* DeviceViewController.xib */; };
+		937D66AF1EA6C85400A8E3DC /* AddMuseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937D66AD1EA6C85400A8E3DC /* AddMuseViewController.swift */; };
+		937D66B01EA6C85400A8E3DC /* AddMuseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937D66AE1EA6C85400A8E3DC /* AddMuseViewController.xib */; };
+		937D66B31EA6CF4F00A8E3DC /* AddMuseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937D66B11EA6CF4F00A8E3DC /* AddMuseTableViewCell.swift */; };
+		937D66B41EA6CF4F00A8E3DC /* AddMuseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937D66B21EA6CF4F00A8E3DC /* AddMuseTableViewCell.xib */; };
 		939085BA1EA22610007495D1 /* EEGSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939085B91EA22610007495D1 /* EEGSnapshot.swift */; };
 		939085BC1EA270CE007495D1 /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939085BB1EA270CE007495D1 /* WaveView.swift */; };
 		93C6D3541EA375AA00A21FB4 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C6D3521EA375AA00A21FB4 /* SettingsViewController.swift */; };
@@ -48,6 +52,10 @@
 		937D66A41EA69DF600A8E3DC /* UserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserViewController.xib; sourceTree = "<group>"; };
 		937D66A71EA69FC700A8E3DC /* DeviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceViewController.swift; sourceTree = "<group>"; };
 		937D66A81EA69FC700A8E3DC /* DeviceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeviceViewController.xib; sourceTree = "<group>"; };
+		937D66AD1EA6C85400A8E3DC /* AddMuseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMuseViewController.swift; sourceTree = "<group>"; };
+		937D66AE1EA6C85400A8E3DC /* AddMuseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddMuseViewController.xib; sourceTree = "<group>"; };
+		937D66B11EA6CF4F00A8E3DC /* AddMuseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMuseTableViewCell.swift; sourceTree = "<group>"; };
+		937D66B21EA6CF4F00A8E3DC /* AddMuseTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddMuseTableViewCell.xib; sourceTree = "<group>"; };
 		939085B91EA22610007495D1 /* EEGSnapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EEGSnapshot.swift; sourceTree = "<group>"; };
 		939085BB1EA270CE007495D1 /* WaveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
 		93C6D3521EA375AA00A21FB4 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -128,15 +136,27 @@
 		937D66A21EA69B4E00A8E3DC /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				937D66AC1EA6C82500A8E3DC /* Device */,
 				93C6D3521EA375AA00A21FB4 /* SettingsViewController.swift */,
 				937D66A01EA67A0700A8E3DC /* SettingsTableViewCell.xib */,
 				93C6D3531EA375AA00A21FB4 /* SettingsViewController.xib */,
 				937D66A31EA69DF600A8E3DC /* UserViewController.swift */,
 				937D66A41EA69DF600A8E3DC /* UserViewController.xib */,
-				937D66A71EA69FC700A8E3DC /* DeviceViewController.swift */,
-				937D66A81EA69FC700A8E3DC /* DeviceViewController.xib */,
 			);
 			name = Settings;
+			sourceTree = "<group>";
+		};
+		937D66AC1EA6C82500A8E3DC /* Device */ = {
+			isa = PBXGroup;
+			children = (
+				937D66A71EA69FC700A8E3DC /* DeviceViewController.swift */,
+				937D66A81EA69FC700A8E3DC /* DeviceViewController.xib */,
+				937D66AD1EA6C85400A8E3DC /* AddMuseViewController.swift */,
+				937D66B11EA6CF4F00A8E3DC /* AddMuseTableViewCell.swift */,
+				937D66B21EA6CF4F00A8E3DC /* AddMuseTableViewCell.xib */,
+				937D66AE1EA6C85400A8E3DC /* AddMuseViewController.xib */,
+			);
+			name = Device;
 			sourceTree = "<group>";
 		};
 		9382376E1EA3C70100CE8D1E /* Controller */ = {
@@ -236,8 +256,10 @@
 			files = (
 				937D66AA1EA69FC700A8E3DC /* DeviceViewController.xib in Resources */,
 				937D66A61EA69DF600A8E3DC /* UserViewController.xib in Resources */,
+				937D66B01EA6C85400A8E3DC /* AddMuseViewController.xib in Resources */,
 				9374B3181E9D80DB00052AA5 /* LaunchScreen.storyboard in Resources */,
 				937D66A11EA67A0700A8E3DC /* SettingsTableViewCell.xib in Resources */,
+				937D66B41EA6CF4F00A8E3DC /* AddMuseTableViewCell.xib in Resources */,
 				9374B3151E9D80DB00052AA5 /* Assets.xcassets in Resources */,
 				93C6D3591EA375D000A21FB4 /* ActivityViewController.xib in Resources */,
 				93C6D35D1EA3761900A21FB4 /* MainViewController.xib in Resources */,
@@ -302,11 +324,13 @@
 			files = (
 				939085BC1EA270CE007495D1 /* WaveView.swift in Sources */,
 				937D66A51EA69DF600A8E3DC /* UserViewController.swift in Sources */,
+				937D66AF1EA6C85400A8E3DC /* AddMuseViewController.swift in Sources */,
 				939085BA1EA22610007495D1 /* EEGSnapshot.swift in Sources */,
 				93C6D3581EA375D000A21FB4 /* ActivityViewController.swift in Sources */,
 				937D669E1EA6179600A8E3DC /* BluetoothManager.swift in Sources */,
 				9374B30E1E9D80DB00052AA5 /* AppDelegate.swift in Sources */,
 				93C6D3541EA375AA00A21FB4 /* SettingsViewController.swift in Sources */,
+				937D66B31EA6CF4F00A8E3DC /* AddMuseTableViewCell.swift in Sources */,
 				93C6D35C1EA3761900A21FB4 /* MainViewController.swift in Sources */,
 				937D66A91EA69FC700A8E3DC /* DeviceViewController.swift in Sources */,
 			);
