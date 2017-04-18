@@ -9,5 +9,7 @@ target 'AnalytiCeM' do
  	 # Pods for AnalytiCeM
  	pod 'ESTabBarController-swift', '~> 2.3'
  	pod 'SCLAlertView', '~> 0.7'
+ 	pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift3'
+ 	pod 'ActionKit', '~> 2.0'
 end
 

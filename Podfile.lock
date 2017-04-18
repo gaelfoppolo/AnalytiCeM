@@ -1,15 +1,31 @@
 PODS:
+  - ActionKit (2.0)
   - ESTabBarController-swift (2.3)
   - SCLAlertView (0.7.0)
+  - Spring (1.0.3)
 
 DEPENDENCIES:
+  - ActionKit (~> 2.0)
   - ESTabBarController-swift (~> 2.3)
   - SCLAlertView (~> 0.7)
+  - Spring (from `https://github.com/MengTo/Spring.git`, branch `swift3`)
+
+EXTERNAL SOURCES:
+  Spring:
+    :branch: swift3
+    :git: https://github.com/MengTo/Spring.git
+
+CHECKOUT OPTIONS:
+  Spring:
+    :commit: 8201b5c93bd7ebdf4cd18160bcde1e6e88c2be64
+    :git: https://github.com/MengTo/Spring.git
 
 SPEC CHECKSUMS:
+  ActionKit: a9ac8aa51b1e404489d4ebdeefb587c112b7669f
   ESTabBarController-swift: 23011ffbee6cd66a37309f00c7c21c9dd63c17de
   SCLAlertView: 8a14ffc40590c619e183eed2298b854385f30be1
+  Spring: 3f02b5dc3308572ef177b3cad0fa7bbc4b0706f7
 
-PODFILE CHECKSUM: 69f84d98622114b8a3fedf01cb25744038384c77
+PODFILE CHECKSUM: 915a118c707ffc55c9b445891abcbaf289442f2e
 
 COCOAPODS: 1.2.1
