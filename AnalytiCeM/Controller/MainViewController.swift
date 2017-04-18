@@ -42,7 +42,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         IXNLogManager.instance()?.setLogListener(self)
         
         // manager of Bluetooth devices
-        btManager = BluetoothManager()
+        //btManager = BluetoothManager()
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
@@ -146,6 +146,26 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         muse?.register(self, type: .betaRelative)
         
         muse?.runAsynchronously()
+    }
+    
+    // MARK: - IBAction
+    
+    @IBAction func disconnect(_ sender: Any) {
+        if let muse = muse {
+            muse.disconnect()
+        }
+    }
+    
+    @IBAction func scan(_ sender: Any) {
+        if (btManager.isBluetoothEnabled()) {
+            manager?.startListening()
+            //tableView.reloadData()
+        }
+    }
+    
+    @IBAction func stopScan(_ sender: Any) {
+        manager?.stopListening()
+        //tableView.reloadData()
     }
     
     // MARK: - Business

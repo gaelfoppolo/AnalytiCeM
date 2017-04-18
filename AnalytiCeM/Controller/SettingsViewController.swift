@@ -8,14 +8,23 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController, IXNMuseConnectionListener, IXNMuseListener, UITableViewDelegate, UITableViewDataSource {
+class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    // MARK: - Properties
+    // MARK: - Constant
     
-    var manager: IXNMuseManagerIos?
-    weak var muse: IXNMuse?
+    let kCellIdentifier = "cellDevice"
     
-    var btManager: BluetoothManager!
+    // Section 1: User
+    let kSectionUser = 0
+    let kNumberOfRowUser = 1
+    let kRowUser = 0
+    let kTitleUser = "User"
+    
+    // Section 2: Device
+    let kSectionDevice = 1
+    let kNumberOfRowDevice = 1
+    let kRowDevice = 0
+    let kTitleDevice = "Device"
     
     // MARK: - IBOutlet
     
@@ -28,19 +37,12 @@ class SettingsViewController: UIViewController, IXNMuseConnectionListener, IXNMu
         
         self.navigationItem.title = "Settings"
         
-        //UIApplication.shared.isIdleTimerDisabled = true
-        
-        // get the manager of Muse (singleton)
-        manager = IXNMuseManagerIos.sharedManager()
-        
-        // set the view as delegate
-        manager?.museListener = self
-        
-        // manager of Bluetooth devices
-        btManager = BluetoothManager()
-        
+        // being the delegate and the data source of the tableView
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        
+        // record cell in the tableView
+        self.tableView.register(UINib(nibName: "SettingsTableViewCell", bundle: nil), forCellReuseIdentifier: kCellIdentifier)
         
     }
 
@@ -49,124 +51,84 @@ class SettingsViewController: UIViewController, IXNMuseConnectionListener, IXNMu
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: - IBAction
-    
-    @IBAction func disconnect(_ sender: Any) {
-        if let muse = muse {
-            muse.disconnect()
-        }
-    }
-    
-    @IBAction func scan(_ sender: Any) {
-        if (btManager.isBluetoothEnabled()) {
-            manager?.startListening()
-            tableView.reloadData()
-        }
-    }
-    
-    @IBAction func stopScan(_ sender: Any) {
-        manager?.stopListening()
-        tableView.reloadData()
-    }
-    
     // MARK: - TableView
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        if (section == kSectionUser) {
+            return kTitleUser
+        }
+        else if (section == kSectionDevice) {
+            return kTitleDevice
+        }
+        else {
+            return "todo"
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return manager!.getMuses().count
+        
+        if (section == kSectionUser) {
+            return kNumberOfRowUser
+        }
+        else if (section == kSectionDevice) {
+            return kNumberOfRowDevice
+        }
+        else {
+            return 0
+        }
+        
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let simpleTableIdentifier: String = "nil"
-        var cell: UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: simpleTableIdentifier)
-        if cell == nil {
-            cell = UITableViewCell(style: .default, reuseIdentifier: simpleTableIdentifier)
-        }
-        let muses: [Any] = manager!.getMuses()
-        if indexPath.row < muses.count {
-            let muse: IXNMuse? = (manager?.getMuses()[indexPath.row])
-            cell?.textLabel?.text = muse?.getName()
-            if !(muse?.isLowEnergy())! {
-                cell?.textLabel?.text = (cell?.textLabel?.text)! + (muse?.getMacAddress())!
+        
+        // recover the cell
+        let cell: UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: kCellIdentifier, for: indexPath)
+        
+        var imageName: String?
+
+        // config the cell, according to section
+        if (indexPath.section == kSectionUser) {
+            if (indexPath.row == kRowUser) {
+                cell.textLabel?.text = kTitleUser
+                imageName = "settings-row-user"
+            }
+        } else if (indexPath.section == kSectionDevice) {
+            if (indexPath.row == kRowDevice) {
+                cell.textLabel?.text = kTitleDevice
+                imageName = "settings-row-device"
             }
         }
-        return cell!
+        
+        // add the image rounded
+        let image = UIImage(named: imageName!)
+        cell.imageView?.image = image
+        cell.imageView?.layer.cornerRadius = (image?.size.width)!/2
+        cell.imageView?.layer.masksToBounds = true
+            
+        // cell is configured
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var muses: [Any] = manager!.getMuses()
-        if indexPath.row < muses.count {
-            let muse: IXNMuse? = (muses[indexPath.row] as? IXNMuse)
-            let lockQueue = DispatchQueue(label: "self.muse")
-            lockQueue.sync {
-                if self.muse == nil {
-                    self.muse = muse
-                }
-                else if self.muse != muse {
-                    self.muse?.disconnect()
-                    self.muse = muse
-                }
-                
-            }
-            connect()
-            saveMuse(name: self.muse!.getName())
-            print(self.muse?.getConfiguration())
-            log(String(format: "======Choose to connect muse %@ %@======\n", (self.muse?.getName())!, (self.muse?.getMacAddress())!))
+        
+        var viewController: UIViewController?
+        
+        // select the view do display
+        if (indexPath.section == kSectionUser) {
+            viewController = UserViewController(nibName: "UserViewController", bundle: nil)
+        } else if (indexPath.section == kSectionDevice) {
+            viewController = DeviceViewController(nibName: "DeviceViewController", bundle: nil)
         }
+        
+        // display the view
+        self.navigationController?.pushViewController(viewController!, animated: true)
+        
     }
-    
-    // MARK: - Muse
-    
-    func museListChanged() {
-        tableView.reloadData()
-    }
-    
-    func receive(_ packet: IXNMuseConnectionPacket, muse: IXNMuse?) {
-        var state: String
-        switch packet.currentConnectionState {
-        case .disconnected:
-            state = "disconnected"
-        case .connected:
-            state = "connected"
-            // only get configuration when connected
-            // print(self.muse?.getConfiguration()?.getBatteryPercentRemaining())
-        case .connecting:
-            state = "connecting"
-        case .needsUpdate:
-            state = "needs update"
-        case .unknown:
-            state = "unknown"
-        }
-        log(String(format: "connect: %@", state))
-    }
-    
-    func connect() {
-        muse?.register(self)
-        muse?.runAsynchronously()
-    }
-    
-    // MARK: - Business
-    
-    func log(_ message: String) {
-        print("\(message)")
-        //logLines?.insert(message, at: 0)
-        //DispatchQueue.main.async(execute: {() -> Void in
-            //self.logView.text = self.logLines?.joined(separator: "\n")
-//            self.logView.text = (self.logLines as NSArray).componentsJoined(by: "\n")
-        //})
-    }
-    
-    func saveMuse(name: String) {
-        UserDefaults.standard.set(name, forKey: "lastMuse")
-    }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
