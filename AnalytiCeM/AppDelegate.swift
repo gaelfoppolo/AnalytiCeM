@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             nibName:"ActivityViewController",
             bundle: nil)
         let navActivityController = UINavigationController(rootViewController: tabViewControllerActivity)
-        
+
         // settings controller
         let tabViewControllerSettings = SettingsViewController(
             nibName:"SettingsViewController",
@@ -45,7 +45,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navSettingsController.tabBarItem = UITabBarItem(title: "Settings", image: nil, tag: 3)
         
         // add the controllers to the tab bar
-        let controllers: [UIViewController] = [navMainController, navActivityController, navSettingsController]
+        let controllers = [navMainController, navActivityController, navSettingsController]
+        
+        // set the navbar to opaque to all navigation bar
+        controllers.forEach({controller in
+            controller.navigationBar.isTranslucent = false
+        })
+        
         tabBarController.viewControllers = controllers
         
         // add the tab bar to our window
