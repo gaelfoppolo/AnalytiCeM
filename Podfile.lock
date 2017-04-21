@@ -1,12 +1,18 @@
 PODS:
   - ActionKit (2.0)
   - ESTabBarController-swift (2.3)
+  - Realm (2.6.1):
+    - Realm/Headers (= 2.6.1)
+  - Realm/Headers (2.6.1)
+  - RealmSwift (2.6.1):
+    - Realm (= 2.6.1)
   - SCLAlertView (0.7.0)
   - Spring (1.0.3)
 
 DEPENDENCIES:
   - ActionKit (~> 2.0)
   - ESTabBarController-swift (~> 2.3)
+  - RealmSwift (~> 2.6)
   - SCLAlertView (~> 0.7)
   - Spring (from `https://github.com/MengTo/Spring.git`, branch `swift3`)
 
@@ -23,9 +29,11 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   ActionKit: a9ac8aa51b1e404489d4ebdeefb587c112b7669f
   ESTabBarController-swift: 23011ffbee6cd66a37309f00c7c21c9dd63c17de
+  Realm: 9abfd4f87519376daa5ae3a4603155de408bf8b3
+  RealmSwift: a54d3e8931cf7d3afa5a1fac9c8f88109d7f02b3
   SCLAlertView: 8a14ffc40590c619e183eed2298b854385f30be1
   Spring: 3f02b5dc3308572ef177b3cad0fa7bbc4b0706f7
 
-PODFILE CHECKSUM: 915a118c707ffc55c9b445891abcbaf289442f2e
+PODFILE CHECKSUM: 0aaf22adc214c352e469d0f2c0990a1141aa4762
 
 COCOAPODS: 1.2.1
