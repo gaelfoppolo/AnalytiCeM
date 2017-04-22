@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -12,10 +12,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DeviceViewController" customModule="AnalytiCeM" customModuleProvider="target">
             <connections>
+                <outlet property="activity" destination="QGK-hh-kgU" id="itm-Pt-RYS"/>
                 <outlet property="batteryLabel" destination="SQf-oB-c2T" id="qph-sA-Gpy"/>
                 <outlet property="button" destination="xfj-1b-uhH" id="c0V-PA-1ba"/>
                 <outlet property="deviceName" destination="CMW-2n-wYX" id="gcO-k8-fzF"/>
                 <outlet property="imageView" destination="8bk-ME-RkD" id="aOc-pK-wfl"/>
+                <outlet property="refreshStatus" destination="9Tu-dr-3Y6" id="JZR-0c-oZA"/>
                 <outlet property="setupLabel" destination="Mik-GE-xo2" id="aEl-Ff-Y8D"/>
                 <outlet property="statusLabel" destination="qZO-oF-adk" id="Eoc-dA-XWo"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -67,6 +69,16 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="QGK-hh-kgU">
+                            <rect key="frame" x="40" y="120" width="20" height="20"/>
+                        </activityIndicatorView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Tu-dr-3Y6">
+                            <rect key="frame" x="195" y="115" width="46" height="30"/>
+                            <state key="normal" title="Button"/>
+                            <connections>
+                                <action selector="refreshBtn:" destination="-1" eventType="touchUpInside" id="3FS-re-zHs"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -75,9 +87,14 @@
                         <constraint firstAttribute="trailing" secondItem="SQf-oB-c2T" secondAttribute="trailing" constant="8" id="PpM-Gz-WL1"/>
                         <constraint firstItem="qZO-oF-adk" firstAttribute="leading" secondItem="SQf-oB-c2T" secondAttribute="leading" id="SSz-k8-Xgk"/>
                         <constraint firstItem="qZO-oF-adk" firstAttribute="top" secondItem="SQf-oB-c2T" secondAttribute="bottom" constant="8" id="UEH-ro-2R8"/>
+                        <constraint firstItem="QGK-hh-kgU" firstAttribute="centerX" secondItem="8bk-ME-RkD" secondAttribute="centerX" id="W3E-92-krj"/>
                         <constraint firstItem="qZO-oF-adk" firstAttribute="trailing" secondItem="SQf-oB-c2T" secondAttribute="trailing" id="ZH0-qv-FcP"/>
+                        <constraint firstItem="9Tu-dr-3Y6" firstAttribute="centerX" secondItem="qZO-oF-adk" secondAttribute="centerX" id="Zz3-7x-FpH"/>
                         <constraint firstAttribute="trailing" secondItem="CMW-2n-wYX" secondAttribute="trailing" constant="8" id="aWS-I3-s0s"/>
                         <constraint firstItem="8bk-ME-RkD" firstAttribute="leading" secondItem="ksM-XW-sW4" secondAttribute="leading" constant="8" id="nI6-fu-sOR"/>
+                        <constraint firstItem="QGK-hh-kgU" firstAttribute="top" secondItem="8bk-ME-RkD" secondAttribute="bottom" constant="27" id="oi7-RM-mK2"/>
+                        <constraint firstAttribute="bottom" secondItem="9Tu-dr-3Y6" secondAttribute="bottom" constant="26" id="qEg-S1-hGr"/>
+                        <constraint firstItem="9Tu-dr-3Y6" firstAttribute="top" secondItem="qZO-oF-adk" secondAttribute="bottom" constant="20" id="uMq-tr-jUo"/>
                         <constraint firstItem="SQf-oB-c2T" firstAttribute="top" secondItem="CMW-2n-wYX" secondAttribute="bottom" constant="8" id="ubx-3H-ciT"/>
                         <constraint firstItem="CMW-2n-wYX" firstAttribute="top" secondItem="ksM-XW-sW4" secondAttribute="top" constant="10" id="vqD-y7-D4s"/>
                         <constraint firstItem="CMW-2n-wYX" firstAttribute="leading" secondItem="8bk-ME-RkD" secondAttribute="trailing" constant="8" id="yxx-op-Moq"/>
@@ -96,7 +113,6 @@
                 <constraint firstAttribute="bottom" secondItem="xfj-1b-uhH" secondAttribute="bottom" constant="60" id="3Nq-gJ-JnA"/>
                 <constraint firstItem="ksM-XW-sW4" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="DFT-Pg-lmj"/>
                 <constraint firstItem="ksM-XW-sW4" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="HDX-DC-Wkw"/>
-                <constraint firstAttribute="bottom" secondItem="ksM-XW-sW4" secondAttribute="bottom" constant="476" id="HIH-o0-HYo"/>
                 <constraint firstItem="xfj-1b-uhH" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Hxc-Wj-uyl"/>
                 <constraint firstItem="Mik-GE-xo2" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" constant="-0.5" id="Zpi-5l-tK0"/>
                 <constraint firstItem="Mik-GE-xo2" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="cgO-bL-pCE"/>

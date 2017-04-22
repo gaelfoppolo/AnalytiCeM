@@ -33,6 +33,8 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuse
     @IBOutlet weak var deviceName: UILabel!
     @IBOutlet weak var batteryLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var activity: UIActivityIndicatorView!
+    @IBOutlet weak var refreshStatus: UIButton!
     
     @IBOutlet weak var setupLabel: UILabel!
     
@@ -79,7 +81,8 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuse
         
         // name of the last Muse configured
         if let lMuse = currentMuse?.first, let _ = lMuse.getName() {
-            manager?.startListening()
+            
+            //self.refresh(self.refreshStatus)
         }
         
     }
@@ -99,6 +102,9 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuse
         self.deviceName.adjustsFontSizeToFitWidth = true
         self.setupLabel.adjustsFontSizeToFitWidth = true
         self.batteryLabel.isHidden = true
+        
+        self.statusLabel.text = currentStatus
+        self.refreshStatus.setTitle("Refresh", for: .normal)
         
         // hide both view by default
         self.viewDeviceIsSetup.isHidden = true
@@ -206,6 +212,26 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuse
             self.present(lPopupVC, animated: true, completion: nil)
         }
     }
+    
+    @IBAction func refreshBtn(_ sender: UIButton) {
+        
+        // disable button
+        self.refreshStatus.isEnabled = false
+        // launch search
+        self.manager?.startListening()
+        self.activity.startAnimating()
+        
+        // create a delay of five seconds
+        let delay = DispatchTime.now() + 5
+        
+        // stop search and enable button after that delay
+        DispatchQueue.main.asyncAfter(deadline: delay) {
+            self.manager?.stopListening()
+            self.activity.stopAnimating()
+            self.refreshStatus.isEnabled = true
+        }
+    }
+    
     
     // MARK: - ChooseMuseDelegate
     
