@@ -17,9 +17,15 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuse
     weak var muse: IXNMuse?
     
     var btManager: BluetoothManager?
+    
     let realm = try! Realm()
     var currentMuse: Results<Muse>?
     
+    var currentStatus: String = "Unknown" {
+        didSet {
+            self.statusLabel.text = currentStatus
+        }
+    }
     // MARK: - IBOutlet
     
     @IBOutlet weak var viewDeviceIsSetup: UIView!
@@ -93,7 +99,6 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuse
         self.deviceName.adjustsFontSizeToFitWidth = true
         self.setupLabel.adjustsFontSizeToFitWidth = true
         self.batteryLabel.isHidden = true
-        self.statusLabel.isHidden = true
         
         // hide both view by default
         self.viewDeviceIsSetup.isHidden = true
@@ -117,8 +122,6 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuse
                 self.batteryLabel.text = String("\(battery)%")
                 self.batteryLabel.isHidden = false
             }
-            
-            // todo handle status
             
             self.button.setTitle("Remove", for: .normal)
             self.button.setTitleColor(UIColor.red, for: .normal)
@@ -260,8 +263,7 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuse
         // not found :(
         } else {
             
-            self.statusLabel.isHidden = false
-            self.statusLabel.text = "Not found"
+            self.currentStatus = "Not found"
             
         }
     }
@@ -270,6 +272,7 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuse
         
         switch packet.currentConnectionState {
             case .disconnected:
+                self.currentStatus = "Disconnected"
                 break
             case .connected:
                 // only get configuration when connected
@@ -284,8 +287,10 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuse
                     
                     setupElements()
                 }
-            
+                self.currentStatus = "Connected"
+                break
             case .connecting:
+                self.currentStatus = "Connecting"
                 break
             default:
                 break
