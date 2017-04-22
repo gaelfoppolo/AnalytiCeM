@@ -64,6 +64,11 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, ChooseM
         // try to connect if already one saved
         
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        // remove all registers on Muse
+        disconnect()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -105,36 +110,84 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, ChooseM
     
     @IBAction func actionBtn(_ sender: UIButton) {
         
-        // todo:
-        // handle remove action
+        // muse -> delete
+        if let lMuse = currentMuse?.first, let museName = lMuse.getName() {
+            
+            // create confirmation alert
+            let alertController = UIAlertController(
+                title: "Confirmation",
+                message: "Are your sure you want to delete \(museName)?",
+                preferredStyle: .alert
+            )
+            
+            // yes handler -> remove
+            let yesAction = UIAlertAction(
+                title: "Yes",
+                style: .destructive,
+                handler: { action in
+                    
+                    // remove listener
+                    self.disconnect()
+            
+                    // remove it from DB
+                    let realm = try! Realm()
+                    try! realm.write {
+                        realm.delete(lMuse)
+                        realm.add(Muse())
+                    }
+                
+                    // update view
+                    self.setupElements()
+            
+                }
+            )
+            alertController.addAction(yesAction)
+            
+            // no handler -> dismiss view only
+            let noAction = UIAlertAction(
+                title: "No",
+                style: .cancel,
+                handler: nil
+            )
+            alertController.addAction(noAction)
+            
+            present(alertController, animated: true, completion: nil)
         
-        // the view to display
-        let lPopupVC = AddMuseViewController(nibName: "AddMuseViewController", bundle: nil)
-        
-        // no background
-        lPopupVC.view.backgroundColor = UIColor.clear
-        
-        // on top of the parent view
-        lPopupVC.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
-        
-        lPopupVC.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
-
-        // register as delegate
-        lPopupVC.delegate = self
-        
-        // display
-        self.present(lPopupVC, animated: true, completion: nil)
-        
+        // no muse -> add view
+        } else {
+            
+            // the view to display
+            let lPopupVC = AddMuseViewController(nibName: "AddMuseViewController", bundle: nil)
+            
+            // no background
+            lPopupVC.view.backgroundColor = UIColor.clear
+            
+            // on top of the parent view
+            lPopupVC.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
+            
+            lPopupVC.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+            
+            // register as delegate
+            lPopupVC.delegate = self
+            
+            // display
+            self.present(lPopupVC, animated: true, completion: nil)
+        }
     }
     
     // MARK: - ChooseMuseDelegate
     
     func didChoose(muse: IXNMuse) {
-        print("Choosen: \(muse.getName())")
+        
         // to DB
         saveCurrent(muse: muse)
+        
         // update UI
         setupElements()
+        
+        // disconnect first
+        disconnect()
+        
         // try to connect to the Muse found
         self.muse = muse
         connect()
@@ -159,12 +212,12 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, ChooseM
     // MARK: - Muse
     
     func receive(_ packet: IXNMuseConnectionPacket, muse: IXNMuse?) {
+        
         switch packet.currentConnectionState {
             case .disconnected:
                 break
             case .connected:
                 // only get configuration when connected
-                
                 if let lMuse = currentMuse?.first {
                     
                     let battery: Double = self.muse!.getConfiguration()!.getBatteryPercentRemaining()
@@ -179,9 +232,7 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, ChooseM
             
             case .connecting:
                 break
-            case .needsUpdate:
-                break
-            case .unknown:
+            default:
                 break
         }
     }
@@ -191,52 +242,13 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, ChooseM
         muse?.runAsynchronously()
     }
     
-    //cellForRowAt
-    /*
-     cell?.textLabel?.text = muse?.getName()
-     if !(muse?.isLowEnergy())! {
-     cell?.textLabel?.text = (cell?.textLabel?.text)! + (muse?.getMacAddress())!
-     }
-     }
-     
-     let lockQueue = DispatchQueue(label: "self.muse")
-     lockQueue.sync {
-     if self.muse == nil {
-     self.muse = muse
-     }
-     else if self.muse != muse {
-     self.muse?.disconnect()
-     self.muse = muse
-     }
-     
-     }
-     connect()
-     saveMuse(name: self.muse!.getName())
-     print(self.muse?.getConfiguration())
-     log(String(format: "======Choose to connect muse %@ %@======\n", (self.muse?.getName())!, (self.muse?.getMacAddress())!))
-     }
-     }*/
-    
+    func disconnect() {
+        muse?.unregisterAllListeners()
+        muse?.disconnect()
+    }
     
     // MARK: - Business
-    
-    func log(_ message: String) {
-        print("\(message)")
-        //logLines?.insert(message, at: 0)
-        //DispatchQueue.main.async(execute: {() -> Void in
-        //self.logView.text = self.logLines?.joined(separator: "\n")
-        //            self.logView.text = (self.logLines as NSArray).componentsJoined(by: "\n")
-        //})
-    }
 
-    /*
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

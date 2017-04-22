@@ -81,8 +81,14 @@ class AddMuseViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidAppear(_ animated: Bool) {
         
+        // get the muses found (if already launch elsewhere)
+        listMuses = manager!.getMuses()
+        // update tableView
+        tableView.reloadData()
+        
         // launch scan
         manager?.startListening()
+        
     }
     
     override public func viewWillDisappear(_ animated: Bool) {
@@ -107,23 +113,7 @@ class AddMuseViewController: UIViewController, UITableViewDataSource, UITableVie
         tableView.reloadData()
     }
     
-    func receive(_ packet: IXNMuseConnectionPacket, muse: IXNMuse?) {
-        var state: String
-        switch packet.currentConnectionState {
-        case .disconnected:
-            state = "disconnected"
-        case .connected:
-            state = "connected"
-            // only get configuration when connected
-        // print(self.muse?.getConfiguration()?.getBatteryPercentRemaining())
-        case .connecting:
-            state = "connecting"
-        case .needsUpdate:
-            state = "needs update"
-        case .unknown:
-            state = "unknown"
-        }
-    }
+    func receive(_ packet: IXNMuseConnectionPacket, muse: IXNMuse?) {}
     
     // MARK: - TableView
     
@@ -165,10 +155,10 @@ class AddMuseViewController: UIViewController, UITableViewDataSource, UITableVie
         // get the current Muse
         let lMuse = self.listMuses[indexPath.row]
         
-        // Le nom de l'imprimante
+        // name of Muse
         lCell.labelName.text = lMuse.getName()
         
-        // Le bouton d'ajout de l'imprimante
+        // add button of Muse
         lCell.btnAdd.removeControlEvent(.touchUpInside)
         lCell.btnAdd.addControlEvent(.touchUpInside) {
             
@@ -180,12 +170,12 @@ class AddMuseViewController: UIViewController, UITableViewDataSource, UITableVie
                 
             }
             
-            // close popup
+            // in any case, close popup
             self.actionClose(self.btnClose)
             
         }
         
-        // On renvoi la cellule configurée
+        // cell is now properly config
         return lCell
 
     }
