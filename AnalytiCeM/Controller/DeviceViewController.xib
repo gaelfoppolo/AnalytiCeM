@@ -17,6 +17,7 @@
                 <outlet property="deviceName" destination="CMW-2n-wYX" id="gcO-k8-fzF"/>
                 <outlet property="imageView" destination="8bk-ME-RkD" id="aOc-pK-wfl"/>
                 <outlet property="setupLabel" destination="Mik-GE-xo2" id="aEl-Ff-Y8D"/>
+                <outlet property="statusLabel" destination="qZO-oF-adk" id="Eoc-dA-XWo"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewDeviceIsSetup" destination="ksM-XW-sW4" id="ay0-MT-Rnt"/>
             </connections>
@@ -46,14 +47,23 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CMW-2n-wYX">
-                            <rect key="frame" x="101" y="37" width="234" height="27"/>
+                            <rect key="frame" x="101" y="10" width="234" height="27"/>
                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Battery" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SQf-oB-c2T">
-                            <rect key="frame" x="101" y="72" width="234" height="21"/>
+                            <rect key="frame" x="101" y="45" width="234" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qZO-oF-adk">
+                            <rect key="frame" x="101" y="74" width="234" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="ZRo-zk-DCi"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -63,10 +73,13 @@
                         <constraint firstItem="8bk-ME-RkD" firstAttribute="top" secondItem="ksM-XW-sW4" secondAttribute="top" constant="8" id="5F6-02-qIX"/>
                         <constraint firstItem="SQf-oB-c2T" firstAttribute="leading" secondItem="8bk-ME-RkD" secondAttribute="trailing" constant="8" id="Hmk-Ou-AiR"/>
                         <constraint firstAttribute="trailing" secondItem="SQf-oB-c2T" secondAttribute="trailing" constant="8" id="PpM-Gz-WL1"/>
+                        <constraint firstItem="qZO-oF-adk" firstAttribute="leading" secondItem="SQf-oB-c2T" secondAttribute="leading" id="SSz-k8-Xgk"/>
+                        <constraint firstItem="qZO-oF-adk" firstAttribute="top" secondItem="SQf-oB-c2T" secondAttribute="bottom" constant="8" id="UEH-ro-2R8"/>
+                        <constraint firstItem="qZO-oF-adk" firstAttribute="trailing" secondItem="SQf-oB-c2T" secondAttribute="trailing" id="ZH0-qv-FcP"/>
                         <constraint firstAttribute="trailing" secondItem="CMW-2n-wYX" secondAttribute="trailing" constant="8" id="aWS-I3-s0s"/>
                         <constraint firstItem="8bk-ME-RkD" firstAttribute="leading" secondItem="ksM-XW-sW4" secondAttribute="leading" constant="8" id="nI6-fu-sOR"/>
                         <constraint firstItem="SQf-oB-c2T" firstAttribute="top" secondItem="CMW-2n-wYX" secondAttribute="bottom" constant="8" id="ubx-3H-ciT"/>
-                        <constraint firstItem="CMW-2n-wYX" firstAttribute="top" secondItem="ksM-XW-sW4" secondAttribute="top" constant="37" id="vqD-y7-D4s"/>
+                        <constraint firstItem="CMW-2n-wYX" firstAttribute="top" secondItem="ksM-XW-sW4" secondAttribute="top" constant="10" id="vqD-y7-D4s"/>
                         <constraint firstItem="CMW-2n-wYX" firstAttribute="leading" secondItem="8bk-ME-RkD" secondAttribute="trailing" constant="8" id="yxx-op-Moq"/>
                     </constraints>
                 </view>

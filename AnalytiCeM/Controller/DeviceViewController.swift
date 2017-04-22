@@ -9,11 +9,11 @@
 import RealmSwift
 import UIKit
 
-class DeviceViewController: UIViewController, IXNMuseConnectionListener, ChooseMuseDelegate {
+class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuseListener, ChooseMuseDelegate {
     
     // MARK: - Properties
     
-    //var manager: IXNMuseManagerIos?
+    var manager: IXNMuseManagerIos?
     weak var muse: IXNMuse?
     
     var btManager: BluetoothManager?
@@ -26,8 +26,9 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, ChooseM
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var deviceName: UILabel!
     @IBOutlet weak var batteryLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
     
-    @IBOutlet weak var setupLabel: UILabel!    
+    @IBOutlet weak var setupLabel: UILabel!
     
     @IBOutlet weak var button: UIButton!
     
@@ -45,6 +46,12 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, ChooseM
                 realm.add(Muse())
             }
         }
+        
+        // get the manager of Muse (singleton)
+        manager = IXNMuseManagerIos.sharedManager()
+        
+        // set the view as delegate
+        manager?.museListener = self
         
         setupUI()
         
@@ -64,8 +71,10 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, ChooseM
         
         self.imageView.image = UIImage(named: "settings-link-device")
         
-        // todo:
-        // try to connect if already one saved
+        // name of the last Muse configured
+        if let lMuse = currentMuse?.first, let _ = lMuse.getName() {
+            manager?.startListening()
+        }
         
     }
     
@@ -84,6 +93,7 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, ChooseM
         self.deviceName.adjustsFontSizeToFitWidth = true
         self.setupLabel.adjustsFontSizeToFitWidth = true
         self.batteryLabel.isHidden = true
+        self.statusLabel.isHidden = true
         
         // hide both view by default
         self.viewDeviceIsSetup.isHidden = true
@@ -107,6 +117,8 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, ChooseM
                 self.batteryLabel.text = String("\(battery)%")
                 self.batteryLabel.isHidden = false
             }
+            
+            // todo handle status
             
             self.button.setTitle("Remove", for: .normal)
             self.button.setTitleColor(UIColor.red, for: .normal)
@@ -205,6 +217,9 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, ChooseM
         // disconnect first
         disconnect()
         
+        // stop searching (if was auto-connect)
+        manager?.stopListening()
+        
         // try to connect to the Muse found
         self.muse = muse
         connect()
@@ -227,6 +242,29 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, ChooseM
     }
     
     // MARK: - Muse
+    
+    func museListChanged() {
+        // get the muses found
+        let listMuses = manager!.getMuses()
+        // name of the last Muse configured
+        let lMuseName = currentMuse?.first?.getName()
+        // check if last Muse is in the list
+        let museFound = listMuses.filter({ $0.getName() == lMuseName }).first
+        
+        // yep found
+        if let museFound = museFound {
+            
+            // then choose it
+            didChoose(muse: museFound)
+            
+        // not found :(
+        } else {
+            
+            self.statusLabel.isHidden = false
+            self.statusLabel.text = "Not found"
+            
+        }
+    }
     
     func receive(_ packet: IXNMuseConnectionPacket, muse: IXNMuse?) {
         
@@ -254,17 +292,18 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, ChooseM
         }
     }
     
+    // MARK: - Business
+    
     func connect() {
         muse?.register(self)
         muse?.runAsynchronously()
     }
     
     func disconnect() {
+        manager?.stopListening()
         muse?.unregisterAllListeners()
         muse?.disconnect()
     }
-    
-    // MARK: - Business
 
     // MARK: - Navigation
 
