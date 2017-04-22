@@ -13,6 +13,7 @@
 		9374B3211E9D81D600052AA5 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9374B3201E9D81D600052AA5 /* libc++.tbd */; };
 		9374B3231E9D81DE00052AA5 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9374B3221E9D81DE00052AA5 /* CoreBluetooth.framework */; };
 		9374B3251E9D820100052AA5 /* Muse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9374B3241E9D820100052AA5 /* Muse.framework */; };
+		93774D481EAB98D900B11A00 /* Muse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93774D471EAB98D900B11A00 /* Muse.swift */; };
 		937D669E1EA6179600A8E3DC /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937D669D1EA6179600A8E3DC /* BluetoothManager.swift */; };
 		937D66A11EA67A0700A8E3DC /* SettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937D66A01EA67A0700A8E3DC /* SettingsTableViewCell.xib */; };
 		937D66A51EA69DF600A8E3DC /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937D66A31EA69DF600A8E3DC /* UserViewController.swift */; };
@@ -46,6 +47,7 @@
 		9374B3221E9D81DE00052AA5 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		9374B3241E9D820100052AA5 /* Muse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Muse.framework; path = AnalytiCeM/Frameworks/Muse.framework; sourceTree = "<group>"; };
 		9374B3261E9D824300052AA5 /* AnalytiCeM-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AnalytiCeM-Bridging-Header.h"; sourceTree = "<group>"; };
+		93774D471EAB98D900B11A00 /* Muse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Muse.swift; sourceTree = "<group>"; };
 		937D669D1EA6179600A8E3DC /* BluetoothManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
 		937D66A01EA67A0700A8E3DC /* SettingsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsTableViewCell.xib; sourceTree = "<group>"; };
 		937D66A31EA69DF600A8E3DC /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				939085B91EA22610007495D1 /* EEGSnapshot.swift */,
+				93774D471EAB98D900B11A00 /* Muse.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -322,6 +325,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93774D481EAB98D900B11A00 /* Muse.swift in Sources */,
 				939085BC1EA270CE007495D1 /* WaveView.swift in Sources */,
 				937D66A51EA69DF600A8E3DC /* UserViewController.swift in Sources */,
 				937D66AF1EA6C85400A8E3DC /* AddMuseViewController.swift in Sources */,
