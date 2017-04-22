@@ -22,10 +22,14 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, ChooseM
     
     // MARK: - IBOutlet
     
+    @IBOutlet weak var viewDeviceIsSetup: UIView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var deviceName: UILabel!
-    @IBOutlet weak var button: UIButton!
     @IBOutlet weak var batteryLabel: UILabel!
+    
+    @IBOutlet weak var setupLabel: UILabel!    
+    
+    @IBOutlet weak var button: UIButton!
     
     // MARK: - View
 
@@ -78,13 +82,23 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, ChooseM
     private func setupUI() {
         self.navigationItem.title = "Device"
         self.deviceName.adjustsFontSizeToFitWidth = true
+        self.setupLabel.adjustsFontSizeToFitWidth = true
         self.batteryLabel.isHidden = true
+        
+        // hide both view by default
+        self.viewDeviceIsSetup.isHidden = true
+        self.setupLabel.isHidden = true
+        
         setupElements()
     }
     
     private func setupElements() {
         // name of the last Muse configured
         if let lMuse = currentMuse?.first, let museName = lMuse.getName() {
+            
+            // display view
+            self.viewDeviceIsSetup.isHidden = false
+            self.setupLabel.isHidden = true
             
             self.deviceName.text = museName
             
@@ -99,8 +113,11 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, ChooseM
             
         } else {
             
-            self.deviceName.text = "Setup a new device"
-            self.batteryLabel.isHidden = true
+            // display view
+            self.setupLabel.isHidden = false
+            self.viewDeviceIsSetup.isHidden = true
+            
+            self.setupLabel.text = "Setup a new device"
             self.button.setTitle("Add a new Muse", for: UIControlState.normal)
             self.button.setTitleColor(UIColor.blue, for: .normal)
         }
