@@ -6,6 +6,7 @@
 //  Copyright © 2017 Polyech. All rights reserved.
 //
 
+import RealmSwift
 import UIKit
 
 class DeviceViewController: UIViewController, IXNMuseConnectionListener, ChooseMuseDelegate {
@@ -16,33 +17,32 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, ChooseM
     weak var muse: IXNMuse?
     
     var btManager: BluetoothManager?
+    let realm = try! Realm()
+    var currentMuse: Results<Muse>?
     
     // MARK: - IBOutlet
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var deviceName: UILabel!
     @IBOutlet weak var button: UIButton!
+    @IBOutlet weak var batteryLabel: UILabel!
     
     // MARK: - View
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = "Device"
+        // retrieve current muse
+        currentMuse = realm.objects(Muse.self)
         
-        self.deviceName.adjustsFontSizeToFitWidth = true
-        
-        if let currentMuse = loadSavedMuse() {
-            
-            self.deviceName.text = currentMuse
-            self.button.setTitle("Remove", for: UIControlState.normal)
-            
-        } else {
-        
-            self.deviceName.text = "Setup a new device"
-            self.button.setTitle("Add a new Muse", for: UIControlState.normal)
-        
+        // create if not already did
+        if currentMuse?.count == 0 {
+            try! realm.write {
+                realm.add(Muse())
+            }
         }
+        
+        setupUI()
         
         //UIApplication.shared.isIdleTimerDisabled = true
         
@@ -59,6 +59,10 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, ChooseM
     override func viewWillAppear(_ animated: Bool) {
         
         self.imageView.image = UIImage(named: "settings-link-device")
+        
+        // todo:
+        // try to connect if already one saved
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -66,9 +70,43 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, ChooseM
         // Dispose of any resources that can be recreated.
     }
     
+    private func setupUI() {
+        self.navigationItem.title = "Device"
+        self.deviceName.adjustsFontSizeToFitWidth = true
+        self.batteryLabel.isHidden = true
+        setupElements()
+    }
+    
+    private func setupElements() {
+        // name of the last Muse configured
+        if let lMuse = currentMuse?.first, let museName = lMuse.getName() {
+            
+            self.deviceName.text = museName
+            
+            // display battery if information
+            if let battery = lMuse.getBattery() {
+                self.batteryLabel.text = String("\(battery)%")
+                self.batteryLabel.isHidden = false
+            }
+            
+            self.button.setTitle("Remove", for: .normal)
+            self.button.setTitleColor(UIColor.red, for: .normal)
+            
+        } else {
+            
+            self.deviceName.text = "Setup a new device"
+            self.batteryLabel.isHidden = true
+            self.button.setTitle("Add a new Muse", for: UIControlState.normal)
+            self.button.setTitleColor(UIColor.blue, for: .normal)
+        }
+    }
+    
     // MARK: - IBAction
     
     @IBAction func actionBtn(_ sender: UIButton) {
+        
+        // todo:
+        // handle remove action
         
         // the view to display
         let lPopupVC = AddMuseViewController(nibName: "AddMuseViewController", bundle: nil)
@@ -93,29 +131,59 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, ChooseM
     
     func didChoose(muse: IXNMuse) {
         print("Choosen: \(muse.getName())")
+        // to DB
+        saveCurrent(muse: muse)
+        // update UI
+        setupElements()
+        // try to connect to the Muse found
         self.muse = muse
         connect()
+    }
+    
+    // MARK: - Realm
+    
+    func saveCurrent(muse: IXNMuse) {
+        // current muse
+        if let lMuse = currentMuse?.first {
+            
+            // get & set Muse's name
+            let museName = muse.getName()
+            
+            // update it
+            try! realm.write {
+                lMuse.setValue(museName, forKeyPath: "name")
+            }
+        }
     }
     
     // MARK: - Muse
     
     func receive(_ packet: IXNMuseConnectionPacket, muse: IXNMuse?) {
-        var state: String
         switch packet.currentConnectionState {
-        case .disconnected:
-            state = "disconnected"
-        case .connected:
-            state = "connected"
-            // only get configuration when connected
-            print("Battery \(self.muse?.getConfiguration()?.getBatteryPercentRemaining())")
-        case .connecting:
-            state = "connecting"
-        case .needsUpdate:
-            state = "needs update"
-        case .unknown:
-            state = "unknown"
+            case .disconnected:
+                break
+            case .connected:
+                // only get configuration when connected
+                
+                if let lMuse = currentMuse?.first {
+                    
+                    let battery: Double = self.muse!.getConfiguration()!.getBatteryPercentRemaining()
+                
+                    // update it
+                    try! realm.write {
+                        lMuse.setValue(battery, forKeyPath: "remaningBattery")
+                    }
+                    
+                    setupElements()
+                }
+            
+            case .connecting:
+                break
+            case .needsUpdate:
+                break
+            case .unknown:
+                break
         }
-        log(String(format: "connect: %@", state))
     }
     
     func connect() {
@@ -160,16 +228,6 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, ChooseM
         //            self.logView.text = (self.logLines as NSArray).componentsJoined(by: "\n")
         //})
     }
-    
-    func saveMuse(name: String) {
-        UserDefaults.standard.set(name, forKey: "lastMuse")
-    }
-    
-    func loadSavedMuse() -> String? {
-        
-        return UserDefaults.standard.string(forKey: "lastMuse")
-    }
-    
 
     /*
     // MARK: - Navigation
