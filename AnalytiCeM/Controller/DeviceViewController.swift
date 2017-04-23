@@ -9,7 +9,7 @@
 import RealmSwift
 import UIKit
 
-class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuseListener, IXNMuseDataListener, ChooseMuseDelegate {
+class DeviceViewController: UIViewController, IXNMuseListener, IXNMuseConnectionListener, IXNMuseDataListener, IXNMuseErrorListener, ChooseMuseDelegate {
     
     // MARK: - Properties
     
@@ -266,7 +266,7 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuse
         }
     }
     
-    // MARK: - Muse
+    // MARK: - MuseListener
     
     func museListChanged() {
         // get the muses found
@@ -290,6 +290,8 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuse
         }
     }
     
+    // MARK: - MuseConnectionListener
+    
     func receive(_ packet: IXNMuseConnectionPacket, muse: IXNMuse?) {
         // todo: improve
         switch packet.currentConnectionState {
@@ -307,9 +309,14 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuse
         }
     }
     
+        // MARK: - MuseDataListener
+    
     func receive(_ packet: IXNMuseDataPacket?, muse: IXNMuse?) {
+        // only packet about battery
         if packet?.packetType() == .battery {
-            let battery = packet?.values()[IXNBattery.chargePercentageRemaining.rawValue].doubleValue
+            
+            // get the potential battery level
+            let battery = packet?.getBatteryValue(IXNBattery(rawValue: IXNBattery.chargePercentageRemaining.rawValue)!)
             
             // check battery is valid
             guard let batteryValue = battery, !batteryValue.isNaN else { return }
@@ -329,11 +336,18 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuse
     
     func receive(_ packet: IXNMuseArtifactPacket, muse: IXNMuse?) {}
     
+    // MARK: - MuseErrorListener
+    
+    func receiveError(_ error: IXNError) {
+        // todo: handle error
+    }
+    
     // MARK: - Business
     
     func connect() {
-        muse?.register(self)
+        muse?.register(self as IXNMuseConnectionListener)
         muse?.register(self, type: .battery)
+        muse?.register(self as IXNMuseErrorListener)
         muse?.runAsynchronously()
     }
     
