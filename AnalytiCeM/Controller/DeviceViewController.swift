@@ -9,7 +9,7 @@
 import RealmSwift
 import UIKit
 
-class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuseListener, ChooseMuseDelegate {
+class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuseListener, IXNMuseDataListener, ChooseMuseDelegate {
     
     // MARK: - Properties
     
@@ -63,14 +63,6 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuse
         
         setupUI()
         
-        //UIApplication.shared.isIdleTimerDisabled = true
-        
-        // get the manager of Muse (singleton)
-        //manager = IXNMuseManagerIos.sharedManager()
-        
-        // set the view as delegate
-        //manager?.museListener = self
-        
         // manager of Bluetooth devices
         //btManager = BluetoothManager()
     }
@@ -82,7 +74,7 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuse
         // name of the last Muse configured
         if let lMuse = currentMuse?.first, let _ = lMuse.getName() {
             
-            //self.refresh(self.refreshStatus)
+            self.refreshBtn(self.refreshStatus)
         }
         
     }
@@ -125,8 +117,7 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuse
             
             // display battery if information
             if let battery = lMuse.getBattery() {
-                self.batteryLabel.text = String("\(battery)%")
-                self.batteryLabel.isHidden = false
+                updateBattery(batteryLevel: battery)
             }
             
             self.button.setTitle("Remove", for: .normal)
@@ -142,6 +133,11 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuse
             self.button.setTitle("Add a new Muse", for: UIControlState.normal)
             self.button.setTitleColor(UIColor.blue, for: .normal)
         }
+    }
+    
+    private func updateBattery(batteryLevel: Double) {
+        self.batteryLabel.text = String("\(batteryLevel)%")
+        self.batteryLabel.isHidden = false
     }
     
     // MARK: - IBAction
@@ -295,24 +291,12 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuse
     }
     
     func receive(_ packet: IXNMuseConnectionPacket, muse: IXNMuse?) {
-        
+        // todo: improve
         switch packet.currentConnectionState {
             case .disconnected:
                 self.currentStatus = "Disconnected"
                 break
             case .connected:
-                // only get configuration when connected
-                if let lMuse = currentMuse?.first {
-                    
-                    let battery: Double = self.muse!.getConfiguration()!.getBatteryPercentRemaining()
-                
-                    // update it
-                    try! realm.write {
-                        lMuse.setValue(battery, forKeyPath: "remaningBattery")
-                    }
-                    
-                    setupElements()
-                }
                 self.currentStatus = "Connected"
                 break
             case .connecting:
@@ -323,10 +307,33 @@ class DeviceViewController: UIViewController, IXNMuseConnectionListener, IXNMuse
         }
     }
     
+    func receive(_ packet: IXNMuseDataPacket?, muse: IXNMuse?) {
+        if packet?.packetType() == .battery {
+            let battery = packet?.values()[IXNBattery.chargePercentageRemaining.rawValue].doubleValue
+            
+            // check battery is valid
+            guard let batteryValue = battery, !batteryValue.isNaN else { return }
+            
+            if let lMuse = currentMuse?.first {
+
+                // update it
+                try! realm.write {
+                    lMuse.setValue(batteryValue, forKeyPath: "remaningBattery")
+                }
+                
+                // update UI
+                updateBattery(batteryLevel: batteryValue)
+            }
+        }
+    }
+    
+    func receive(_ packet: IXNMuseArtifactPacket, muse: IXNMuse?) {}
+    
     // MARK: - Business
     
     func connect() {
         muse?.register(self)
+        muse?.register(self, type: .battery)
         muse?.runAsynchronously()
     }
     
