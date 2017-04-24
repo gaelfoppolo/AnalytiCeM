@@ -6,6 +6,7 @@
 //  Copyright © 2017 Polyech. All rights reserved.
 //
 
+import CoreBluetooth
 import RealmSwift
 import UIKit
 
@@ -16,7 +17,7 @@ class DeviceViewController: UIViewController, IXNMuseListener, IXNMuseConnection
     var manager: IXNMuseManagerIos?
     weak var muse: IXNMuse?
     
-    var btManager: BluetoothManager?
+    var btManager: CBCentralManager?
     
     let realm = try! Realm()
     var currentMuse: Results<Muse>?
@@ -45,6 +46,8 @@ class DeviceViewController: UIViewController, IXNMuseListener, IXNMuseConnection
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        btManager = CBCentralManager(delegate: nil, queue: nil, options: nil)
+        
         // retrieve current muse
         currentMuse = realm.objects(Muse.self)
         
@@ -68,17 +71,18 @@ class DeviceViewController: UIViewController, IXNMuseListener, IXNMuseConnection
         
         self.imageView.image = UIImage(named: "settings-link-device")
         
-        // name of the last Muse configured
-        if let lMuse = currentMuse?.first, let _ = lMuse.getName() {
-            
-            self.refreshBtn(self.refreshStatus)
-        }
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        // manager of Bluetooth devices
-        btManager = BluetoothManager()
+        
+        // name of the last Muse configured
+        if let lMuse = currentMuse?.first, let _ = lMuse.getName() {
+            
+            // launch refresh
+            if self.isBluetoothEnabled() {
+                self.refreshBtn(self.refreshStatus)
+            }
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -123,7 +127,6 @@ class DeviceViewController: UIViewController, IXNMuseListener, IXNMuseConnection
             }
             
             self.button.setTitle("Remove", for: .normal)
-            self.button.setTitleColor(UIColor.red, for: .normal)
             
         } else {
             
@@ -133,7 +136,6 @@ class DeviceViewController: UIViewController, IXNMuseListener, IXNMuseConnection
             
             self.setupLabel.text = "Setup a new device"
             self.button.setTitle("Add a new Muse", for: UIControlState.normal)
-            self.button.setTitleColor(UIColor.blue, for: .normal)
         }
     }
     
@@ -227,9 +229,13 @@ class DeviceViewController: UIViewController, IXNMuseListener, IXNMuseConnection
             self.manager?.stopListening()
             self.activity.stopAnimating()
             self.refreshStatus.isEnabled = true
+            
+            // if muse not found
+            if self.muse == nil {
+                self.currentStatus = "Not found"
+            }
         }
     }
-    
     
     // MARK: - ChooseMuseDelegate
     
@@ -346,6 +352,10 @@ class DeviceViewController: UIViewController, IXNMuseListener, IXNMuseConnection
     
     // MARK: - Business
     
+    public func isBluetoothEnabled() -> Bool {
+        return btManager!.state == .poweredOn
+    }
+    
     func connect() {
         muse?.register(self as IXNMuseConnectionListener)
         muse?.register(self, type: .battery)
@@ -358,7 +368,5 @@ class DeviceViewController: UIViewController, IXNMuseListener, IXNMuseConnection
         muse?.unregisterAllListeners()
         muse?.disconnect()
     }
-
-    // MARK: - Navigation
 
 }
