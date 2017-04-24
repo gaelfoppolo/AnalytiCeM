@@ -62,9 +62,6 @@ class DeviceViewController: UIViewController, IXNMuseListener, IXNMuseConnection
         manager?.museListener = self
         
         setupUI()
-        
-        // manager of Bluetooth devices
-        //btManager = BluetoothManager()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,6 +74,11 @@ class DeviceViewController: UIViewController, IXNMuseListener, IXNMuseConnection
             self.refreshBtn(self.refreshStatus)
         }
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        // manager of Bluetooth devices
+        btManager = BluetoothManager()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
