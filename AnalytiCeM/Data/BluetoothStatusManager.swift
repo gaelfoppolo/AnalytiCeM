@@ -7,7 +7,7 @@
 //
 
 import CoreBluetooth
-import SCLAlertView
+import NotificationBannerSwift
 
 final class BluetoothStatusManager: NSObject, CBCentralManagerDelegate {
     
@@ -58,32 +58,41 @@ final class BluetoothStatusManager: NSObject, CBCentralManagerDelegate {
     // MARK: - Logic
     
     func displayError() {
-        var message: (title: String?, subtitle: String?)
+        var message: (title: String?, subtitle: String?, style: BannerStyle?)
          
         switch status {
             case .poweredOff:
-                message.title = "Bluetooth is off"
-                message.subtitle = "Please activate Bluetooth"
+                message.title = "Bluetooth is off 👎"
+                message.subtitle = "Please activate Bluetooth "
+                message.style = .danger
                 break
             case .unauthorized:
-                message.title = "Not authorized"
+                message.title = "Not authorized 🚫"
                 message.subtitle = "Please authorized Bluetooth for this application"
+                message.style = .warning
                 break
             case .unsupported:
-                message.title = "Not support"
+                message.title = "Not support 😬"
                 message.subtitle = "You will not able to fully use this application with this device"
+                message.style = .warning
+                break
+            case .poweredOn:
+                message.title = "Bluetooth is on 👍"
+                message.subtitle = "Everything is good"
+                message.style = .success
                 break
             case .resetting:
                 fallthrough
             case .unknown:
-                fallthrough
-            case .poweredOn:
                 break
          }
          
-         if let title = message.title, let subtitle = message.subtitle {
+         if let title = message.title,
+            let subtitle = message.subtitle,
+            let style = message.style {
          
-            SCLAlertView().showError(title, subTitle: subtitle)
+            let banner = NotificationBanner(title: title, subtitle: subtitle, style: style)
+            banner.show()
          
          }
     }
