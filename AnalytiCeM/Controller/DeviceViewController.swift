@@ -20,6 +20,9 @@ class DeviceViewController: FormViewController, ChooseMuseDelegate {
     var muses: Results<Muse>!
     var btManager: BluetoothStatusManager!
     
+    let kSectionTagMuseList = "museList"
+    let kSectionTagClear = "clear"
+    
     // MARK: View
 
     override func viewDidLoad() {
@@ -27,9 +30,6 @@ class DeviceViewController: FormViewController, ChooseMuseDelegate {
         
         // retrieve the list of Muse
         muses = realm.objects(Muse.self)
-        try! realm.write {
-            realm.delete(muses)
-        }
         
         // name is explicite enough
         btManager = BluetoothStatusManager.shared
@@ -47,16 +47,6 @@ class DeviceViewController: FormViewController, ChooseMuseDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         // unsubscribe
         unregisterBluetoothStatusChange()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        /*try! realm.write {
-            //realm.delete(muses)
-            for _ in 0..<3 {
-                realm.add(Muse(name: UUID().uuidString))
-            }
-            muses.last?.setAsCurrent(true)
-        }*/
     }
 
     override func didReceiveMemoryWarning() {
@@ -86,8 +76,9 @@ class DeviceViewController: FormViewController, ChooseMuseDelegate {
             "Your devices",
             selectionType: .singleSelection(enableDeselection: false)
         )
+        deviceSection.tag = kSectionTagMuseList
         
-        // add the section to the form
+        // add the section displaying the list of Muses to the form
         form.append(deviceSection)
 
         // populate the section with the Muses
@@ -110,9 +101,23 @@ class DeviceViewController: FormViewController, ChooseMuseDelegate {
             }
 
         }
+        
+        // create the section with proper setup
+        let clearSection = Section()
+        clearSection.tag = kSectionTagClear
+        
+        //add the section displaying the clear button
+        form.append(clearSection)
+        let clearRow = ButtonRow() { (row: ButtonRow) -> Void in
+            row.title = "Clear"
+            }
+            .onCellSelection { [weak self] (cell, row) in
+                self?.clearAction()
+        }
+        clearSection.append(clearRow)
+
 
     }
-    
     // MARK: - IBAction
     
     func addAction(_ sender: UIButton) {
@@ -136,11 +141,53 @@ class DeviceViewController: FormViewController, ChooseMuseDelegate {
         
     }
     
+    func clearAction() {
+        
+        // create confirmation alert
+        let alertController = UIAlertController(
+            title: "Confirmation",
+            message: "Are your sure you want to remove all Muses?",
+            preferredStyle: .alert
+        )
+        
+        // yes handler -> remove
+        let yesAction = UIAlertAction(
+            title: "Yes",
+            style: .destructive,
+            handler: { action in
+                
+                // remove it from DB
+                let realm = try! Realm()
+                try! realm.write {
+                    realm.delete(self.muses)
+                }
+                
+                // update view
+                let sectionMuse = self.form.sectionBy(tag: self.kSectionTagMuseList)
+                sectionMuse?.removeAll()
+                sectionMuse?.reload()
+                
+        }
+        )
+        alertController.addAction(yesAction)
+        
+        // no handler -> dismiss view only
+        let noAction = UIAlertAction(
+            title: "No",
+            style: .cancel,
+            handler: nil
+        )
+        alertController.addAction(noAction)
+        
+        present(alertController, animated: true, completion: nil)
+
+    }
+    
     // MARK: - Eureka
     
     override func valueHasBeenChanged(for row: BaseRow, oldValue: Any?, newValue: Any?) {
     
-        if row.section === form[0] {
+        if row.section === form.sectionBy(tag: kSectionTagMuseList) {
             let selectedRow = (row.section as! SelectableSection<ListCheckRow<String>>).selectedRow()
             if let value = selectedRow?.baseValue {
                 // update Realm
@@ -182,8 +229,9 @@ class DeviceViewController: FormViewController, ChooseMuseDelegate {
         newRow.didSelect()
         
         // append the row to the section and reload the table
-        form.last?.append(newRow)
-        form.last?.reload()
+        let sectionMuse = self.form.sectionBy(tag: self.kSectionTagMuseList)
+        sectionMuse?.append(newRow)
+        sectionMuse?.reload()
     }
     
     // MARK: - Logic
