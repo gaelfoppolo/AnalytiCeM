@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,6 +15,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        // realm, delete the data if the DB scheme changed
+        // prevent crashes, remove when go prod
+        let config = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
+        Realm.Configuration.defaultConfiguration = config
         
         // create the frame
         window = UIWindow(frame: UIScreen.main.bounds)
