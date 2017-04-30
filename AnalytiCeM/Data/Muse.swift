@@ -12,9 +12,8 @@ class Muse: Object {
     
     // MARK: - Properties
     
-    private dynamic var id: Int = 0
-    private dynamic var name: String? = nil
-    private let remaningBattery = RealmOptional<Double>()
+    private dynamic var name: String = ""
+    private dynamic var isCurrent: Bool = false
     
     // MARK: - Initializers
     
@@ -23,16 +22,30 @@ class Muse: Object {
         self.name = name
     }
     
-    override static func primaryKey() -> String? {
-        return "id"
-    }
+    // MARK: - Getters
     
     func getName() -> String? {
         return self.name
     }
-
-    func getBattery() -> Double? {
-        return self.remaningBattery.value
+    
+    func getStatus() -> Bool {
+        return self.isCurrent
+    }
+    
+    // MARK: - Setters
+    
+    func setAsCurrent(_ val: Bool) {
+        Muse.resetCurrent()
+        self.isCurrent = val
+    }
+    
+    // MARK: - Helper
+    
+    private static func resetCurrent() {
+        let realm = try! Realm()
+        realm.objects(Muse.self).forEach({ muse in
+            muse.isCurrent = false
+        })
     }
 
 }
