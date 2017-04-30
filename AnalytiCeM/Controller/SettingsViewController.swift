@@ -123,7 +123,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         if (indexPath.section == kSectionUser) {
             viewController = UserViewController(nibName: "UserViewController", bundle: nil)
         } else if (indexPath.section == kSectionDevice) {
-            viewController = NewDeviceViewController(nibName: "NewDeviceViewController", bundle: nil)
+            viewController = DeviceViewController(nibName: "DeviceViewController", bundle: nil)
         }
         
         // display the view

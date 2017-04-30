@@ -1,96 +1,62 @@
 //
-//  DeviceViewController.swift
+//  NewDeviceViewController.swift
 //  AnalytiCeM
 //
-//  Created by Gaël on 18/04/2017.
+//  Created by Gaël on 30/04/2017.
 //  Copyright © 2017 Polyech. All rights reserved.
 //
 
-import CoreBluetooth
+import Eureka
 import RealmSwift
+
+import CoreBluetooth
 import UIKit
 
-class DeviceViewController: UIViewController, IXNMuseListener, IXNMuseConnectionListener, IXNMuseDataListener, IXNMuseErrorListener, ChooseMuseDelegate {
+class DeviceViewController: FormViewController, ChooseMuseDelegate {
     
     // MARK: - Properties
     
-    var manager: IXNMuseManagerIos?
-    weak var muse: IXNMuse?
-    
+    let realm = try! Realm()
+    var muses: Results<Muse>!
     var btManager: BluetoothStatusManager!
     
-    let realm = try! Realm()
-    var currentMuse: Results<Muse>?
-    
-    var currentStatus: String = "Unknown" {
-        didSet {
-            self.statusLabel.text = currentStatus
-        }
-    }
-    // MARK: - IBOutlet
-    
-    @IBOutlet weak var viewDeviceIsSetup: UIView!
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var deviceName: UILabel!
-    @IBOutlet weak var batteryLabel: UILabel!
-    @IBOutlet weak var statusLabel: UILabel!
-    @IBOutlet weak var activity: UIActivityIndicatorView!
-    @IBOutlet weak var refreshStatus: UIButton!
-    
-    @IBOutlet weak var setupLabel: UILabel!
-    
-    @IBOutlet weak var button: UIButton!
-    
-    // MARK: - View
+    // MARK: View
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        btManager = BluetoothStatusManager.shared
-        
-        // retrieve current muse
-        currentMuse = realm.objects(Muse.self)
-        
-        // create if not already did
-        if currentMuse?.count == 0 {
-            try! realm.write {
-                realm.add(Muse())
-            }
+        // retrieve the list of Muse
+        muses = realm.objects(Muse.self)
+        try! realm.write {
+            realm.delete(muses)
         }
         
-        // get the manager of Muse (singleton)
-        manager = IXNMuseManagerIos.sharedManager()
-        
-        // set the view as delegate
-        manager?.museListener = self
+        // name is explicite enough
+        btManager = BluetoothStatusManager.shared
         
         setupUI()
+
+        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
-        self.imageView.image = UIImage(named: "settings-link-device")
+        // subscribe
         registerBluetoothStatusChange(handler: handleBluetoothChange)
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        
-        // name of the last Muse configured
-        if let lMuse = currentMuse?.first, let _ = lMuse.getName() {
-            
-            // launch refresh
-            // todo
-            //if self.isBluetoothEnabled() {
-                self.refreshBtn(self.refreshStatus)
-            //}
-        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        // remove all registers on Muse
-        disconnect()
+        // unsubscribe
         unregisterBluetoothStatusChange()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        /*try! realm.write {
+            //realm.delete(muses)
+            for _ in 0..<3 {
+                realm.add(Muse(name: UUID().uuidString))
+            }
+            muses.last?.setAsCurrent(true)
+        }*/
     }
 
     override func didReceiveMemoryWarning() {
@@ -99,278 +65,145 @@ class DeviceViewController: UIViewController, IXNMuseListener, IXNMuseConnection
     }
     
     private func setupUI() {
+        
+        // navigation bar
         self.navigationItem.title = "Device"
-        self.deviceName.adjustsFontSizeToFitWidth = true
-        self.setupLabel.adjustsFontSizeToFitWidth = true
-        self.batteryLabel.isHidden = true
         
-        self.statusLabel.text = currentStatus
-        self.refreshStatus.setTitle("Refresh", for: .normal)
+        // button Add on the right
+        let rightButtonItem = UIBarButtonItem(
+            title: "Add",
+            style: .plain,
+            target: self,
+            action: #selector(DeviceViewController.addAction(_:))
+        )
+        self.navigationItem.rightBarButtonItem = rightButtonItem
         
-        // hide both view by default
-        self.viewDeviceIsSetup.isHidden = true
-        self.setupLabel.isHidden = true
+        // check Bluetooh status
+        self.navigationItem.rightBarButtonItem?.isEnabled = (btManager.currentStatus == .poweredOn)
         
-        setupElements()
-    }
-    
-    private func setupElements() {
-        // name of the last Muse configured
-        if let lMuse = currentMuse?.first, let museName = lMuse.getName() {
+        // create the section with proper setup
+        let deviceSection = SelectableSection<ListCheckRow<String>>(
+            "Your devices",
+            selectionType: .singleSelection(enableDeselection: false)
+        )
+        
+        // add the section to the form
+        form.append(deviceSection)
+
+        // populate the section with the Muses
+        for muse in muses {
+            // retrieve the name & status
+            let museName = muse.getName()
+            let museStatus = muse.getStatus()
+            // create the row
+            let row = ListCheckRow<String>(museName) { listRow in
+                listRow.title = museName
+                listRow.selectableValue = museName
+                listRow.value = nil
+            }
+            // append the row to the section
+            deviceSection.append(row)
             
-            // display view
-            self.viewDeviceIsSetup.isHidden = false
-            self.setupLabel.isHidden = true
-            
-            self.deviceName.text = museName
-            
-            // display battery if information
-            /*if let battery = lMuse.getBattery() {
-                updateBattery(batteryLevel: battery)
-            }*/
-            
-            self.button.setTitle("Remove", for: .normal)
-            
-        } else {
-            
-            // display view
-            self.setupLabel.isHidden = false
-            self.viewDeviceIsSetup.isHidden = true
-            
-            self.setupLabel.text = "Setup a new device"
-            self.button.setTitle("Add a new Muse", for: UIControlState.normal)
+            // should select?
+            if museStatus {
+                row.didSelect()
+            }
+
         }
-    }
-    
-    private func updateBattery(batteryLevel: Double) {
-        self.batteryLabel.text = String("\(batteryLevel)%")
-        self.batteryLabel.isHidden = false
+
     }
     
     // MARK: - IBAction
     
-    @IBAction func actionBtn(_ sender: UIButton) {
+    func addAction(_ sender: UIButton) {
         
-        // muse -> delete
-        if let lMuse = currentMuse?.first, let museName = lMuse.getName() {
-            
-            // create confirmation alert
-            let alertController = UIAlertController(
-                title: "Confirmation",
-                message: "Are your sure you want to delete \(museName)?",
-                preferredStyle: .alert
-            )
-            
-            // yes handler -> remove
-            let yesAction = UIAlertAction(
-                title: "Yes",
-                style: .destructive,
-                handler: { action in
-                    
-                    // remove listener
-                    self.disconnect()
-            
-                    // remove it from DB
-                    let realm = try! Realm()
-                    try! realm.write {
-                        realm.delete(lMuse)
-                        realm.add(Muse())
-                    }
-                
-                    // update view
-                    self.setupElements()
-            
-                }
-            )
-            alertController.addAction(yesAction)
-            
-            // no handler -> dismiss view only
-            let noAction = UIAlertAction(
-                title: "No",
-                style: .cancel,
-                handler: nil
-            )
-            alertController.addAction(noAction)
-            
-            present(alertController, animated: true, completion: nil)
+        // the view to display
+        let lPopupVC = AddMuseViewController(nibName: "AddMuseViewController", bundle: nil)
         
-        // no muse -> add view
-        } else {
-            
-            // the view to display
-            let lPopupVC = AddMuseViewController(nibName: "AddMuseViewController", bundle: nil)
-            
-            // no background
-            lPopupVC.view.backgroundColor = UIColor.clear
-            
-            // on top of the parent view
-            lPopupVC.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
-            
-            lPopupVC.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
-            
-            // register as delegate
-            lPopupVC.delegate = self
-            
-            // display
-            self.present(lPopupVC, animated: true, completion: nil)
-        }
+        // no background
+        lPopupVC.view.backgroundColor = UIColor.clear
+        
+        // on top of the parent view
+        lPopupVC.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
+        
+        lPopupVC.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        
+        // register as delegate
+        lPopupVC.delegate = self
+        
+        // display
+        self.present(lPopupVC, animated: true, completion: nil)
+        
     }
     
-    @IBAction func refreshBtn(_ sender: UIButton) {
-        
-        // disable button
-        self.refreshStatus.isEnabled = false
-        // launch search
-        self.manager?.startListening()
-        self.activity.startAnimating()
-        
-        // create a delay of five seconds
-        let delay = DispatchTime.now() + 5
-        
-        // stop search and enable button after that delay
-        DispatchQueue.main.asyncAfter(deadline: delay) {
-            self.manager?.stopListening()
-            self.activity.stopAnimating()
-            self.refreshStatus.isEnabled = true
-            
-            // if muse not found
-            if self.muse == nil {
-                self.currentStatus = "Not found"
+    // MARK: - Eureka
+    
+    override func valueHasBeenChanged(for row: BaseRow, oldValue: Any?, newValue: Any?) {
+    
+        if row.section === form[0] {
+            let selectedRow = (row.section as! SelectableSection<ListCheckRow<String>>).selectedRow()
+            if let value = selectedRow?.baseValue {
+                // update Realm
+                let muse = muses.filter("name == %@", value)
+                try! realm.write {
+                    muse.first?.setAsCurrent(true)
+                }
             }
         }
+    
     }
     
     // MARK: - ChooseMuseDelegate
     
     func didChoose(muse: IXNMuse) {
         
-        // to DB
-        saveCurrent(muse: muse)
+        // get the name
+        let museName = muse.getName()
         
-        // update UI
-        setupElements()
-        
-        // disconnect first
-        disconnect()
-        
-        // stop searching (if was auto-connect)
-        manager?.stopListening()
-        
-        // try to connect to the Muse found
-        self.muse = muse
-        connect()
-    }
-    
-    // MARK: - Realm
-    
-    func saveCurrent(muse: IXNMuse) {
-        // current muse
-        if let lMuse = currentMuse?.first {
-            
-            // get & set Muse's name
-            let museName = muse.getName()
-            
-            // update it
-            try! realm.write {
-                lMuse.setValue(museName, forKeyPath: "name")
-            }
+        // check if already added
+        let alreadyExist = muses.filter("name == %@", museName)
+        if alreadyExist.count != 0 {
+            return
         }
-    }
-    
-    // MARK: - MuseListener
-    
-    func museListChanged() {
-        // get the muses found
-        let listMuses = manager!.getMuses()
-        // name of the last Muse configured
-        let lMuseName = currentMuse?.first?.getName()
-        // check if last Muse is in the list
-        let museFound = listMuses.filter({ $0.getName() == lMuseName }).first
         
-        // yep found
-        if let museFound = museFound {
-            
-            // then choose it
-            didChoose(muse: museFound)
-            
-        // not found :(
-        } else {
-            
-            self.currentStatus = "Not found"
-            
+        // add it to Realm
+        try! realm.write {
+            realm.add(Muse(name: museName))
         }
-    }
-    
-    // MARK: - MuseConnectionListener
-    
-    func receive(_ packet: IXNMuseConnectionPacket, muse: IXNMuse?) {
-        // todo: improve
-        switch packet.currentConnectionState {
-            case .disconnected:
-                self.currentStatus = "Disconnected"
-                break
-            case .connected:
-                self.currentStatus = "Connected"
-                break
-            case .connecting:
-                self.currentStatus = "Connecting"
-                break
-            default:
-                break
+        
+        // create the row
+        let newRow = ListCheckRow<String>(museName){ listRow in
+                listRow.title = museName
+                listRow.selectableValue = museName
+                listRow.value = nil
         }
-    }
-    
-        // MARK: - MuseDataListener
-    
-    func receive(_ packet: IXNMuseDataPacket?, muse: IXNMuse?) {
-        // only packet about battery
-        if packet?.packetType() == .battery {
-            
-            // get the potential battery level
-            let battery = packet?.getBatteryValue(IXNBattery(rawValue: IXNBattery.chargePercentageRemaining.rawValue)!)
-            
-            // check battery is valid
-            guard let batteryValue = battery, !batteryValue.isNaN else { return }
-            
-            if let lMuse = currentMuse?.first {
-
-                // update it
-                try! realm.write {
-                    lMuse.setValue(batteryValue, forKeyPath: "remaningBattery")
-                }
-                
-                // update UI
-                updateBattery(batteryLevel: batteryValue)
-            }
-        }
-    }
-    
-    func receive(_ packet: IXNMuseArtifactPacket, muse: IXNMuse?) {}
-    
-    // MARK: - MuseErrorListener
-    
-    func receiveError(_ error: IXNError) {
-        // todo: handle error
-    }
-    
-    func connect() {
-        muse?.register(self as IXNMuseConnectionListener)
-        muse?.register(self, type: .battery)
-        muse?.register(self as IXNMuseErrorListener)
-        muse?.runAsynchronously()
-    }
-    
-    func disconnect() {
-        manager?.stopListening()
-        muse?.unregisterAllListeners()
-        muse?.disconnect()
+        
+        // select the row
+        newRow.didSelect()
+        
+        // append the row to the section and reload the table
+        form.last?.append(newRow)
+        form.last?.reload()
     }
     
     // MARK: - Logic
     
     func handleBluetoothChange(notification : Notification) {
         let status = notification.object as! CBManagerState
-        print(status.rawValue)
+        
+        // activate button only if Bluetooth is available
+        self.navigationItem.rightBarButtonItem?.isEnabled = (status == .poweredOn)
     }
+    
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
 
 }
