@@ -15,7 +15,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     var manager: IXNMuseManagerIos?
     weak var muse: IXNMuse?
     
-    var btManager: BluetoothManager!
+    var btManager: BluetoothStatusManager!
     
     let maxDataPoints: Int = 500
     var emptyEEGHistory: Array<EEGSnapshot> = Array<EEGSnapshot>()
@@ -42,7 +42,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         IXNLogManager.instance()?.setLogListener(self)
         
         // manager of Bluetooth devices
-        //btManager = BluetoothManager()
+        btManager = BluetoothStatusManager.shared
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
@@ -57,9 +57,9 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if let lastMuse = loadSavedMuse() {
+        /*if let lastMuse = loadSavedMuse() {
             print(lastMuse)
-        }
+        }*/
     }
 
     override func didReceiveMemoryWarning() {
@@ -139,11 +139,13 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         muse?.register(self)
         muse?.register(self, type: .artifacts)
         //muse?.register(self, type: .alphaAbsolute)
-        //        muse?.register(self, type: .alphaRelative)
-        //        muse?.register(self, type: .alphaScore)
+        //muse?.register(self, type: .alphaRelative)
+        //muse?.register(self, type: .alphaScore)
+        //muse?.register(self, type: .battery)
+        //muse?.register(self, type: .)
         //muse?.unregisterAllListeners()
         
-        muse?.register(self, type: .betaRelative)
+        //muse?.register(self, type: .betaRelative)
         
         muse?.runAsynchronously()
     }
@@ -157,10 +159,10 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     }
     
     @IBAction func scan(_ sender: Any) {
-        if (btManager.isBluetoothEnabled()) {
+        //if (btManager.isBluetoothEnabled()) {
             manager?.startListening()
             //tableView.reloadData()
-        }
+        //}
     }
     
     @IBAction func stopScan(_ sender: Any) {

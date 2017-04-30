@@ -17,7 +17,7 @@ class DeviceViewController: UIViewController, IXNMuseListener, IXNMuseConnection
     var manager: IXNMuseManagerIos?
     weak var muse: IXNMuse?
     
-    var btManager: CBCentralManager?
+    var btManager: BluetoothStatusManager!
     
     let realm = try! Realm()
     var currentMuse: Results<Muse>?
@@ -46,7 +46,7 @@ class DeviceViewController: UIViewController, IXNMuseListener, IXNMuseConnection
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        btManager = CBCentralManager(delegate: nil, queue: nil, options: nil)
+        btManager = BluetoothStatusManager.shared
         
         // retrieve current muse
         currentMuse = realm.objects(Muse.self)
@@ -70,6 +70,7 @@ class DeviceViewController: UIViewController, IXNMuseListener, IXNMuseConnection
     override func viewWillAppear(_ animated: Bool) {
         
         self.imageView.image = UIImage(named: "settings-link-device")
+        registerBluetoothStatusChange(handler: handleBluetoothChange)
         
     }
     
@@ -79,15 +80,17 @@ class DeviceViewController: UIViewController, IXNMuseListener, IXNMuseConnection
         if let lMuse = currentMuse?.first, let _ = lMuse.getName() {
             
             // launch refresh
-            if self.isBluetoothEnabled() {
+            // todo
+            //if self.isBluetoothEnabled() {
                 self.refreshBtn(self.refreshStatus)
-            }
+            //}
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         // remove all registers on Muse
         disconnect()
+        unregisterBluetoothStatusChange()
     }
 
     override func didReceiveMemoryWarning() {
@@ -122,9 +125,9 @@ class DeviceViewController: UIViewController, IXNMuseListener, IXNMuseConnection
             self.deviceName.text = museName
             
             // display battery if information
-            if let battery = lMuse.getBattery() {
+            /*if let battery = lMuse.getBattery() {
                 updateBattery(batteryLevel: battery)
-            }
+            }*/
             
             self.button.setTitle("Remove", for: .normal)
             
@@ -350,12 +353,6 @@ class DeviceViewController: UIViewController, IXNMuseListener, IXNMuseConnection
         // todo: handle error
     }
     
-    // MARK: - Business
-    
-    public func isBluetoothEnabled() -> Bool {
-        return btManager!.state == .poweredOn
-    }
-    
     func connect() {
         muse?.register(self as IXNMuseConnectionListener)
         muse?.register(self, type: .battery)
@@ -367,6 +364,13 @@ class DeviceViewController: UIViewController, IXNMuseListener, IXNMuseConnection
         manager?.stopListening()
         muse?.unregisterAllListeners()
         muse?.disconnect()
+    }
+    
+    // MARK: - Logic
+    
+    func handleBluetoothChange(notification : Notification) {
+        let status = notification.object as! CBManagerState
+        print(status.rawValue)
     }
 
 }
