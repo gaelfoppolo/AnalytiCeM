@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9340981E1EB76E780079B7C2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9340981D1EB76E780079B7C2 /* User.swift */; };
 		9374B30E1E9D80DB00052AA5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9374B30D1E9D80DB00052AA5 /* AppDelegate.swift */; };
 		9374B3151E9D80DB00052AA5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9374B3141E9D80DB00052AA5 /* Assets.xcassets */; };
 		9374B3181E9D80DB00052AA5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9374B3161E9D80DB00052AA5 /* LaunchScreen.storyboard */; };
@@ -40,6 +41,7 @@
 /* Begin PBXFileReference section */
 		207AB5D81A51F8A11F7C08F4 /* Pods-AnalytiCeM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnalytiCeM.release.xcconfig"; path = "Pods/Target Support Files/Pods-AnalytiCeM/Pods-AnalytiCeM.release.xcconfig"; sourceTree = "<group>"; };
 		55FA2FDC7F83D0417C9D232F /* Pods-AnalytiCeM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnalytiCeM.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AnalytiCeM/Pods-AnalytiCeM.debug.xcconfig"; sourceTree = "<group>"; };
+		9340981D1EB76E780079B7C2 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9374B30A1E9D80DB00052AA5 /* AnalytiCeM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnalytiCeM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9374B30D1E9D80DB00052AA5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9374B3141E9D80DB00052AA5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 			children = (
 				939085B91EA22610007495D1 /* EEGSnapshot.swift */,
 				93774D471EAB98D900B11A00 /* Muse.swift */,
+				9340981D1EB76E780079B7C2 /* User.swift */,
 				939A3CF21EB09D1700031C03 /* BluetoothStatusManager.swift */,
 			);
 			path = Data;
@@ -339,6 +342,7 @@
 				93C0FED21EB551E90035D66A /* DeviceViewController.swift in Sources */,
 				93C6D3581EA375D000A21FB4 /* ActivityViewController.swift in Sources */,
 				9374B30E1E9D80DB00052AA5 /* AppDelegate.swift in Sources */,
+				9340981E1EB76E780079B7C2 /* User.swift in Sources */,
 				939A3CF81EB0AA0400031C03 /* AnalytiCeMNotificatioNameExtension.swift in Sources */,
 				93C6D3541EA375AA00A21FB4 /* SettingsViewController.swift in Sources */,
 				937D66B31EA6CF4F00A8E3DC /* AddMuseTableViewCell.swift in Sources */,
