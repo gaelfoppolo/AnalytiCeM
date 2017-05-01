@@ -64,6 +64,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
         
+        // login
+        let realm = try! Realm()
+        let currentUser = realm.objects(User.self).filter("isCurrent == true").first
+        if currentUser == nil {
+            // no current user, display login
+            
+            // login controller
+            let lLoginVC = LoginViewController(
+                nibName: "LoginViewController",
+                bundle: nil)
+            
+            // login navigation controller
+            let navLoginController = UINavigationController(rootViewController: lLoginVC)
+            
+            // on top of the parent view
+            navLoginController.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
+            
+            // and nice transition style
+            navLoginController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+            
+            // display the login navigation controller
+            window?.rootViewController?.present(navLoginController, animated: true, completion: nil)
+        }
+        
         return true
     }
     
