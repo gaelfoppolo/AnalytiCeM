@@ -111,11 +111,12 @@
 			isa = PBXGroup;
 			children = (
 				934098201EB7786E0079B7C2 /* LoginViewController.swift */,
+				934098211EB7786E0079B7C2 /* LoginViewController.xib */,
 				934098241EB7F1BC0079B7C2 /* RegisterViewController.swift */,
 				934098251EB7F1BD0079B7C2 /* RegisterViewController.xib */,
-				934098211EB7786E0079B7C2 /* LoginViewController.xib */,
 			);
 			name = Login;
+			path = Login;
 			sourceTree = "<group>";
 		};
 		9374B3011E9D80DB00052AA5 = {
@@ -164,26 +165,28 @@
 			isa = PBXGroup;
 			children = (
 				937D66AC1EA6C82500A8E3DC /* Device */,
-				93C6D3521EA375AA00A21FB4 /* SettingsViewController.swift */,
 				937D66A01EA67A0700A8E3DC /* SettingsTableViewCell.xib */,
+				93C6D3521EA375AA00A21FB4 /* SettingsViewController.swift */,
 				93C6D3531EA375AA00A21FB4 /* SettingsViewController.xib */,
 				937D66A31EA69DF600A8E3DC /* UserViewController.swift */,
 				937D66A41EA69DF600A8E3DC /* UserViewController.xib */,
 			);
 			name = Settings;
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		937D66AC1EA6C82500A8E3DC /* Device */ = {
 			isa = PBXGroup;
 			children = (
-				93C0FED11EB551E90035D66A /* DeviceViewController.swift */,
-				93C0FED31EB557020035D66A /* DeviceViewController.xib */,
-				937D66AD1EA6C85400A8E3DC /* AddMuseViewController.swift */,
 				937D66B11EA6CF4F00A8E3DC /* AddMuseTableViewCell.swift */,
 				937D66B21EA6CF4F00A8E3DC /* AddMuseTableViewCell.xib */,
+				937D66AD1EA6C85400A8E3DC /* AddMuseViewController.swift */,
 				937D66AE1EA6C85400A8E3DC /* AddMuseViewController.xib */,
+				93C0FED11EB551E90035D66A /* DeviceViewController.swift */,
+				93C0FED31EB557020035D66A /* DeviceViewController.xib */,
 			);
 			name = Device;
+			path = Device;
 			sourceTree = "<group>";
 		};
 		9382376E1EA3C70100CE8D1E /* Controller */ = {
@@ -193,10 +196,10 @@
 				937D66A21EA69B4E00A8E3DC /* Settings */,
 				93C6D3561EA375D000A21FB4 /* ActivityViewController.swift */,
 				93C6D3571EA375D000A21FB4 /* ActivityViewController.xib */,
+				939A3CF71EB0AA0400031C03 /* AnalytiCeMNotificatioNameExtension.swift */,
+				939A3CF51EB0A54A00031C03 /* AnalytiCeMViewControllerExtension.swift */,
 				93C6D35A1EA3761900A21FB4 /* MainViewController.swift */,
 				93C6D35B1EA3761900A21FB4 /* MainViewController.xib */,
-				939A3CF51EB0A54A00031C03 /* AnalytiCeMViewControllerExtension.swift */,
-				939A3CF71EB0AA0400031C03 /* AnalytiCeMNotificatioNameExtension.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -204,10 +207,10 @@
 		9382376F1EA3C75600CE8D1E /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				939A3CF21EB09D1700031C03 /* BluetoothStatusManager.swift */,
 				939085B91EA22610007495D1 /* EEGSnapshot.swift */,
 				93774D471EAB98D900B11A00 /* Muse.swift */,
 				9340981D1EB76E780079B7C2 /* User.swift */,
-				939A3CF21EB09D1700031C03 /* BluetoothStatusManager.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";

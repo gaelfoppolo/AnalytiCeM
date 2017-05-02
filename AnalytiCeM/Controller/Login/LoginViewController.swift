@@ -9,10 +9,14 @@
 import UIKit
 
 class LoginViewController: UIViewController {
+    
+    // MARK: - View
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        setupUI()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -20,6 +24,14 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    private func setupUI() {
+        
+        // navigation bar
+        self.navigationItem.title = "Login"
+        
+    }
+    
+    // MARK: - IBAction
     
     @IBAction func dismissAction(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)

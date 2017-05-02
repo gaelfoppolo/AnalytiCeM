@@ -6,9 +6,22 @@
 //  Copyright © 2017 Polyech. All rights reserved.
 //
 
+import Eureka
+import RealmSwift
+
 import UIKit
 
-class RegisterViewController: UIViewController {
+class RegisterViewController: FormViewController {
+    
+    // MARK: - Properties
+    
+    let realm = try! Realm()
+    var users: Results<User>!
+    
+    let kSectionTagRegister = "register"
+    let kSectionTagValidate = "validateRegister"
+    
+    // MARK: - View
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +34,16 @@ class RegisterViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    private func setupUI() {
+        
+        // navigation bar
+        self.navigationItem.title = "Register"
+        
+        //
+        
+    }
+
+    // MARK: - IBAction
 
     /*
     // MARK: - Navigation
