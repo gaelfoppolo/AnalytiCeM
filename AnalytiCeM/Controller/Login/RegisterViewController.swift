@@ -59,20 +59,21 @@ class RegisterViewController: UIViewController, UserProfileDelegate {
         DispatchQueue.global(qos: .background).async {
         
             var passwordCrypted: String?
-            var salted: String?
+            var salt: String?
             
             // password crypt
             do {
                 
                 let password: Array<UInt8> = Array(user.password.utf8)
-                // generated unique salt
-                let salt: Array<UInt8> = Array(UUID().uuidString.utf8)
                 
-                let passwordValue = try PKCS5.PBKDF2(password: password, salt: salt, iterations: 4096, variant: .sha512).calculate()
+                // generated unique salt
+                salt = UUID().uuidString
+                let salted: Array<UInt8> = Array(salt!.utf8)
+                
+                let passwordValue = try PKCS5.PBKDF2(password: password, salt: salted, iterations: 4096, variant: .sha512).calculate()
                 
                 // export has readable string
                 passwordCrypted = passwordValue.toHexString()
-                salted = salt.toHexString()
                 
             } catch let error {
                 print(error)
@@ -82,7 +83,7 @@ class RegisterViewController: UIViewController, UserProfileDelegate {
             // create the user
             let userToRegister = User(email: user.email,
                                       password: passwordCrypted!,
-                                      salt: salted!,
+                                      salt: salt!,
                                       firstName: user.firstName,
                                       lastName: user.lastName,
                                       birth: user.birthday,
@@ -98,12 +99,14 @@ class RegisterViewController: UIViewController, UserProfileDelegate {
                 realm.add(userToRegister)
                 userToRegister.setAsCurrent()
             }
+            
+            DispatchQueue.main.async {
+                // remove view, registration is done
+                self.dismiss(animated: true, completion: nil)
+            }
         
         }
         
-        
-        // remove view, registration is done
-        self.dismiss(animated: true, completion: nil)
     }
 
 }
