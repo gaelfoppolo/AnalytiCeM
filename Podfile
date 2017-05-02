@@ -13,5 +13,6 @@ target 'AnalytiCeM' do
  	pod 'RealmSwift', '~> 2.6'
     pod 'Eureka'
     pod 'NotificationBannerSwift'
+    pod 'CryptoSwift'
 end
 

@@ -1,5 +1,6 @@
 PODS:
   - ActionKit (2.0)
+  - CryptoSwift (0.6.8)
   - ESTabBarController-swift (2.3)
   - Eureka (3.0.0)
   - MarqueeLabel/Swift (3.0.2)
@@ -16,6 +17,7 @@ PODS:
 
 DEPENDENCIES:
   - ActionKit (~> 2.0)
+  - CryptoSwift
   - ESTabBarController-swift (~> 2.3)
   - Eureka
   - NotificationBannerSwift
@@ -34,6 +36,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   ActionKit: a9ac8aa51b1e404489d4ebdeefb587c112b7669f
+  CryptoSwift: f21ea03ed3a94e79d241648ce26652cd4810508a
   ESTabBarController-swift: 23011ffbee6cd66a37309f00c7c21c9dd63c17de
   Eureka: f36fd440c3ebb7bfea0a4fbe6f16a05f1cb35906
   MarqueeLabel: 365d4a7cd5a9504e51a2034d2be83782424223ac
@@ -43,6 +46,6 @@ SPEC CHECKSUMS:
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
   Spring: 3f02b5dc3308572ef177b3cad0fa7bbc4b0706f7
 
-PODFILE CHECKSUM: da6d46c0ea3e15fc35b2e5ec6542a376034cfe29
+PODFILE CHECKSUM: 9dae3e60789fd37d438442cfa5aae9e419708720
 
 COCOAPODS: 1.2.1
