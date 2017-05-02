@@ -7,6 +7,8 @@
 //
 
 import Eureka
+import RealmSwift
+
 import UIKit
 
 class UserProfileViewController: FormViewController {
@@ -44,6 +46,8 @@ class UserProfileViewController: FormViewController {
     
     let dateFormatter = DateFormatter()
     
+    var editionMode: Bool = false
+    
     // MARK: - View
 
     override func viewDidLoad() {
@@ -70,12 +74,140 @@ class UserProfileViewController: FormViewController {
         // add the section displaying the account section to the form
         form +++ accountSection
         
+        // default on update
+        EmailRow.defaultCellUpdate = { cell, row in
+            if !row.isValid {
+                cell.titleLabel?.textColor = .red
+            }
+        }
+        EmailRow.defaultOnRowValidationChanged = { cell, row in
+            let rowIndex = row.indexPath!.row
+            while row.section!.count > rowIndex + 1 && row.section?[rowIndex  + 1] is LabelRow {
+                row.section?.remove(at: rowIndex + 1)
+            }
+            if !row.isValid {
+                let labelRow = LabelRow() {
+                    $0.title = row.validationErrors.first?.msg
+                    $0.cell.height = { 30 }
+                    $0.cell.backgroundColor = .red
+                }
+                row.section?.insert(labelRow, at: row.indexPath!.row + 1)
+            }
+        }
+        
+        PasswordRow.defaultCellUpdate = { cell, row in
+            if !row.isValid {
+                cell.titleLabel?.textColor = .red
+            }
+        }
+        PasswordRow.defaultOnRowValidationChanged = { cell, row in
+            let rowIndex = row.indexPath!.row
+            while row.section!.count > rowIndex + 1 && row.section?[rowIndex  + 1] is LabelRow {
+                row.section?.remove(at: rowIndex + 1)
+            }
+            if !row.isValid {
+                let labelRow = LabelRow() {
+                    $0.title = row.validationErrors.first?.msg
+                    $0.cell.height = { 30 }
+                    $0.cell.backgroundColor = .red
+                }
+                row.section?.insert(labelRow, at: row.indexPath!.row + 1)
+            }
+        }
+        
+        TextRow.defaultCellUpdate = { cell, row in
+            if !row.isValid {
+                cell.titleLabel?.textColor = .red
+            }
+        }
+        TextRow.defaultOnRowValidationChanged = { cell, row in
+            let rowIndex = row.indexPath!.row
+            while row.section!.count > rowIndex + 1 && row.section?[rowIndex  + 1] is LabelRow {
+                row.section?.remove(at: rowIndex + 1)
+            }
+            if !row.isValid {
+                let labelRow = LabelRow() {
+                    $0.title = row.validationErrors.first?.msg
+                    $0.cell.height = { 30 }
+                    $0.cell.backgroundColor = .red
+                }
+                row.section?.insert(labelRow, at: row.indexPath!.row + 1)
+            }
+        }
+        
+        DateRow.defaultOnRowValidationChanged = { cell, row in
+            let rowIndex = row.indexPath!.row
+            while row.section!.count > rowIndex + 1 && row.section?[rowIndex  + 1] is LabelRow {
+                row.section?.remove(at: rowIndex + 1)
+            }
+            if !row.isValid {
+                let labelRow = LabelRow() {
+                    $0.title = "The date is not valid"
+                    $0.cell.height = { 30 }
+                    $0.cell.backgroundColor = .red
+                }
+                row.section?.insert(labelRow, at: row.indexPath!.row + 1)
+            }
+        }
+        
+        SegmentedRow<String>.defaultOnRowValidationChanged = { cell, row in
+            let rowIndex = row.indexPath!.row
+            while row.section!.count > rowIndex + 1 && row.section?[rowIndex  + 1] is LabelRow {
+                row.section?.remove(at: rowIndex + 1)
+            }
+            if !row.isValid {
+                let labelRow = LabelRow() {
+                    $0.title = "Please select a gender"
+                    $0.cell.height = { 30 }
+                    $0.cell.backgroundColor = .red
+                }
+                row.section?.insert(labelRow, at: row.indexPath!.row + 1)
+            }
+        }
+        
+        PickerInlineRow<Int>.defaultOnRowValidationChanged = { cell, row in
+            let rowIndex = row.indexPath!.row
+            while row.section!.count > rowIndex + 1 && row.section?[rowIndex  + 1] is LabelRow {
+                row.section?.remove(at: rowIndex + 1)
+            }
+            if !row.isValid {
+                let labelRow = LabelRow() {
+                    $0.title = "Please choose a value"
+                    $0.cell.height = { 30 }
+                    $0.cell.backgroundColor = .red
+                }
+                row.section?.insert(labelRow, at: row.indexPath!.row + 1)
+            }
+        }
+        
         // email
-        accountSection  <<< EmailRow() {
-            $0.title = "Email"
-            $0.placeholder = "you@mail.com"
-            $0.add(rule: RuleEmail())
-            $0.tag = kSectionAccountTagEmail
+        accountSection  <<< EmailRow() { (row : EmailRow) -> Void in
+            row.title = "Email"
+            row.placeholder = "you@mail.com"
+            // rules
+            row.add(rule: RuleEmail())
+            row.add(rule: RuleRequired())
+            let ruleCheckEmailViaClosure = RuleClosure<String> { rowValue in
+                
+                // there is a value
+                // and no other error
+                guard let email = rowValue, !email.isEmpty, (row.validationErrors.count == 0) else {
+                    return nil
+                }
+                
+                // get users with that mail & not current user
+                let realm = try! Realm()
+                let usersMatching = realm.objects(User.self).filter("email == %@", email).filter("isCurrent == false")
+                
+                // if there is
+                if (usersMatching.count != 0) {
+                    return ValidationError(msg: "This email is already taken")
+                }
+                
+                return nil
+            }
+            row.add(rule: ruleCheckEmailViaClosure)
+            row.tag = kSectionAccountTagEmail
         }
             
         // password
@@ -84,6 +216,9 @@ class UserProfileViewController: FormViewController {
             // rules
             $0.add(rule: RuleMinLength(minLength: kMinLenghtPassword))
             $0.add(rule: RuleMaxLength(maxLength: kMaxLenghtPassword))
+            $0.add(rule: RuleRequired())
+            // todo: password check if current user, aka edition mode
+            // but how to change it? problem
             $0.tag = kSectionAccountTagPassword
         }
             
@@ -106,6 +241,7 @@ class UserProfileViewController: FormViewController {
             // rules
             $0.add(rule: RuleMinLength(minLength: kMinLenghtName))
             $0.add(rule: RuleMaxLength(maxLength: kMaxLenghtName))
+            $0.add(rule: RuleRequired())
             $0.tag = kSectionUserTagFirstName
         }
         
@@ -116,6 +252,7 @@ class UserProfileViewController: FormViewController {
             // rules
             $0.add(rule: RuleMinLength(minLength: kMinLenghtName))
             $0.add(rule: RuleMaxLength(maxLength: kMaxLenghtName))
+            $0.add(rule: RuleRequired())
             $0.tag = kSectionUserTagLastName
         }
         
@@ -132,6 +269,7 @@ class UserProfileViewController: FormViewController {
             ruleSet.add(rule: RuleSmallerThan(max: Date()))
             // after kMaxAge years before today
             let oneHundredYearBefore = Calendar.current.date(byAdding: .year, value: -kMaxAge, to: Date())
+            ruleSet.add(rule: RuleRequired())
             ruleSet.add(rule: RuleGreaterThan(min: oneHundredYearBefore!))
             $0.add(ruleSet: ruleSet)
         }
@@ -140,6 +278,8 @@ class UserProfileViewController: FormViewController {
         <<< SegmentedRow<String>(){
             $0.title = "Gender"
             $0.options = ["M","F"]
+            $0.add(rule: RuleRequired())
+            $0.tag = kSectionUserTagGender
         }
         
         // weight
@@ -155,6 +295,8 @@ class UserProfileViewController: FormViewController {
                 weight += 1
             }
             row.tag = kSectionUserTagWeight
+            // rule
+            row.add(rule: RuleRequired())
         }
         
         // size
@@ -170,6 +312,8 @@ class UserProfileViewController: FormViewController {
                 size += 1
             }
             row.tag = kSectionUserTagSize
+            // rule
+            row.add(rule: RuleRequired())
         }
 
         // create the section validate
@@ -184,22 +328,14 @@ class UserProfileViewController: FormViewController {
             $0.tag = kSectionValidateTagRegister
         }
         .onCellSelection { cell, row in
-            row.section?.form?.validate()
             let errors = self.form.validate()
-            errors.forEach({error in
-                print(error)
-            })
+            // no error, then validate
+            if errors.count == 0 {
+                self.validate()
+            }
         }
-    }    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
     }
-    */
+    
+    public func validate() {}
 
 }

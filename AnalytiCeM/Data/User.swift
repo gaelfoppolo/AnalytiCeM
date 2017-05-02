@@ -12,20 +12,20 @@ class User: Object {
     
     // MARK: - Properties
     
-    private dynamic var id: Int = 0
-    private dynamic var email: String = ""
-    private dynamic var password: String = ""
-    private dynamic var salt: String = ""
+    dynamic var id: Int = 0
+    dynamic var email: String = ""
+    dynamic var password: String = ""
+    dynamic var salt: String = ""
     
-    private dynamic var firstName: String = ""
-    private dynamic var lastName: String = ""
-    private dynamic var birth: Date = Date()
+    dynamic var firstName: String = ""
+    dynamic var lastName: String = ""
+    dynamic var birth: Date = Date()
     
-    private dynamic var gender: String = ""
-    private dynamic var weight: Int = 0
-    private dynamic var size: Int = 0
+    dynamic var gender: String = ""
+    dynamic var weight: Int = 0
+    dynamic var size: Int = 0
     
-    private dynamic var isCurrent: Bool = false
+    dynamic var isCurrent: Bool = false
     
     // MARK: - Initializers
     
