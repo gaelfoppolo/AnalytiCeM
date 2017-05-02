@@ -11,6 +11,23 @@ import RealmSwift
 
 import UIKit
 
+protocol UserProfileDelegate {
+    
+    func validate(user: UserProfil)
+    
+}
+
+typealias UserProfil = (
+                        email: String,
+                        password: String,
+                        firstName: String,
+                        lastName: String,
+                        birthday: Date,
+                        gender: String,
+                        weight: Int,
+                        size: Int
+                        )
+
 class UserProfileViewController: FormViewController {
     
     // MARK: - Properties
@@ -47,6 +64,8 @@ class UserProfileViewController: FormViewController {
     let dateFormatter = DateFormatter()
     
     var editionMode: Bool = false
+    
+    var delegate: UserProfileDelegate?
     
     // MARK: - View
 
@@ -328,14 +347,52 @@ class UserProfileViewController: FormViewController {
             $0.tag = kSectionValidateTagRegister
         }
         .onCellSelection { cell, row in
+            
             let errors = self.form.validate()
+            
             // no error, then validate
             if errors.count == 0 {
+                
                 self.validate()
             }
         }
     }
     
-    public func validate() {}
+    /*override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.topLayoutGuide.co = self.parent?.topLayoutGuide.length
+    }*/
+
+    
+    private func validate() {
+    
+        // if delegate
+        if (self.delegate != nil) {
+            
+            // retrieve values
+            let emailValue = (form.rowBy(tag: kSectionAccountTagEmail) as! EmailRow).value!
+            let passwordValue = (form.rowBy(tag: kSectionAccountTagPassword) as! PasswordRow).value!
+            let firstNameValue = (form.rowBy(tag: kSectionUserTagLastName) as! TextRow).value!
+            let lastNameValue = (form.rowBy(tag: kSectionUserTagLastName) as! TextRow).value!
+            let birthdayValue = (form.rowBy(tag: kSectionUserTagBirthday) as! DateRow).value!
+            let genderValue = (form.rowBy(tag: kSectionUserTagGender) as! SegmentedRow<String>).value!
+            let weightValue = (form.rowBy(tag: kSectionUserTagWeight) as! PickerInlineRow<Int>).value!
+            let sizeValue = (form.rowBy(tag: kSectionUserTagSize) as! PickerInlineRow<Int>).value!
+            
+            let userProfil: UserProfil = (email: emailValue,
+                                        password: passwordValue,
+                                        firstName: firstNameValue,
+                                        lastName: lastNameValue,
+                                        birthday: birthdayValue,
+                                        gender: genderValue,
+                                        weight: weightValue,
+                                        size: sizeValue)
+            
+            // call delegate
+            self.delegate!.validate(user: userProfil)
+            
+        }
+        
+    }
 
 }
