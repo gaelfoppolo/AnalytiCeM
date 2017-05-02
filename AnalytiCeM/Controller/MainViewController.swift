@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionListener, IXNLogListener, IXNMuseDataListener {
     
@@ -60,6 +61,11 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         /*if let lastMuse = loadSavedMuse() {
             print(lastMuse)
         }*/
+        print("viewDidAppear")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("viewWillAppear")
     }
 
     override func didReceiveMemoryWarning() {

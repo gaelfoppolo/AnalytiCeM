@@ -6,25 +6,24 @@
 //  Copyright © 2017 Polyech. All rights reserved.
 //
 
-import Eureka
+
 import RealmSwift
 
 import UIKit
 
-class RegisterViewController: FormViewController {
+class RegisterViewController: UserProfileViewController {
     
     // MARK: - Properties
     
     let realm = try! Realm()
     var users: Results<User>!
     
-    let kSectionTagRegister = "register"
-    let kSectionTagValidate = "validateRegister"
-    
     // MARK: - View
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupUI()
 
         // Do any additional setup after loading the view.
     }

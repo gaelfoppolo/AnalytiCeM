@@ -12,6 +12,8 @@
 		934098231EB7786F0079B7C2 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 934098211EB7786E0079B7C2 /* LoginViewController.xib */; };
 		934098261EB7F1BD0079B7C2 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934098241EB7F1BC0079B7C2 /* RegisterViewController.swift */; };
 		934098271EB7F1BD0079B7C2 /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 934098251EB7F1BD0079B7C2 /* RegisterViewController.xib */; };
+		936564D21EB8BADD007F469E /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936564D01EB8BADD007F469E /* UserProfileViewController.swift */; };
+		936564D31EB8BADD007F469E /* UserProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 936564D11EB8BADD007F469E /* UserProfileViewController.xib */; };
 		9374B30E1E9D80DB00052AA5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9374B30D1E9D80DB00052AA5 /* AppDelegate.swift */; };
 		9374B3151E9D80DB00052AA5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9374B3141E9D80DB00052AA5 /* Assets.xcassets */; };
 		9374B3181E9D80DB00052AA5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9374B3161E9D80DB00052AA5 /* LaunchScreen.storyboard */; };
@@ -50,6 +52,8 @@
 		934098211EB7786E0079B7C2 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		934098241EB7F1BC0079B7C2 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		934098251EB7F1BD0079B7C2 /* RegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterViewController.xib; sourceTree = "<group>"; };
+		936564D01EB8BADD007F469E /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
+		936564D11EB8BADD007F469E /* UserProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserProfileViewController.xib; sourceTree = "<group>"; };
 		9374B30A1E9D80DB00052AA5 /* AnalytiCeM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnalytiCeM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9374B30D1E9D80DB00052AA5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9374B3141E9D80DB00052AA5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -113,9 +117,10 @@
 				934098201EB7786E0079B7C2 /* LoginViewController.swift */,
 				934098211EB7786E0079B7C2 /* LoginViewController.xib */,
 				934098241EB7F1BC0079B7C2 /* RegisterViewController.swift */,
+				936564D01EB8BADD007F469E /* UserProfileViewController.swift */,
+				936564D11EB8BADD007F469E /* UserProfileViewController.xib */,
 				934098251EB7F1BD0079B7C2 /* RegisterViewController.xib */,
 			);
-			name = Login;
 			path = Login;
 			sourceTree = "<group>";
 		};
@@ -171,7 +176,6 @@
 				937D66A31EA69DF600A8E3DC /* UserViewController.swift */,
 				937D66A41EA69DF600A8E3DC /* UserViewController.xib */,
 			);
-			name = Settings;
 			path = Settings;
 			sourceTree = "<group>";
 		};
@@ -185,7 +189,6 @@
 				93C0FED11EB551E90035D66A /* DeviceViewController.swift */,
 				93C0FED31EB557020035D66A /* DeviceViewController.xib */,
 			);
-			name = Device;
 			path = Device;
 			sourceTree = "<group>";
 		};
@@ -295,6 +298,7 @@
 				9374B3181E9D80DB00052AA5 /* LaunchScreen.storyboard in Resources */,
 				93C0FED41EB557020035D66A /* DeviceViewController.xib in Resources */,
 				937D66A11EA67A0700A8E3DC /* SettingsTableViewCell.xib in Resources */,
+				936564D31EB8BADD007F469E /* UserProfileViewController.xib in Resources */,
 				937D66B41EA6CF4F00A8E3DC /* AddMuseTableViewCell.xib in Resources */,
 				9374B3151E9D80DB00052AA5 /* Assets.xcassets in Resources */,
 				93C6D3591EA375D000A21FB4 /* ActivityViewController.xib in Resources */,
@@ -366,6 +370,7 @@
 				939085BA1EA22610007495D1 /* EEGSnapshot.swift in Sources */,
 				93C0FED21EB551E90035D66A /* DeviceViewController.swift in Sources */,
 				93C6D3581EA375D000A21FB4 /* ActivityViewController.swift in Sources */,
+				936564D21EB8BADD007F469E /* UserProfileViewController.swift in Sources */,
 				9374B30E1E9D80DB00052AA5 /* AppDelegate.swift in Sources */,
 				9340981E1EB76E780079B7C2 /* User.swift in Sources */,
 				939A3CF81EB0AA0400031C03 /* AnalytiCeMNotificatioNameExtension.swift in Sources */,
