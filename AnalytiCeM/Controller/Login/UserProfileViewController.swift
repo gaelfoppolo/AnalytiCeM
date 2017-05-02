@@ -372,7 +372,7 @@ class UserProfileViewController: FormViewController {
             // retrieve values
             let emailValue = (form.rowBy(tag: kSectionAccountTagEmail) as! EmailRow).value!
             let passwordValue = (form.rowBy(tag: kSectionAccountTagPassword) as! PasswordRow).value!
-            let firstNameValue = (form.rowBy(tag: kSectionUserTagLastName) as! TextRow).value!
+            let firstNameValue = (form.rowBy(tag: kSectionUserTagFirstName) as! TextRow).value!
             let lastNameValue = (form.rowBy(tag: kSectionUserTagLastName) as! TextRow).value!
             let birthdayValue = (form.rowBy(tag: kSectionUserTagBirthday) as! DateRow).value!
             let genderValue = (form.rowBy(tag: kSectionUserTagGender) as! SegmentedRow<String>).value!

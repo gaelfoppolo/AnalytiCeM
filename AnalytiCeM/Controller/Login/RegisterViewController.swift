@@ -6,18 +6,15 @@
 //  Copyright © 2017 Polyech. All rights reserved.
 //
 
-
-import Eureka
+import CryptoSwift
 import RealmSwift
 
 import UIKit
 
-class RegisterViewController: UserProfileViewController {
+class RegisterViewController: UIViewController, UserProfileDelegate {
     
     // MARK: - Properties
-    
-    let realm = try! Realm()
-    var users: Results<User>!
+    var profileViewController: UserProfileViewController!
     
     // MARK: - View
 
@@ -39,29 +36,73 @@ class RegisterViewController: UserProfileViewController {
         // navigation bar
         self.navigationItem.title = "Register"
         
+        // pushing view under nav bar layout
+        self.edgesForExtendedLayout = UIRectEdge(rawValue: 0)
+        
+        // the view to display
+        self.profileViewController = UserProfileViewController(nibName: "UserProfileViewController", bundle: nil)
+        self.addChildViewController(self.profileViewController)
+        self.view.addSubview(self.profileViewController.view)
+        self.profileViewController.didMove(toParentViewController: self)
+        
+        // add ourself as delegate
+        self.profileViewController.delegate = self
+        
     }
+    
+    // MARK: - UserProfileDelegate
 
-    // MARK: - IBAction
-
-    // MARK: - Logic
-
-    override func validate() {
+    func validate(user: UserProfil) {
         
-        // retrieve values
-        let email = (form.rowBy(tag: kSectionAccountTagEmail) as! EmailRow).value!
-        let password = (form.rowBy(tag: kSectionAccountTagPassword) as! PasswordRow).value!
-        let firstName = (form.rowBy(tag: kSectionUserTagLastName) as! TextRow).value!
-        let lastName = (form.rowBy(tag: kSectionUserTagLastName) as! TextRow).value!
-        let birthday = (form.rowBy(tag: kSectionUserTagBirthday) as! DateRow).value!
-        let gender = (form.rowBy(tag: kSectionUserTagGender) as! SegmentedRow<String>).value!
-        let weight = (form.rowBy(tag: kSectionUserTagWeight) as! PickerInlineRow<Int>).value!
-        let size = (form.rowBy(tag: kSectionUserTagSize) as! PickerInlineRow<Int>).value!
+        // in background we add the user to the database
+        // because password hashing and write to DB may be heavy operation
+        DispatchQueue.global(qos: .background).async {
         
-        // todo:
-        // password crypt
-        // add to Realm
+            var passwordCrypted: String?
+            var salted: String?
+            
+            // password crypt
+            do {
+                
+                let password: Array<UInt8> = Array(user.password.utf8)
+                // generated unique salt
+                let salt: Array<UInt8> = Array(UUID().uuidString.utf8)
+                
+                let passwordValue = try PKCS5.PBKDF2(password: password, salt: salt, iterations: 4096, variant: .sha512).calculate()
+                
+                // export has readable string
+                passwordCrypted = passwordValue.toHexString()
+                salted = salt.toHexString()
+                
+            } catch let error {
+                print(error)
+                fatalError()
+            }
+            
+            // create the user
+            let userToRegister = User(email: user.email,
+                                      password: passwordCrypted!,
+                                      salt: salted!,
+                                      firstName: user.firstName,
+                                      lastName: user.lastName,
+                                      birth: user.birthday,
+                                      gender: user.gender,
+                                      weight: user.weight,
+                                      size: user.size
+            )
+            
+            // add to the DB
+            // and set as current user
+            let realm = try! Realm()
+            try! realm.write {
+                realm.add(userToRegister)
+                userToRegister.setAsCurrent()
+            }
         
-        // dismiss view
+        }
+        
+        
+        // remove view, registration is done
         self.dismiss(animated: true, completion: nil)
     }
 
