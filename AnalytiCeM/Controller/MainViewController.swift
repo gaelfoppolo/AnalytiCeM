@@ -7,7 +7,9 @@
 //
 
 import UIKit
+
 import RealmSwift
+import SwiftSpinner
 
 class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionListener, IXNLogListener, IXNMuseDataListener {
     
@@ -23,6 +25,8 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     
     var eegHistory: [EEGSnapshot] = [EEGSnapshot]()
     
+    let realm = try! Realm()
+    
     // MARK: - IBOutlet
     
     @IBOutlet var logView: UITextView!
@@ -32,6 +36,8 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupUI()
         
         // get the manager of Muse (singleton)
         manager = IXNMuseManagerIos.sharedManager()
@@ -61,16 +67,85 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         /*if let lastMuse = loadSavedMuse() {
             print(lastMuse)
         }*/
-        print("viewDidAppear")
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        print("viewWillAppear")
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    private func setupUI() {
+        
+        // button Add on the right
+        let logoutButtonItem = UIBarButtonItem(image: UIImage(named: "main-logout"),
+                                               style: .plain,
+                                               target: self,
+                                               action: #selector(MainViewController.logoutAction(_:))
+                                )
+        self.navigationItem.rightBarButtonItem = logoutButtonItem
+    }
+    
+    func logoutAction(_ sender: UIButton) {
+        
+        // create confirmation alert
+        let alertController = UIAlertController(
+            title: "Confirmation",
+            message: "Are your sure you want to logout?",
+            preferredStyle: .alert
+        )
+        
+        // yes handler -> remove
+        let yesAction = UIAlertAction(
+            title: "Yes",
+            style: .destructive,
+            handler: { action in
+                
+                SwiftSpinner.show("Logout..")
+                
+                // logout
+                let realm = try! Realm()
+                let currentUser = realm.objects(User.self).filter("isCurrent == true").first
+                
+                // remove current user
+                try! realm.write {
+                    currentUser?.isCurrent = false
+                }
+                
+                // success
+                SwiftSpinner.show(duration: 2, title: "Success", animated: false)
+                
+                // login controller
+                let lLoginVC = LoginViewController(
+                    nibName: "LoginViewController",
+                    bundle: nil
+                )
+                
+                // login navigation controller
+                let navLoginController = UINavigationController(rootViewController: lLoginVC)
+                
+                // on top of the parent view
+                navLoginController.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
+                
+                // and nice transition style
+                navLoginController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+                
+                // display the login navigation controller
+                self.parent?.present(navLoginController, animated: true, completion: nil)
+                
+            }
+        )
+        alertController.addAction(yesAction)
+        
+        // no handler -> dismiss view only
+        let noAction = UIAlertAction(
+            title: "No",
+            style: .cancel,
+            handler: nil
+        )
+        alertController.addAction(noAction)
+        
+        present(alertController, animated: true, completion: nil)
+        
     }
     
     // MARK: - Muse
