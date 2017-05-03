@@ -6,8 +6,8 @@
 //  Copyright © 2017 Polyech. All rights reserved.
 //
 
-import CryptoSwift
 import RealmSwift
+import SwiftSpinner
 
 import UIKit
 
@@ -15,11 +15,15 @@ class RegisterViewController: UIViewController, UserProfileDelegate {
     
     // MARK: - Properties
     var profileViewController: UserProfileViewController!
+    var passwordManager: PasswordManager!
     
     // MARK: - View
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // name is explicite enough
+        passwordManager = PasswordManager.shared
         
         setupUI()
 
@@ -54,56 +58,61 @@ class RegisterViewController: UIViewController, UserProfileDelegate {
 
     func validate(user: UserProfil) {
         
+        SwiftSpinner.show("Registration")
+        
         // in background we add the user to the database
         // because password hashing and write to DB may be heavy operation
         DispatchQueue.global(qos: .background).async {
-        
-            var passwordCrypted: String?
-            var salt: String?
             
-            // password crypt
-            do {
+            // try to create the hash
+            let saltAndPassword = self.passwordManager.createHash(password: user.password)
+            
+            // creation succeed
+            if let saltAndPassword = saltAndPassword {
                 
-                let password: Array<UInt8> = Array(user.password.utf8)
+                let passwordCrypted: String = saltAndPassword.passwordHashed
+                let salt: String = saltAndPassword.salt
                 
-                // generated unique salt
-                salt = UUID().uuidString
-                let salted: Array<UInt8> = Array(salt!.utf8)
+                // create the user
+                let userToRegister = User(email: user.email,
+                                          password: passwordCrypted,
+                                          salt: salt,
+                                          firstName: user.firstName,
+                                          lastName: user.lastName,
+                                          birth: user.birthday,
+                                          gender: user.gender,
+                                          weight: user.weight,
+                                          size: user.size
+                                    )
                 
-                let passwordValue = try PKCS5.PBKDF2(password: password, salt: salted, iterations: 4096, variant: .sha512).calculate()
+                // add to the DB
+                // and set as current user
+                let realm = try! Realm()
+                try! realm.write {
+                    realm.add(userToRegister)
+                    userToRegister.setAsCurrent()
+                }
+
+                // dismiss view
+                DispatchQueue.main.async {
+                    
+                    // add view with dismissal after a sec
+                    SwiftSpinner.show(duration: 1, title: "Registration\ncomplete", animated: false)
+                    
+                    // remove view, registration is done
+                    self.dismiss(animated: true, completion: nil)
+                    
+                }
                 
-                // export has readable string
-                passwordCrypted = passwordValue.toHexString()
+            } else {
                 
-            } catch let error {
-                print(error)
-                fatalError()
+                DispatchQueue.main.async {
+                    // add view with dismissal after a sec
+                    SwiftSpinner.show(duration: 1, title: "Error", animated: false)
+                }
+                
             }
-            
-            // create the user
-            let userToRegister = User(email: user.email,
-                                      password: passwordCrypted!,
-                                      salt: salt!,
-                                      firstName: user.firstName,
-                                      lastName: user.lastName,
-                                      birth: user.birthday,
-                                      gender: user.gender,
-                                      weight: user.weight,
-                                      size: user.size
-            )
-            
-            // add to the DB
-            // and set as current user
-            let realm = try! Realm()
-            try! realm.write {
-                realm.add(userToRegister)
-                userToRegister.setAsCurrent()
-            }
-            
-            DispatchQueue.main.async {
-                // remove view, registration is done
-                self.dismiss(animated: true, completion: nil)
-            }
+
         
         }
         

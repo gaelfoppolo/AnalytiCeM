@@ -6,9 +6,9 @@
 //  Copyright © 2017 Polyech. All rights reserved.
 //
 
-import CryptoSwift
 import Eureka
 import RealmSwift
+import SwiftSpinner
 
 import UIKit
 
@@ -26,10 +26,15 @@ class LoginViewController: FormViewController {
     let kSectionTagRegister = "register"
     let kSectionRegisterTagLoad = "register.load"
     
+    var passwordManager: PasswordManager!
+    
     // MARK: - View
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // name is explicite enough
+        passwordManager = PasswordManager.shared
         
         setupUI()
         
@@ -108,67 +113,13 @@ class LoginViewController: FormViewController {
                 }
                 .onCellSelection { cell, row in
                     
-                    // remove
-                    let rowIndex = row.indexPath!.row
-                    while row.section!.count > rowIndex + 1 && row.section?[rowIndex  + 1] is LabelRow {
-                        row.section?.remove(at: rowIndex + 1)
-                    }
-                    
                     let errors = self.form.validate()
                     
                     // no error, then try login
                     if errors.count == 0 {
                         
-                        // get email
-                        let user = (self.form.rowBy(tag: self.kSectionLoginTagEmail) as! PickerInlineRow<User>).value!
-                        let passwordValue = (self.form.rowBy(tag: self.kSectionLoginTagPassword) as! PasswordRow).value!
-                        
-                        let currentPassword = user.password
-                        let currentSalt = user.salt
-                        
-                        // compute password in background
-                        // because password hashingmay be heavy operation
-                        DispatchQueue.global(qos: .background).async {
-                            do {
-                                
-                                let password: Array<UInt8> = Array(passwordValue.utf8)
-                                let salt: Array<UInt8> = Array(currentSalt.utf8)
-                                
-                                let passwordCryptedRaw = try PKCS5.PBKDF2(password: password, salt: salt, iterations: 4096, variant: .sha512).calculate()
-                                
-                                // export has readable string
-                                let passwordCrypted = passwordCryptedRaw.toHexString()
-                                
-                                DispatchQueue.main.async {
-                                
-                                    // compare
-                                    if passwordCrypted == currentPassword {
-                                    
-                                        // set as current
-                                        let realm = try! Realm()
-                                        try! realm.write {
-                                            user.setAsCurrent()
-                                        }
-                                        // remove view, registration is done
-                                        self.dismiss(animated: true, completion: nil)
-                                    
-                                    } else {
-                                        
-                                        let labelRow = LabelRow() {
-                                            $0.title = "Wrong password"
-                                            $0.cell.height = { 30 }
-                                            $0.cell.backgroundColor = .red
-                                        }
-                                        row.section?.insert(labelRow, at: row.indexPath!.row + 1)
-                                        
-                                    }
-                                }
-                                
-                            } catch let error {
-                                print(error)
-                                fatalError()
-                            }
-                        }
+                        // try to login
+                        self.tryLogin()
 
                     }
                 }
@@ -185,14 +136,66 @@ class LoginViewController: FormViewController {
         registerSection <<< ButtonRow() {
             $0.title = "Register"
             $0.tag = kSectionRegisterTagLoad
-            }
-            .onCellSelection { cell, row in
-                
-                // display the view register
-                let registerViewController = RegisterViewController(nibName: "RegisterViewController", bundle: nil)
-                self.navigationController?.pushViewController(registerViewController, animated: true)
         }
+        .onCellSelection { cell, row in
+                
+            // display the view register
+            let registerViewController = RegisterViewController(nibName: "RegisterViewController", bundle: nil)
+            self.navigationController?.pushViewController(registerViewController, animated: true)
+            
+        }
+        
+    }
+    
+    private func tryLogin() {
+        
+        SwiftSpinner.show("Login..")
+        
+        // get user and supposed password
+        let user = (self.form.rowBy(tag: self.kSectionLoginTagEmail) as! PickerInlineRow<User>).value!
+        let tryPassword = (self.form.rowBy(tag: self.kSectionLoginTagPassword) as! PasswordRow).value!
+        
+        // get valid value
+        let currentPassword = user.password
+        let currentSalt = user.salt
+        
+        // compute password in background
+        // because password hashing may be heavy operation
+        DispatchQueue.global(qos: .background).async {
+            
+            // try to verify
+            let passwordIsValid = self.passwordManager.verifyPassword(tryPassword: tryPassword, salt: currentSalt, correctPassword: currentPassword)
+            
+            // verification succeed
+            if let passwordIsValid = passwordIsValid, passwordIsValid {
+                
+                DispatchQueue.main.async {
+                    
+                    // set as current
+                    let realm = try! Realm()
+                    try! realm.write {
+                        user.setAsCurrent()
+                    }
 
+                    // add view with dismissal after a sec
+                    SwiftSpinner.show(duration: 1, title: "Success", animated: false)
+                    
+                    // remove view, login is done
+                    self.dismiss(animated: true, completion: nil)
+                    
+                }
+                
+            } else {
+                
+                // dismiss view
+                DispatchQueue.main.async {
+                
+                    // add view with dismissal after a sec
+                    SwiftSpinner.show(duration: 1, title: "Wrong\npassword", animated: false)
+                }
+            }
+                
+        }
         
     }
 
