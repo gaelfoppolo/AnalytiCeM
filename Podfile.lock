@@ -14,6 +14,7 @@ PODS:
     - Realm (= 2.6.1)
   - SnapKit (3.2.0)
   - Spring (1.0.3)
+  - SwiftSpinner (1.2.1)
 
 DEPENDENCIES:
   - ActionKit (~> 2.0)
@@ -23,6 +24,7 @@ DEPENDENCIES:
   - NotificationBannerSwift
   - RealmSwift (~> 2.6)
   - Spring (from `https://github.com/MengTo/Spring.git`, branch `swift3`)
+  - SwiftSpinner
 
 EXTERNAL SOURCES:
   Spring:
@@ -45,7 +47,8 @@ SPEC CHECKSUMS:
   RealmSwift: a54d3e8931cf7d3afa5a1fac9c8f88109d7f02b3
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
   Spring: 3f02b5dc3308572ef177b3cad0fa7bbc4b0706f7
+  SwiftSpinner: 62a28bbb4035f252a1e91b0e17fc40bdbbfa0aab
 
-PODFILE CHECKSUM: 9dae3e60789fd37d438442cfa5aae9e419708720
+PODFILE CHECKSUM: c41276a94fd5c0e1bc1b82f5b969cd4984792442
 
 COCOAPODS: 1.2.1

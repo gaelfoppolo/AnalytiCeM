@@ -14,5 +14,6 @@ target 'AnalytiCeM' do
     pod 'Eureka'
     pod 'NotificationBannerSwift'
     pod 'CryptoSwift'
+    pod 'SwiftSpinner'
 end
 
