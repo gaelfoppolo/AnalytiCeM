@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9331360C1EBA6DF800B90410 /* PasswordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9331360B1EBA6DF800B90410 /* PasswordManager.swift */; };
 		9340981E1EB76E780079B7C2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9340981D1EB76E780079B7C2 /* User.swift */; };
 		934098221EB7786F0079B7C2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934098201EB7786E0079B7C2 /* LoginViewController.swift */; };
 		934098231EB7786F0079B7C2 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 934098211EB7786E0079B7C2 /* LoginViewController.xib */; };
@@ -47,6 +48,7 @@
 /* Begin PBXFileReference section */
 		207AB5D81A51F8A11F7C08F4 /* Pods-AnalytiCeM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnalytiCeM.release.xcconfig"; path = "Pods/Target Support Files/Pods-AnalytiCeM/Pods-AnalytiCeM.release.xcconfig"; sourceTree = "<group>"; };
 		55FA2FDC7F83D0417C9D232F /* Pods-AnalytiCeM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnalytiCeM.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AnalytiCeM/Pods-AnalytiCeM.debug.xcconfig"; sourceTree = "<group>"; };
+		9331360B1EBA6DF800B90410 /* PasswordManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordManager.swift; sourceTree = "<group>"; };
 		9340981D1EB76E780079B7C2 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		934098201EB7786E0079B7C2 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		934098211EB7786E0079B7C2 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				939A3CF21EB09D1700031C03 /* BluetoothStatusManager.swift */,
+				9331360B1EBA6DF800B90410 /* PasswordManager.swift */,
 				939085B91EA22610007495D1 /* EEGSnapshot.swift */,
 				93774D471EAB98D900B11A00 /* Muse.swift */,
 				9340981D1EB76E780079B7C2 /* User.swift */,
@@ -372,6 +375,7 @@
 				93C6D3581EA375D000A21FB4 /* ActivityViewController.swift in Sources */,
 				936564D21EB8BADD007F469E /* UserProfileViewController.swift in Sources */,
 				9374B30E1E9D80DB00052AA5 /* AppDelegate.swift in Sources */,
+				9331360C1EBA6DF800B90410 /* PasswordManager.swift in Sources */,
 				9340981E1EB76E780079B7C2 /* User.swift in Sources */,
 				939A3CF81EB0AA0400031C03 /* AnalytiCeMNotificatioNameExtension.swift in Sources */,
 				93C6D3541EA375AA00A21FB4 /* SettingsViewController.swift in Sources */,
