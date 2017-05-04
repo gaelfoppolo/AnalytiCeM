@@ -15,5 +15,6 @@ target 'AnalytiCeM' do
     pod 'NotificationBannerSwift'
     pod 'CryptoSwift'
     pod 'SwiftSpinner'
+    pod 'pop', '~> 1.0'
 end
 

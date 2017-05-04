@@ -7,6 +7,7 @@ PODS:
   - NotificationBannerSwift (1.0.1):
     - MarqueeLabel/Swift
     - SnapKit (~> 3.2.0)
+  - pop (1.0.9)
   - Realm (2.6.1):
     - Realm/Headers (= 2.6.1)
   - Realm/Headers (2.6.1)
@@ -22,6 +23,7 @@ DEPENDENCIES:
   - ESTabBarController-swift (~> 2.3)
   - Eureka
   - NotificationBannerSwift
+  - pop (~> 1.0)
   - RealmSwift (~> 2.6)
   - Spring (from `https://github.com/MengTo/Spring.git`, branch `swift3`)
   - SwiftSpinner
@@ -43,12 +45,13 @@ SPEC CHECKSUMS:
   Eureka: f36fd440c3ebb7bfea0a4fbe6f16a05f1cb35906
   MarqueeLabel: 365d4a7cd5a9504e51a2034d2be83782424223ac
   NotificationBannerSwift: f446dad0b4d070d935268a519c8ff5f3029abb0f
+  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   Realm: 9abfd4f87519376daa5ae3a4603155de408bf8b3
   RealmSwift: a54d3e8931cf7d3afa5a1fac9c8f88109d7f02b3
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
   Spring: 3f02b5dc3308572ef177b3cad0fa7bbc4b0706f7
   SwiftSpinner: 62a28bbb4035f252a1e91b0e17fc40bdbbfa0aab
 
-PODFILE CHECKSUM: c41276a94fd5c0e1bc1b82f5b969cd4984792442
+PODFILE CHECKSUM: 20beb1f14241a6c52e509bfac902fcf1ffba0b74
 
 COCOAPODS: 1.2.1
