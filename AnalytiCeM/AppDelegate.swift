@@ -7,6 +7,8 @@
 //
 
 import UIKit
+
+import ESTabBarController_swift
 import RealmSwift
 
 @UIApplicationMain
@@ -23,21 +25,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // create the frame
         window = UIWindow(frame: UIScreen.main.bounds)
-        
+
         // our tab bar controller
-        let tabBarController = UITabBarController()
+        let tabBarController = ESTabBarController()
+        // color of the bar, same as cell background
+        tabBarController.tabBar.barTintColor = UIColor.init(red: 23/255.0, green: 149/255.0, blue: 158/255.0, alpha: 1.0)
+        
+        // session controller
+        let tabViewControllerSession = ActivityViewController(
+            nibName:"ActivityViewController",
+            bundle: nil)
+        let navSessionController = UINavigationController(rootViewController: tabViewControllerSession)
         
         // main controller
         let tabViewControllerMain = MainViewController(
             nibName: "MainViewController",
             bundle: nil)
         let navMainController = UINavigationController(rootViewController: tabViewControllerMain)
-        
-        // activity controller
-        let tabViewControllerActivity = ActivityViewController(
-            nibName:"ActivityViewController",
-            bundle: nil)
-        let navActivityController = UINavigationController(rootViewController: tabViewControllerActivity)
 
         // settings controller
         let tabViewControllerSettings = SettingsViewController(
@@ -45,20 +49,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             bundle: nil)
         let navSettingsController = UINavigationController(rootViewController: tabViewControllerSettings)
         
-        // add title and image
-        navMainController.tabBarItem = UITabBarItem(title: "Main", image: nil, tag: 1)
-        navActivityController.tabBarItem = UITabBarItem(title: "Activity", image: nil, tag: 2)
-        navSettingsController.tabBarItem = UITabBarItem(title: "Settings", image: nil, tag: 3)
+        // init with view, title, image and image when selected
+        navSessionController.tabBarItem = ESTabBarItem.init(BounceContentView(),
+                                                            title: "Session",
+                                                            image: UIImage(named: "ti-session"),
+                                                            selectedImage: UIImage(named: "ti-session-selected")
+        )
+        navMainController.tabBarItem = ESTabBarItem.init(BigContentView(),
+                                                         title: nil,
+                                                         image: UIImage(named: "ti-brain"),
+                                                         selectedImage: UIImage(named: "ti-brain-selected")
+        )
+        navSettingsController.tabBarItem = ESTabBarItem.init(BounceContentView(),
+                                                             title: "Settings",
+                                                             image: UIImage(named: "ti-settings"),
+                                                             selectedImage: UIImage(named: "ti-settings-selected")
+        )
         
-        // add the controllers to the tab bar
-        let controllers = [navMainController, navActivityController, navSettingsController]
+        let controllers = [navSessionController, navMainController, navSettingsController]
         
         // set the navbar to opaque to all navigation bar
         controllers.forEach({controller in
             controller.navigationBar.isTranslucent = false
+            //controller.navigationBar.barTintColor = UIColor.init(red: 23/255.0, green: 149/255.0, blue: 158/255.0, alpha: 1.0)
         })
         
+        // add the controllers to the tab bar
         tabBarController.viewControllers = controllers
+        
+        // select the main view by default
+        tabBarController.selectedIndex = 1
         
         // add the tab bar to our window
         window?.rootViewController = tabBarController
