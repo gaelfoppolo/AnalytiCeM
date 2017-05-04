@@ -34,6 +34,8 @@
 		939A3CF31EB09D1700031C03 /* BluetoothStatusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939A3CF21EB09D1700031C03 /* BluetoothStatusManager.swift */; };
 		939A3CF61EB0A54A00031C03 /* AnalytiCeMViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939A3CF51EB0A54A00031C03 /* AnalytiCeMViewControllerExtension.swift */; };
 		939A3CF81EB0AA0400031C03 /* AnalytiCeMNotificatioNameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939A3CF71EB0AA0400031C03 /* AnalytiCeMNotificatioNameExtension.swift */; };
+		93AD2AC81EBBD6FD00803122 /* BounceContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AD2AC51EBBD6FD00803122 /* BounceContentView.swift */; };
+		93AD2AC91EBBD6FD00803122 /* BigContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AD2AC61EBBD6FD00803122 /* BigContentView.swift */; };
 		93C0FED21EB551E90035D66A /* DeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C0FED11EB551E90035D66A /* DeviceViewController.swift */; };
 		93C0FED41EB557020035D66A /* DeviceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93C0FED31EB557020035D66A /* DeviceViewController.xib */; };
 		93C6D3541EA375AA00A21FB4 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C6D3521EA375AA00A21FB4 /* SettingsViewController.swift */; };
@@ -78,6 +80,8 @@
 		939A3CF21EB09D1700031C03 /* BluetoothStatusManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothStatusManager.swift; sourceTree = "<group>"; };
 		939A3CF51EB0A54A00031C03 /* AnalytiCeMViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalytiCeMViewControllerExtension.swift; sourceTree = "<group>"; };
 		939A3CF71EB0AA0400031C03 /* AnalytiCeMNotificatioNameExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalytiCeMNotificatioNameExtension.swift; sourceTree = "<group>"; };
+		93AD2AC51EBBD6FD00803122 /* BounceContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceContentView.swift; sourceTree = "<group>"; };
+		93AD2AC61EBBD6FD00803122 /* BigContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BigContentView.swift; sourceTree = "<group>"; };
 		93C0FED11EB551E90035D66A /* DeviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceViewController.swift; sourceTree = "<group>"; };
 		93C0FED31EB557020035D66A /* DeviceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeviceViewController.xib; sourceTree = "<group>"; };
 		93C6D3521EA375AA00A21FB4 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -224,11 +228,21 @@
 		938237701EA3C76100CE8D1E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				93AD2ACA1EBBD70500803122 /* TabBar */,
 				9374B3141E9D80DB00052AA5 /* Assets.xcassets */,
 				9374B3161E9D80DB00052AA5 /* LaunchScreen.storyboard */,
 				939085BB1EA270CE007495D1 /* WaveView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		93AD2ACA1EBBD70500803122 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				93AD2AC51EBBD6FD00803122 /* BounceContentView.swift */,
+				93AD2AC61EBBD6FD00803122 /* BigContentView.swift */,
+			);
+			name = TabBar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -376,6 +390,8 @@
 				936564D21EB8BADD007F469E /* UserProfileViewController.swift in Sources */,
 				9374B30E1E9D80DB00052AA5 /* AppDelegate.swift in Sources */,
 				9331360C1EBA6DF800B90410 /* PasswordManager.swift in Sources */,
+				93AD2AC91EBBD6FD00803122 /* BigContentView.swift in Sources */,
+				93AD2AC81EBBD6FD00803122 /* BounceContentView.swift in Sources */,
 				9340981E1EB76E780079B7C2 /* User.swift in Sources */,
 				939A3CF81EB0AA0400031C03 /* AnalytiCeMNotificatioNameExtension.swift in Sources */,
 				93C6D3541EA375AA00A21FB4 /* SettingsViewController.swift in Sources */,
