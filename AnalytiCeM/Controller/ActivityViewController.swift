@@ -12,8 +12,6 @@ class ActivityViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("Activity did load")
         // Do any additional setup after loading the view.
     }
 
