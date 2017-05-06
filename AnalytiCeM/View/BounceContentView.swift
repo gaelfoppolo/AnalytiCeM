@@ -21,13 +21,11 @@ class BounceContentView: ESTabBarItemContentView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        // white text
-        textColor = UIColor.white
-        highlightTextColor = UIColor.white
+        textColor = Theme.current.textColor
+        highlightTextColor = Theme.current.textColor
         
-        // white icon
-        iconColor = UIColor.white
-        highlightIconColor = UIColor.white
+        iconColor = Theme.current.textColor
+        highlightIconColor = Theme.current.textColor
         
         // transparent background of item cell
         backdropColor = UIColor.clear

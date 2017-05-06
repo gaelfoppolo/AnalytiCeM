@@ -17,9 +17,9 @@ class BigContentView: BounceContentView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.imageView.backgroundColor = UIColor.init(red: 23/255.0, green: 149/255.0, blue: 158/255.0, alpha: 1.0)
+        self.imageView.backgroundColor = Theme.current.mainColor
         self.imageView.layer.borderWidth = 3.0
-        self.imageView.layer.borderColor = UIColor.white.cgColor
+        self.imageView.layer.borderColor = Theme.current.textColor.cgColor
         self.imageView.layer.cornerRadius = 35
         self.insets = UIEdgeInsetsMake(-32, 0, 0, 0)
         let transform = CGAffineTransform.identity

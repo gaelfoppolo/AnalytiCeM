@@ -25,13 +25,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let config = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
         Realm.Configuration.defaultConfiguration = config
         
+        Theme.default.apply()
+        
         // create the frame
         window = UIWindow(frame: UIScreen.main.bounds)
-
+        
+        // apply theme
+        Theme.current.apply()
+        
         // our tab bar controller
         tabBarController = ESTabBarController()
-        // color of the bar, same as cell background
-        tabBarController?.tabBar.barTintColor = UIColor.init(red: 23/255.0, green: 149/255.0, blue: 158/255.0, alpha: 1.0)
         
         // session controller
         let tabViewControllerSession = ActivityViewController(

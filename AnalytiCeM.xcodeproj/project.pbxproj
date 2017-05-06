@@ -31,6 +31,7 @@
 		937D66B41EA6CF4F00A8E3DC /* AddMuseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937D66B21EA6CF4F00A8E3DC /* AddMuseTableViewCell.xib */; };
 		939085BA1EA22610007495D1 /* EEGSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939085B91EA22610007495D1 /* EEGSnapshot.swift */; };
 		939085BC1EA270CE007495D1 /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939085BB1EA270CE007495D1 /* WaveView.swift */; };
+		9399F9B81EBE561D00736206 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9399F9B71EBE561D00736206 /* Theme.swift */; };
 		939A3CF31EB09D1700031C03 /* BluetoothStatusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939A3CF21EB09D1700031C03 /* BluetoothStatusManager.swift */; };
 		939A3CF61EB0A54A00031C03 /* AnalytiCeMViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939A3CF51EB0A54A00031C03 /* AnalytiCeMViewControllerExtension.swift */; };
 		939A3CF81EB0AA0400031C03 /* AnalytiCeMNotificatioNameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939A3CF71EB0AA0400031C03 /* AnalytiCeMNotificatioNameExtension.swift */; };
@@ -77,6 +78,7 @@
 		937D66B21EA6CF4F00A8E3DC /* AddMuseTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddMuseTableViewCell.xib; sourceTree = "<group>"; };
 		939085B91EA22610007495D1 /* EEGSnapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EEGSnapshot.swift; sourceTree = "<group>"; };
 		939085BB1EA270CE007495D1 /* WaveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
+		9399F9B71EBE561D00736206 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		939A3CF21EB09D1700031C03 /* BluetoothStatusManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothStatusManager.swift; sourceTree = "<group>"; };
 		939A3CF51EB0A54A00031C03 /* AnalytiCeMViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalytiCeMViewControllerExtension.swift; sourceTree = "<group>"; };
 		939A3CF71EB0AA0400031C03 /* AnalytiCeMNotificatioNameExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalytiCeMNotificatioNameExtension.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 				9374B3141E9D80DB00052AA5 /* Assets.xcassets */,
 				9374B3161E9D80DB00052AA5 /* LaunchScreen.storyboard */,
 				939085BB1EA270CE007495D1 /* WaveView.swift */,
+				9399F9B71EBE561D00736206 /* Theme.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 				9340981E1EB76E780079B7C2 /* User.swift in Sources */,
 				939A3CF81EB0AA0400031C03 /* AnalytiCeMNotificatioNameExtension.swift in Sources */,
 				93C6D3541EA375AA00A21FB4 /* SettingsViewController.swift in Sources */,
+				9399F9B81EBE561D00736206 /* Theme.swift in Sources */,
 				937D66B31EA6CF4F00A8E3DC /* AddMuseTableViewCell.swift in Sources */,
 				934098221EB7786F0079B7C2 /* LoginViewController.swift in Sources */,
 				934098261EB7F1BD0079B7C2 /* RegisterViewController.swift in Sources */,
