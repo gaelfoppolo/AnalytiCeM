@@ -100,7 +100,8 @@ class RegisterViewController: UIViewController, UserProfileDelegate {
                     SwiftSpinner.show(duration: 1, title: "Registration\ncomplete", animated: false)
                     
                     // remove view, registration is done
-                    self.dismiss(animated: true, completion: nil)
+                    //self.dismiss(animated: true, completion: nil)
+                    self.displayMain()
                     
                 }
                 

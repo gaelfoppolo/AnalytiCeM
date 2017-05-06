@@ -15,6 +15,8 @@ import RealmSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    var tabBarController: ESTabBarController?
+    var navLoginController: UINavigationController?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -27,9 +29,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
 
         // our tab bar controller
-        let tabBarController = ESTabBarController()
+        tabBarController = ESTabBarController()
         // color of the bar, same as cell background
-        tabBarController.tabBar.barTintColor = UIColor.init(red: 23/255.0, green: 149/255.0, blue: 158/255.0, alpha: 1.0)
+        tabBarController?.tabBar.barTintColor = UIColor.init(red: 23/255.0, green: 149/255.0, blue: 158/255.0, alpha: 1.0)
         
         // session controller
         let tabViewControllerSession = ActivityViewController(
@@ -75,38 +77,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
         
         // add the controllers to the tab bar
-        tabBarController.viewControllers = controllers
+        tabBarController?.viewControllers = controllers
         
         // select the main view by default
-        tabBarController.selectedIndex = 1
+        tabBarController?.selectedIndex = 1
         
-        // add the tab bar to our window
-        window?.rootViewController = tabBarController
-        window?.makeKeyAndVisible()
+        // login controller
+        let lLoginVC = LoginViewController(
+            nibName: "LoginViewController",
+            bundle: nil)
         
-        // login
+        // login navigation controller
+        navLoginController = UINavigationController(rootViewController: lLoginVC)
+        
+        // on top of the parent view
+        navLoginController?.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
+        
+        // and nice transition style
+        navLoginController?.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        
+        // retrieve current user
         let realm = try! Realm()
         let currentUser = realm.objects(User.self).filter("isCurrent == true").first
+        
+        // no current user, display login
         if currentUser == nil {
-            // no current user, display login
-            
-            // login controller
-            let lLoginVC = LoginViewController(
-                nibName: "LoginViewController",
-                bundle: nil)
-            
-            // login navigation controller
-            let navLoginController = UINavigationController(rootViewController: lLoginVC)
-            
-            // on top of the parent view
-            navLoginController.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
-            
-            // and nice transition style
-            navLoginController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
             
             // display the login navigation controller
-            window?.rootViewController?.present(navLoginController, animated: true, completion: nil)
+            displayLogin()
+            
+        } else {
+            
+            // directly display tab bar
+            displayMain()
+            
         }
+        
+        window?.makeKeyAndVisible()
         
         return true
     }
@@ -131,6 +138,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    // MARK: - Custom
+    
+    func displayLogin() {
+        
+        window?.rootViewController = navLoginController
+    }
+    
+    func displayMain() {
+        
+        window?.rootViewController = tabBarController
+        
     }
 
 }

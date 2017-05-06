@@ -111,26 +111,13 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
                     currentUser?.isCurrent = false
                 }
                 
-                // success
-                SwiftSpinner.show(duration: 2, title: "Success", animated: false)
-                
-                // login controller
-                let lLoginVC = LoginViewController(
-                    nibName: "LoginViewController",
-                    bundle: nil
-                )
-                
-                // login navigation controller
-                let navLoginController = UINavigationController(rootViewController: lLoginVC)
-                
-                // on top of the parent view
-                navLoginController.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
-                
-                // and nice transition style
-                navLoginController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
-                
-                // display the login navigation controller
-                self.parent?.present(navLoginController, animated: true, completion: nil)
+                // after a second hide spinner
+                // and display the login controller
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                    SwiftSpinner.hide({
+                        self.displayLogin()
+                    })
+                })
                 
             }
         )

@@ -176,12 +176,17 @@ class LoginViewController: FormViewController {
                     try! realm.write {
                         user.setAsCurrent()
                     }
-
-                    // add view with dismissal after a sec
-                    SwiftSpinner.show(duration: 1, title: "Success", animated: false)
                     
-                    // remove view, login is done
-                    self.dismiss(animated: true, completion: nil)
+                    SwiftSpinner.show("Success", animated: false)
+                    
+                    // after a second hide spinner
+                    // and display the main controller
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                        SwiftSpinner.hide({
+                            // display the main controller
+                            self.displayMain()
+                        })
+                    })
                     
                 }
                 

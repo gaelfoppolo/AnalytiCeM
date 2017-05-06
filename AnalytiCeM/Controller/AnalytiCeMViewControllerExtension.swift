@@ -20,4 +20,19 @@ extension UIViewController {
         NotificationCenter.default.removeObserver(self, name: Notification.Name.bluetoothStatusChanged, object: nil)
     }
     
+    // MARK: - Custom
+    
+    public func displayLogin() {
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.displayLogin()
+    }
+    
+    public func displayMain() {
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.displayMain()
+        
+    }
+    
 }
