@@ -58,7 +58,7 @@ class RegisterViewController: UIViewController, UserProfileDelegate {
 
     func validate(user: UserProfil) {
         
-        SwiftSpinner.show("Registration")
+        SwiftSpinner.show("Registration..")
         
         // in background we add the user to the database
         // because password hashing and write to DB may be heavy operation
@@ -92,17 +92,19 @@ class RegisterViewController: UIViewController, UserProfileDelegate {
                     realm.add(userToRegister)
                     userToRegister.setAsCurrent()
                 }
-
-                // dismiss view
+                
                 DispatchQueue.main.async {
-                    
-                    // add view with dismissal after a sec
-                    SwiftSpinner.show(duration: 1, title: "Registration\ncomplete", animated: false)
-                    
-                    // remove view, registration is done
-                    //self.dismiss(animated: true, completion: nil)
-                    self.displayMain()
-                    
+                
+                    SwiftSpinner.show("Registration\ncomplete", animated: false)
+                
+                    // after a second hide spinner
+                    // and display the main controller
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                        SwiftSpinner.hide({
+                            // display the main controller
+                            self.displayMain()
+                        })
+                    })
                 }
                 
             } else {
