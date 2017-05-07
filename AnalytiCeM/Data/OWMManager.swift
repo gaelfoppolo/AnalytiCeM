@@ -101,6 +101,8 @@ public class OWMManager {
     
     public init(apiKey: String) {
         params["APPID"] = apiKey as AnyObject
+        params["units"] = temperatureFormat.rawValue as AnyObject
+        params["lang"] = language.rawValue as AnyObject
     }
     
     public convenience init(apiKey: String, temperatureFormat: TemperatureFormat) {
