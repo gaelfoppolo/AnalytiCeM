@@ -151,8 +151,10 @@ public class OWMManager {
             
             // check error
             guard let value = data.result.value, data.result.isSuccess else {
-                response(WeatherResult.Error(data.error.debugDescription))
+                
+                response(WeatherResult.Error(data.error?.localizedDescription ?? data.error.debugDescription))
                 return
+                
             }
             
             // success
