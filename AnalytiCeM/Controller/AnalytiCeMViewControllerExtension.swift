@@ -10,6 +10,28 @@ import UIKit
 
 extension UIViewController {
     
+    // MARK: - API Key
+    
+    public enum APIKey: String {
+        case openWeatherMap = "OpenWeatherMap"
+        
+        
+        private func keyPlist(index: String) -> String?  {
+            
+            guard let path = Bundle.main.path(forResource: "Keys", ofType: "plist"),
+                let keys = NSDictionary(contentsOfFile: path) else {
+                return nil
+            }
+            
+            return keys[index] as? String
+        }
+        
+        public func getKey() -> String? {
+            return keyPlist(index: self.rawValue)
+        }
+        
+    }
+    
     // MARK: - Notification
     
     public func registerBluetoothStatusChange(handler: @escaping (_ notification: Notification) -> ()) {
