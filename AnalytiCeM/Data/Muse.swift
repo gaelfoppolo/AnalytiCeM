@@ -3,7 +3,7 @@
 //  AnalytiCeM
 //
 //  Created by Gaël on 22/04/2017.
-//  Copyright © 2017 Polyech. All rights reserved.
+//  Copyright © 2017 Polytech. All rights reserved.
 //
 
 import RealmSwift
