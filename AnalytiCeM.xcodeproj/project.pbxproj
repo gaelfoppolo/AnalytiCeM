@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		932B76761EBF9F8100562FD1 /* ConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932B76751EBF9F8100562FD1 /* ConnectivityManager.swift */; };
+		932B76781EBFAECA00562FD1 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 932B76771EBFAECA00562FD1 /* Keys.plist */; };
+		932B767A1EBFB6F700562FD1 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932B76791EBFB6F700562FD1 /* Weather.swift */; };
 		9331360C1EBA6DF800B90410 /* PasswordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9331360B1EBA6DF800B90410 /* PasswordManager.swift */; };
 		9340981E1EB76E780079B7C2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9340981D1EB76E780079B7C2 /* User.swift */; };
 		934098221EB7786F0079B7C2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934098201EB7786E0079B7C2 /* LoginViewController.swift */; };
@@ -54,6 +56,8 @@
 		207AB5D81A51F8A11F7C08F4 /* Pods-AnalytiCeM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnalytiCeM.release.xcconfig"; path = "Pods/Target Support Files/Pods-AnalytiCeM/Pods-AnalytiCeM.release.xcconfig"; sourceTree = "<group>"; };
 		55FA2FDC7F83D0417C9D232F /* Pods-AnalytiCeM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnalytiCeM.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AnalytiCeM/Pods-AnalytiCeM.debug.xcconfig"; sourceTree = "<group>"; };
 		932B76751EBF9F8100562FD1 /* ConnectivityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectivityManager.swift; sourceTree = "<group>"; };
+		932B76771EBFAECA00562FD1 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		932B76791EBFB6F700562FD1 /* Weather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		9331360B1EBA6DF800B90410 /* PasswordManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordManager.swift; sourceTree = "<group>"; };
 		9340981D1EB76E780079B7C2 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		934098201EB7786E0079B7C2 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -163,6 +167,7 @@
 				9374B3261E9D824300052AA5 /* AnalytiCeM-Bridging-Header.h */,
 				9374B30D1E9D80DB00052AA5 /* AppDelegate.swift */,
 				9374B3191E9D80DB00052AA5 /* Info.plist */,
+				932B76771EBFAECA00562FD1 /* Keys.plist */,
 			);
 			path = AnalytiCeM;
 			sourceTree = "<group>";
@@ -226,6 +231,7 @@
 				9331360B1EBA6DF800B90410 /* PasswordManager.swift */,
 				939085B91EA22610007495D1 /* EEGSnapshot.swift */,
 				93774D471EAB98D900B11A00 /* Muse.swift */,
+				932B76791EBFB6F700562FD1 /* Weather.swift */,
 				9340981D1EB76E780079B7C2 /* User.swift */,
 				938F222B1EBF2B9000FF5C70 /* OWMManager.swift */,
 				932B76751EBF9F8100562FD1 /* ConnectivityManager.swift */,
@@ -285,7 +291,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0830;
-				ORGANIZATIONNAME = Polyech;
+				ORGANIZATIONNAME = Polytech;
 				TargetAttributes = {
 					9374B3091E9D80DB00052AA5 = {
 						CreatedOnToolsVersion = 8.3.1;
@@ -322,6 +328,7 @@
 				937D66B01EA6C85400A8E3DC /* AddMuseViewController.xib in Resources */,
 				934098231EB7786F0079B7C2 /* LoginViewController.xib in Resources */,
 				9374B3181E9D80DB00052AA5 /* LaunchScreen.storyboard in Resources */,
+				932B76781EBFAECA00562FD1 /* Keys.plist in Resources */,
 				93C0FED41EB557020035D66A /* DeviceViewController.xib in Resources */,
 				937D66A11EA67A0700A8E3DC /* SettingsTableViewCell.xib in Resources */,
 				936564D31EB8BADD007F469E /* UserProfileViewController.xib in Resources */,
@@ -403,6 +410,7 @@
 				93AD2AC91EBBD6FD00803122 /* BigContentView.swift in Sources */,
 				938F222C1EBF2B9000FF5C70 /* OWMManager.swift in Sources */,
 				93AD2AC81EBBD6FD00803122 /* BounceContentView.swift in Sources */,
+				932B767A1EBFB6F700562FD1 /* Weather.swift in Sources */,
 				9340981E1EB76E780079B7C2 /* User.swift in Sources */,
 				939A3CF81EB0AA0400031C03 /* AnalytiCeMNotificatioNameExtension.swift in Sources */,
 				93C6D3541EA375AA00A21FB4 /* SettingsViewController.swift in Sources */,
