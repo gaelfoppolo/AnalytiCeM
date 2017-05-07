@@ -10,6 +10,8 @@ import UIKit
 
 extension UIViewController {
     
+    // MARK: - Notification
+    
     public func registerBluetoothStatusChange(handler: @escaping (_ notification: Notification) -> ()) {
         NotificationCenter.default.addObserver(forName: Notification.Name.bluetoothStatusChanged, object: nil, queue: nil) { notification in
             handler(notification)
@@ -18,6 +20,16 @@ extension UIViewController {
     
     public func unregisterBluetoothStatusChange() {
         NotificationCenter.default.removeObserver(self, name: Notification.Name.bluetoothStatusChanged, object: nil)
+    }
+    
+    public func registerInternetStatusChange(handler: @escaping (_ notification: Notification) -> ()) {
+        NotificationCenter.default.addObserver(forName: Notification.Name.internetStatusChanged, object: nil, queue: nil) { notification in
+            handler(notification)
+        }
+    }
+    
+    public func unregisterInternetStatusChange() {
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.internetStatusChanged, object: nil)
     }
     
     // MARK: - Custom

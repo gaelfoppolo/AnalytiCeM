@@ -8,4 +8,5 @@
 
 extension Notification.Name {
     static let bluetoothStatusChanged = Notification.Name("bluetoothStatusChanged")
+    static let internetStatusChanged = Notification.Name("internetStatusChanged")
 }

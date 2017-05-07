@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var navLoginController: UINavigationController?
     
     var btManager: BluetoothStatusManager!
+    var connectivityManager: ConnectivityManager!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -36,6 +37,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // manager of Bluetooth status
         btManager = BluetoothStatusManager.shared
+        
+        // manager of Internet status
+        connectivityManager = ConnectivityManager.shared
         
         // apply theme
         Theme.current.apply()

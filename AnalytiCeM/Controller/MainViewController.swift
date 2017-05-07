@@ -25,6 +25,12 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         }
     }
     
+    var internetAvailable: Bool = false {
+        didSet {
+            
+        }
+    }
+    
     let maxDataPoints: Int = 500
     var emptyEEGHistory: Array<EEGSnapshot> = Array<EEGSnapshot>()
     
@@ -68,11 +74,13 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     override func viewWillAppear(_ animated: Bool) {
         // subscribe
         registerBluetoothStatusChange(handler: handleBluetoothChange)
+        registerInternetStatusChange(handler: handleInternetChange)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         // unsubscribe
         unregisterBluetoothStatusChange()
+        unregisterInternetStatusChange()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -281,6 +289,14 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         let status = notification.object as! CBManagerState
         
         self.bluetoothAvailable = (status == .poweredOn)
+    }
+
+    // MARK: - InternetStatus
+    
+    func handleInternetChange(notification : Notification) {
+        let status = notification.object as! Bool
+        
+        self.internetAvailable = status
     }
     
 
