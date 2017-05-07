@@ -18,7 +18,12 @@ class DeviceViewController: FormViewController, ChooseMuseDelegate {
     
     let realm = try! Realm()
     var muses: Results<Muse>!
-    var btManager: BluetoothStatusManager!
+    var bluetoothAvailable: Bool = false {
+        didSet {
+            // activate button only if Bluetooth is available
+            self.navigationItem.rightBarButtonItem?.isEnabled = bluetoothAvailable
+        }
+    }
     
     let kSectionTagMuseList = "museList"
     let kSectionTagClear = "clear"
@@ -30,9 +35,6 @@ class DeviceViewController: FormViewController, ChooseMuseDelegate {
         
         // retrieve the list of Muse
         muses = realm.objects(Muse.self)
-        
-        // name is explicite enough
-        btManager = BluetoothStatusManager.shared
         
         setupUI()
 
@@ -68,8 +70,8 @@ class DeviceViewController: FormViewController, ChooseMuseDelegate {
         )
         self.navigationItem.rightBarButtonItem = rightButtonItem
         
-        // check Bluetooh status
-        self.navigationItem.rightBarButtonItem?.isEnabled = (btManager.currentStatus == .poweredOn)
+        // default
+        self.navigationItem.rightBarButtonItem?.isEnabled = bluetoothAvailable
         
         // create the section with proper setup
         let deviceSection = SelectableSection<ListCheckRow<String>>(
@@ -239,8 +241,7 @@ class DeviceViewController: FormViewController, ChooseMuseDelegate {
     func handleBluetoothChange(notification : Notification) {
         let status = notification.object as! CBManagerState
         
-        // activate button only if Bluetooth is available
-        self.navigationItem.rightBarButtonItem?.isEnabled = (status == .poweredOn)
+        self.bluetoothAvailable = (status == .poweredOn)
     }
     
 

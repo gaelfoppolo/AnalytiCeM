@@ -7,6 +7,7 @@
 //
 
 import CoreBluetooth
+
 import NotificationBannerSwift
 
 final class BluetoothStatusManager: NSObject, CBCentralManagerDelegate {
@@ -41,7 +42,7 @@ final class BluetoothStatusManager: NSObject, CBCentralManagerDelegate {
     }
     
     // should display error on status change?
-    var shouldDisplayError: Bool = true
+    var shouldDisplayError: Bool = false
     
     // MARK: - Init
     private override init() {

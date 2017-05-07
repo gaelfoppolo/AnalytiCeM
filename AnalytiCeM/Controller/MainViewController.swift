@@ -6,6 +6,7 @@
 //  Copyright © 2017 Polytech. All rights reserved.
 //
 
+import CoreBluetooth
 import UIKit
 
 import RealmSwift
@@ -18,7 +19,11 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     var manager: IXNMuseManagerIos?
     weak var muse: IXNMuse?
     
-    var btManager: BluetoothStatusManager!
+    var bluetoothAvailable: Bool = false {
+        didSet {
+            
+        }
+    }
     
     let maxDataPoints: Int = 500
     var emptyEEGHistory: Array<EEGSnapshot> = Array<EEGSnapshot>()
@@ -48,9 +53,6 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         // register as log listener
         IXNLogManager.instance()?.setLogListener(self)
         
-        // manager of Bluetooth devices
-        btManager = BluetoothStatusManager.shared
-        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
         let dateStr: String = dateFormatter.string(from: Date()) + (".log")
@@ -61,6 +63,16 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         
         refreshViews()
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        // subscribe
+        registerBluetoothStatusChange(handler: handleBluetoothChange)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        // unsubscribe
+        unregisterBluetoothStatusChange()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -261,6 +273,14 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
             return $0.value
         })
         
+    }
+    
+    // MARK: - BluetoothStatus
+    
+    func handleBluetoothChange(notification : Notification) {
+        let status = notification.object as! CBManagerState
+        
+        self.bluetoothAvailable = (status == .poweredOn)
     }
     
 

@@ -15,8 +15,11 @@ import RealmSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    
     var tabBarController: ESTabBarController?
     var navLoginController: UINavigationController?
+    
+    var btManager: BluetoothStatusManager!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -25,10 +28,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let config = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
         Realm.Configuration.defaultConfiguration = config
         
+        // theme of the app
         Theme.default.apply()
         
         // create the frame
         window = UIWindow(frame: UIScreen.main.bounds)
+        
+        // manager of Bluetooth status
+        btManager = BluetoothStatusManager.shared
         
         // apply theme
         Theme.current.apply()
