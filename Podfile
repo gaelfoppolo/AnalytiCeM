@@ -16,5 +16,8 @@ target 'AnalytiCeM' do
     pod 'CryptoSwift'
     pod 'SwiftSpinner'
     pod 'pop', '~> 1.0'
+    pod 'Alamofire', '~> 4.4'
+    pod 'SwiftyJSON'
+    pod 'AlamofireSwiftyJSON'
 end
 

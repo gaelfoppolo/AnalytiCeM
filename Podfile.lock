@@ -1,24 +1,31 @@
 PODS:
   - ActionKit (2.0)
-  - CryptoSwift (0.6.8)
-  - ESTabBarController-swift (2.3)
+  - Alamofire (4.4.0)
+  - AlamofireSwiftyJSON (0.2.0):
+    - Alamofire (~> 4.0)
+    - SwiftyJSON (~> 3.1)
+  - CryptoSwift (0.6.9)
+  - ESTabBarController-swift (2.4)
   - Eureka (3.0.0)
-  - MarqueeLabel/Swift (3.0.2)
-  - NotificationBannerSwift (1.0.1):
+  - MarqueeLabel/Swift (3.0.5)
+  - NotificationBannerSwift (1.2.0):
     - MarqueeLabel/Swift
     - SnapKit (~> 3.2.0)
   - pop (1.0.9)
-  - Realm (2.6.1):
-    - Realm/Headers (= 2.6.1)
-  - Realm/Headers (2.6.1)
-  - RealmSwift (2.6.1):
-    - Realm (= 2.6.1)
+  - Realm (2.7.0):
+    - Realm/Headers (= 2.7.0)
+  - Realm/Headers (2.7.0)
+  - RealmSwift (2.7.0):
+    - Realm (= 2.7.0)
   - SnapKit (3.2.0)
   - Spring (1.0.3)
   - SwiftSpinner (1.2.1)
+  - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
   - ActionKit (~> 2.0)
+  - Alamofire (~> 4.4)
+  - AlamofireSwiftyJSON
   - CryptoSwift
   - ESTabBarController-swift (~> 2.3)
   - Eureka
@@ -27,6 +34,7 @@ DEPENDENCIES:
   - RealmSwift (~> 2.6)
   - Spring (from `https://github.com/MengTo/Spring.git`, branch `swift3`)
   - SwiftSpinner
+  - SwiftyJSON
 
 EXTERNAL SOURCES:
   Spring:
@@ -40,18 +48,21 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   ActionKit: a9ac8aa51b1e404489d4ebdeefb587c112b7669f
-  CryptoSwift: f21ea03ed3a94e79d241648ce26652cd4810508a
-  ESTabBarController-swift: 23011ffbee6cd66a37309f00c7c21c9dd63c17de
+  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  AlamofireSwiftyJSON: 5a49196b8b061e32f5ebc84fa0815300bd8a974e
+  CryptoSwift: a22f6ba238e9ce4d26ee7bf45b9ed82e7122d4a0
+  ESTabBarController-swift: af496895039ba10ae60bf825473c45f23fc5c8b6
   Eureka: f36fd440c3ebb7bfea0a4fbe6f16a05f1cb35906
-  MarqueeLabel: 365d4a7cd5a9504e51a2034d2be83782424223ac
-  NotificationBannerSwift: f446dad0b4d070d935268a519c8ff5f3029abb0f
+  MarqueeLabel: 8a25b2cf02cf52165022f01369e63536c58fcc00
+  NotificationBannerSwift: 77f96e1c418309600aad70b21247d9b3cbc360e3
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
-  Realm: 9abfd4f87519376daa5ae3a4603155de408bf8b3
-  RealmSwift: a54d3e8931cf7d3afa5a1fac9c8f88109d7f02b3
+  Realm: 07e5d3a9e0e41d65fd5f9f05150ed6295d0f093b
+  RealmSwift: 6d06425d3900c86473c4f323bf6949b43fca22bc
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
   Spring: 3f02b5dc3308572ef177b3cad0fa7bbc4b0706f7
   SwiftSpinner: 62a28bbb4035f252a1e91b0e17fc40bdbbfa0aab
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 20beb1f14241a6c52e509bfac902fcf1ffba0b74
+PODFILE CHECKSUM: 6da1cb6ebd7a9a20aef6977452257716888e838d
 
 COCOAPODS: 1.2.1
