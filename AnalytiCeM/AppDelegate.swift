@@ -87,7 +87,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // set the navbar to opaque to all navigation bar
         controllers.forEach({controller in
             controller.navigationBar.isTranslucent = false
-            //controller.navigationBar.barTintColor = UIColor.init(red: 23/255.0, green: 149/255.0, blue: 158/255.0, alpha: 1.0)
         })
         
         // add the controllers to the tab bar
