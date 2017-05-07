@@ -1,5 +1,5 @@
 //
-//  ActivityViewController.swift
+//  SessionViewController.swift
 //  AnalytiCeM
 //
 //  Created by Gaël on 16/04/2017.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ActivityViewController: UIViewController {
+class SessionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

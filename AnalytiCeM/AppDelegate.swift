@@ -37,8 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tabBarController = ESTabBarController()
         
         // session controller
-        let tabViewControllerSession = ActivityViewController(
-            nibName:"ActivityViewController",
+        let tabViewControllerSession = SessionViewController(
+            nibName:"SessionViewController",
             bundle: nil)
         let navSessionController = UINavigationController(rootViewController: tabViewControllerSession)
         
