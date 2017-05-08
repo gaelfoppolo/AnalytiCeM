@@ -19,5 +19,6 @@ target 'AnalytiCeM' do
     pod 'Alamofire', '~> 4.4'
     pod 'SwiftyJSON'
     pod 'AlamofireSwiftyJSON'
+    pod 'LocationManagerSwift', '~> 1.1'
 end
 
