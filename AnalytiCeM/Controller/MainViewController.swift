@@ -9,10 +9,12 @@
 import CoreBluetooth
 import UIKit
 
+import LocationManagerSwift
 import RealmSwift
+import Sparrow
 import SwiftSpinner
 
-class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionListener, IXNLogListener, IXNMuseDataListener {
+class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionListener, IXNLogListener, IXNMuseDataListener, SPRequestPermissionEventsDelegate {
     
     // MARK: - Properties
     
@@ -31,6 +33,8 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         }
     }
     
+    var owmManager: OWMManager!
+    
     let maxDataPoints: Int = 500
     var emptyEEGHistory: Array<EEGSnapshot> = Array<EEGSnapshot>()
     
@@ -38,10 +42,15 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     
     let realm = try! Realm()
     
+    var weatherController: WeatherViewController!
+    
     // MARK: - IBOutlet
     
     @IBOutlet var logView: UITextView!
     @IBOutlet weak var waveView: WaveView!
+    
+    @IBOutlet weak var weatherView: UIView!
+    
 
     // MARK: - View
 
@@ -49,6 +58,8 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         super.viewDidLoad()
         
         setupUI()
+        
+        setupLocation()
         
         // get the manager of Muse (singleton)
         manager = IXNMuseManagerIos.sharedManager()
@@ -58,6 +69,8 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         
         // register as log listener
         IXNLogManager.instance()?.setLogListener(self)
+        
+        owmManager = OWMManager(apiKey: APIKey.openWeatherMap.getKey()!)
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
@@ -87,6 +100,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         /*if let lastMuse = loadSavedMuse() {
             print(lastMuse)
         }*/
+        setupLocation()
     }
 
     override func didReceiveMemoryWarning() {
@@ -103,6 +117,29 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
                                                action: #selector(MainViewController.logoutAction(_:))
                                 )
         self.navigationItem.rightBarButtonItem = logoutButtonItem
+        
+        // @todo: will be removed, controller is not a good idea, switch to UIView only
+        // the weather view to display
+        weatherController = WeatherViewController(nibName: "WeatherViewController", bundle: nil)
+        weatherView.layout(child: weatherController.view)
+        
+    }
+    
+    private func setupLocation() {
+        
+        // check permission
+        guard SPRequestPermission.isAllowPermission(.locationWithBackground) else {
+            
+            // requestion permission to use location
+            SPRequestPermission.dialog.interactive.present(on: self,
+                                                           with: [.locationWithBackground],
+                                                           delegate: self
+            )
+            
+            return
+            
+        }
+        
     }
     
     func logoutAction(_ sender: UIButton) {
@@ -154,6 +191,20 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         present(alertController, animated: true, completion: nil)
         
     }
+    
+    // MARK: - SPRequestPermissionEventsDelegate
+    
+    func didHide() {}
+    
+    func didAllowPermission(permission: SPRequestPermissionType) {
+        print("permission is allowed")
+    }
+    
+    func didDeniedPermission(permission: SPRequestPermissionType) {
+        print("permission is denied")
+    }
+    
+    func didSelectedPermission(permission: SPRequestPermissionType) {}
     
     // MARK: - Muse
     
@@ -243,7 +294,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     @IBAction func disconnect(_ sender: Any) {
         if let muse = muse {
             muse.disconnect()
-        }
+        }        
     }
     
     @IBAction func scan(_ sender: Any) {
