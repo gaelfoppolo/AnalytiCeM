@@ -13,6 +13,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController" customModule="AnalytiCeM" customModuleProvider="target">
             <connections>
+                <outlet property="gpsView" destination="nbP-8K-bkw" id="Ob8-Ar-Ln7"/>
                 <outlet property="view" destination="cTP-0x-BKW" id="oTq-PU-Raz"/>
                 <outlet property="waveView" destination="Byv-QM-7xu" id="YE2-j5-ihC"/>
                 <outlet property="weatherView" destination="Exk-4m-naJ" id="EE1-Xa-bDy"/>
@@ -60,9 +61,8 @@
                         <constraint firstAttribute="height" constant="70" id="3ho-1y-3bl"/>
                     </constraints>
                 </tableView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nbP-8K-bkw">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nbP-8K-bkw" userLabel="GPS View" customClass="GPSView" customModule="AnalytiCeM" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="432" width="186" height="186"/>
-                    <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="nbP-8K-bkw" secondAttribute="height" multiplier="1:1" id="5d9-NS-L9e"/>
                     </constraints>

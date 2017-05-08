@@ -28,6 +28,8 @@
 		9374B3231E9D81DE00052AA5 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9374B3221E9D81DE00052AA5 /* CoreBluetooth.framework */; };
 		9374B3251E9D820100052AA5 /* Muse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9374B3241E9D820100052AA5 /* Muse.framework */; };
 		93774D481EAB98D900B11A00 /* Muse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93774D471EAB98D900B11A00 /* Muse.swift */; };
+		937933BB1EC0AC6A00A1FFE1 /* GPSView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937933BA1EC0AC6A00A1FFE1 /* GPSView.xib */; };
+		937933BD1EC0ADBC00A1FFE1 /* GPSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937933BC1EC0ADBC00A1FFE1 /* GPSView.swift */; };
 		937D66A11EA67A0700A8E3DC /* SettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937D66A01EA67A0700A8E3DC /* SettingsTableViewCell.xib */; };
 		937D66A51EA69DF600A8E3DC /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937D66A31EA69DF600A8E3DC /* UserViewController.swift */; };
 		937D66A61EA69DF600A8E3DC /* UserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937D66A41EA69DF600A8E3DC /* UserViewController.xib */; };
@@ -83,6 +85,8 @@
 		9374B3241E9D820100052AA5 /* Muse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Muse.framework; path = AnalytiCeM/Frameworks/Muse.framework; sourceTree = "<group>"; };
 		9374B3261E9D824300052AA5 /* AnalytiCeM-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AnalytiCeM-Bridging-Header.h"; sourceTree = "<group>"; };
 		93774D471EAB98D900B11A00 /* Muse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Muse.swift; sourceTree = "<group>"; };
+		937933BA1EC0AC6A00A1FFE1 /* GPSView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GPSView.xib; path = AnalytiCeM/View/GPSView.xib; sourceTree = SOURCE_ROOT; };
+		937933BC1EC0ADBC00A1FFE1 /* GPSView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GPSView.swift; path = AnalytiCeM/View/GPSView.swift; sourceTree = SOURCE_ROOT; };
 		937D66A01EA67A0700A8E3DC /* SettingsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsTableViewCell.xib; sourceTree = "<group>"; };
 		937D66A31EA69DF600A8E3DC /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		937D66A41EA69DF600A8E3DC /* UserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserViewController.xib; sourceTree = "<group>"; };
@@ -218,6 +222,16 @@
 			name = Session;
 			sourceTree = "<group>";
 		};
+		937933B81EC0AA2900A1FFE1 /* GPS */ = {
+			isa = PBXGroup;
+			children = (
+				937933BA1EC0AC6A00A1FFE1 /* GPSView.xib */,
+				937933BC1EC0ADBC00A1FFE1 /* GPSView.swift */,
+			);
+			name = GPS;
+			path = ../Controller;
+			sourceTree = "<group>";
+		};
 		937D66A21EA69B4E00A8E3DC /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -277,6 +291,7 @@
 		938237701EA3C76100CE8D1E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				937933B81EC0AA2900A1FFE1 /* GPS */,
 				93E4721A1EC05B1A006C6F9E /* AnalytiCeMUIViewExtension.swift */,
 				93AD2ACA1EBBD70500803122 /* TabBar */,
 				9374B3141E9D80DB00052AA5 /* Assets.xcassets */,
@@ -361,6 +376,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				937D66A61EA69DF600A8E3DC /* UserViewController.xib in Resources */,
+				937933BB1EC0AC6A00A1FFE1 /* GPSView.xib in Resources */,
 				937D66B01EA6C85400A8E3DC /* AddMuseViewController.xib in Resources */,
 				934098231EB7786F0079B7C2 /* LoginViewController.xib in Resources */,
 				9374B3181E9D80DB00052AA5 /* LaunchScreen.storyboard in Resources */,
@@ -438,6 +454,7 @@
 				939085BC1EA270CE007495D1 /* WaveView.swift in Sources */,
 				937D66A51EA69DF600A8E3DC /* UserViewController.swift in Sources */,
 				937D66AF1EA6C85400A8E3DC /* AddMuseViewController.swift in Sources */,
+				937933BD1EC0ADBC00A1FFE1 /* GPSView.swift in Sources */,
 				932B767C1EBFBE1800562FD1 /* WeatherManager.swift in Sources */,
 				939085BA1EA22610007495D1 /* EEGSnapshot.swift in Sources */,
 				93E4721B1EC05B1A006C6F9E /* AnalytiCeMUIViewExtension.swift in Sources */,

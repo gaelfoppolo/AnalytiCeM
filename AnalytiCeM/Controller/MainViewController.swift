@@ -50,16 +50,14 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     @IBOutlet weak var waveView: WaveView!
     
     @IBOutlet weak var weatherView: UIView!
+    @IBOutlet weak var gpsView: GPSView!
     
-
     // MARK: - View
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupUI()
-        
-        setupLocation()
         
         // get the manager of Muse (singleton)
         manager = IXNMuseManagerIos.sharedManager()
@@ -125,6 +123,8 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         
     }
     
+    // MARK: - Location
+    
     private func setupLocation() {
         
         // check permission
@@ -140,6 +140,40 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
             
         }
         
+        // @todo: test, to remove/move
+        LocationManagerSwift.shared.updateLocation(completionHandler: { (latitude, longitude, status, error) in
+            
+            print(latitude)
+            print(longitude)
+            print(status)
+            print(error?.localizedDescription)
+            
+            self.gpsView.test1.text = String(latitude)
+            self.gpsView.test2.text = String(longitude)
+            
+            
+        })
+        
+    }
+    
+    // MARK: - IBAction & UIButton
+    
+    @IBAction func disconnect(_ sender: Any) {
+        if let muse = muse {
+            muse.disconnect()
+        }
+    }
+    
+    @IBAction func scan(_ sender: Any) {
+        //if (btManager.isBluetoothEnabled()) {
+        manager?.startListening()
+        //tableView.reloadData()
+        //}
+    }
+    
+    @IBAction func stopScan(_ sender: Any) {
+        manager?.stopListening()
+        //tableView.reloadData()
     }
     
     func logoutAction(_ sender: UIButton) {
@@ -205,6 +239,22 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     }
     
     func didSelectedPermission(permission: SPRequestPermissionType) {}
+    
+    // MARK: - BluetoothStatus
+    
+    func handleBluetoothChange(notification : Notification) {
+        let status = notification.object as! CBManagerState
+        
+        self.bluetoothAvailable = (status == .poweredOn)
+    }
+    
+    // MARK: - InternetStatus
+    
+    func handleInternetChange(notification : Notification) {
+        let status = notification.object as! Bool
+        
+        self.internetAvailable = status
+    }
     
     // MARK: - Muse
     
@@ -289,32 +339,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         muse?.runAsynchronously()
     }
     
-    // MARK: - IBAction
-    
-    @IBAction func disconnect(_ sender: Any) {
-        if let muse = muse {
-            muse.disconnect()
-        }        
-    }
-    
-    @IBAction func scan(_ sender: Any) {
-        //if (btManager.isBluetoothEnabled()) {
-            manager?.startListening()
-            //tableView.reloadData()
-        //}
-    }
-    
-    @IBAction func stopScan(_ sender: Any) {
-        manager?.stopListening()
-        //tableView.reloadData()
-    }
-    
     // MARK: - Business
-    
-    func loadSavedMuse() -> String? {
-        
-        return UserDefaults.standard.string(forKey: "lastMuse")
-    }
     
     func log(_ message: String) {
         print("\(message)")
@@ -333,23 +358,6 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         })
         
     }
-    
-    // MARK: - BluetoothStatus
-    
-    func handleBluetoothChange(notification : Notification) {
-        let status = notification.object as! CBManagerState
-        
-        self.bluetoothAvailable = (status == .poweredOn)
-    }
-
-    // MARK: - InternetStatus
-    
-    func handleInternetChange(notification : Notification) {
-        let status = notification.object as! Bool
-        
-        self.internetAvailable = status
-    }
-    
 
     /*
     // MARK: - Navigation
