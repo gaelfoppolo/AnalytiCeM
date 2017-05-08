@@ -200,6 +200,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		937933B61EC09B8100A1FFE1 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				93C6D35A1EA3761900A21FB4 /* MainViewController.swift */,
+				93C6D35B1EA3761900A21FB4 /* MainViewController.xib */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+		937933B71EC09B9100A1FFE1 /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				93C6D3561EA375D000A21FB4 /* SessionViewController.swift */,
+				93C6D3571EA375D000A21FB4 /* SessionViewController.xib */,
+			);
+			name = Session;
+			sourceTree = "<group>";
+		};
 		937D66A21EA69B4E00A8E3DC /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -229,16 +247,13 @@
 		9382376E1EA3C70100CE8D1E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				937933B71EC09B9100A1FFE1 /* Session */,
+				937933B61EC09B8100A1FFE1 /* Main */,
 				932B767F1EBFBF9800562FD1 /* Weather */,
 				9340981F1EB7778E0079B7C2 /* Login */,
 				937D66A21EA69B4E00A8E3DC /* Settings */,
-				93C6D3561EA375D000A21FB4 /* SessionViewController.swift */,
-				93C6D3571EA375D000A21FB4 /* SessionViewController.xib */,
 				939A3CF71EB0AA0400031C03 /* AnalytiCeMNotificatioNameExtension.swift */,
-				93E4721A1EC05B1A006C6F9E /* AnalytiCeMUIViewExtension.swift */,
 				939A3CF51EB0A54A00031C03 /* AnalytiCeMViewControllerExtension.swift */,
-				93C6D35A1EA3761900A21FB4 /* MainViewController.swift */,
-				93C6D35B1EA3761900A21FB4 /* MainViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -262,6 +277,7 @@
 		938237701EA3C76100CE8D1E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				93E4721A1EC05B1A006C6F9E /* AnalytiCeMUIViewExtension.swift */,
 				93AD2ACA1EBBD70500803122 /* TabBar */,
 				9374B3141E9D80DB00052AA5 /* Assets.xcassets */,
 				9374B3161E9D80DB00052AA5 /* LaunchScreen.storyboard */,
