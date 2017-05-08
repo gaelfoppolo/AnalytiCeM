@@ -52,6 +52,7 @@
 		93C6D3591EA375D000A21FB4 /* SessionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93C6D3571EA375D000A21FB4 /* SessionViewController.xib */; };
 		93C6D35C1EA3761900A21FB4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C6D35A1EA3761900A21FB4 /* MainViewController.swift */; };
 		93C6D35D1EA3761900A21FB4 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93C6D35B1EA3761900A21FB4 /* MainViewController.xib */; };
+		93E4721B1EC05B1A006C6F9E /* AnalytiCeMUIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E4721A1EC05B1A006C6F9E /* AnalytiCeMUIViewExtension.swift */; };
 		EFEAA179F796F07DAA2643E0 /* Pods_AnalytiCeM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA481F5BA3FC0EB0FE72F433 /* Pods_AnalytiCeM.framework */; };
 /* End PBXBuildFile section */
 
@@ -106,6 +107,7 @@
 		93C6D3571EA375D000A21FB4 /* SessionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SessionViewController.xib; sourceTree = "<group>"; };
 		93C6D35A1EA3761900A21FB4 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		93C6D35B1EA3761900A21FB4 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		93E4721A1EC05B1A006C6F9E /* AnalytiCeMUIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnalytiCeMUIViewExtension.swift; path = AnalytiCeM/View/AnalytiCeMUIViewExtension.swift; sourceTree = SOURCE_ROOT; };
 		DA481F5BA3FC0EB0FE72F433 /* Pods_AnalytiCeM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AnalytiCeM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -233,6 +235,7 @@
 				93C6D3561EA375D000A21FB4 /* SessionViewController.swift */,
 				93C6D3571EA375D000A21FB4 /* SessionViewController.xib */,
 				939A3CF71EB0AA0400031C03 /* AnalytiCeMNotificatioNameExtension.swift */,
+				93E4721A1EC05B1A006C6F9E /* AnalytiCeMUIViewExtension.swift */,
 				939A3CF51EB0A54A00031C03 /* AnalytiCeMViewControllerExtension.swift */,
 				93C6D35A1EA3761900A21FB4 /* MainViewController.swift */,
 				93C6D35B1EA3761900A21FB4 /* MainViewController.xib */,
@@ -421,6 +424,7 @@
 				937D66AF1EA6C85400A8E3DC /* AddMuseViewController.swift in Sources */,
 				932B767C1EBFBE1800562FD1 /* WeatherManager.swift in Sources */,
 				939085BA1EA22610007495D1 /* EEGSnapshot.swift in Sources */,
+				93E4721B1EC05B1A006C6F9E /* AnalytiCeMUIViewExtension.swift in Sources */,
 				93C0FED21EB551E90035D66A /* DeviceViewController.swift in Sources */,
 				932B76761EBF9F8100562FD1 /* ConnectivityManager.swift in Sources */,
 				93C6D3581EA375D000A21FB4 /* SessionViewController.swift in Sources */,
