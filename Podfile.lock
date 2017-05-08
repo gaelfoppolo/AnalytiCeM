@@ -19,6 +19,9 @@ PODS:
   - RealmSwift (2.7.0):
     - Realm (= 2.7.0)
   - SnapKit (3.2.0)
+  - Sparrow/Core (1.0.0)
+  - Sparrow/Modules/RequestPermission (1.0.0):
+    - Sparrow/Core
   - Spring (1.0.3)
   - SwiftSpinner (1.2.1)
   - SwiftyJSON (3.1.4)
@@ -34,16 +37,22 @@ DEPENDENCIES:
   - NotificationBannerSwift
   - pop (~> 1.0)
   - RealmSwift (~> 2.6)
+  - Sparrow/Modules/RequestPermission (from `https://github.com/IvanVorobei/Sparrow.git`)
   - Spring (from `https://github.com/MengTo/Spring.git`, branch `swift3`)
   - SwiftSpinner
   - SwiftyJSON
 
 EXTERNAL SOURCES:
+  Sparrow:
+    :git: https://github.com/IvanVorobei/Sparrow.git
   Spring:
     :branch: swift3
     :git: https://github.com/MengTo/Spring.git
 
 CHECKOUT OPTIONS:
+  Sparrow:
+    :commit: 4a443d26fdb43bf834908afd93d2cd3e38ceb60a
+    :git: https://github.com/IvanVorobei/Sparrow.git
   Spring:
     :commit: 8201b5c93bd7ebdf4cd18160bcde1e6e88c2be64
     :git: https://github.com/MengTo/Spring.git
@@ -62,10 +71,11 @@ SPEC CHECKSUMS:
   Realm: 07e5d3a9e0e41d65fd5f9f05150ed6295d0f093b
   RealmSwift: 6d06425d3900c86473c4f323bf6949b43fca22bc
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
+  Sparrow: 30b0e315a27798d7a56757250499449ac6b663c3
   Spring: 3f02b5dc3308572ef177b3cad0fa7bbc4b0706f7
   SwiftSpinner: 62a28bbb4035f252a1e91b0e17fc40bdbbfa0aab
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 57e71afabe82f0acb8ce51b44758c4efe36696a4
+PODFILE CHECKSUM: 45aafcd7d3d07c159cd297135a3ec0116a36d088
 
 COCOAPODS: 1.2.1
