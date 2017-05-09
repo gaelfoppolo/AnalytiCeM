@@ -140,28 +140,72 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
             
         }
         
-        // @todo: test, to remove/move
-        LocationManagerSwift.shared.updateLocation(completionHandler: { (latitude, longitude, status, error) in
-            
-            print(latitude)
-            print(longitude)
-            print(status)
-            print(error?.localizedDescription)
-            
-            self.gpsView.test1.text = String(latitude)
-            self.gpsView.test2.text = String(longitude)
-            
-            
-        })
-        
     }
     
     // MARK: - IBAction & UIButton
     
     @IBAction func disconnect(_ sender: Any) {
-        if let muse = muse {
+        /*if let muse = muse {
             muse.disconnect()
-        }
+        }*/
+        // @todo: test, to remove/move
+        
+        self.gpsView.activityIndicator.startAnimating()
+        LocationManagerSwift.shared.updateLocation(completionHandler: { (latitude, longitude, status, error) in
+            
+            guard status == .OK else {
+                
+                // then error
+                var errorMessage: String?
+                
+                if !self.internetAvailable {
+                    errorMessage = "Internet is not available"
+                }
+                
+                if let error = error, errorMessage == nil {
+                    errorMessage = error.localizedDescription
+                }
+                
+                self.gpsView.display(error: errorMessage ?? "Unknown error")
+                self.gpsView.activityIndicator.stopAnimating()
+                return
+                
+            }
+            
+            // update map
+            self.gpsView.changeZoomToCoordinate(latitude: latitude, longitude: longitude)
+            
+            // retrieve locality
+            LocationManagerSwift.shared.reverseGeocodeLocation(type: .APPLE, completionHandler: { (country, state, city, reverseGecodeInfo, placemark, error) in
+                
+                // city, country and marker
+                guard let city = city, let country = country, let placemark = placemark else {
+                    
+                    // then error
+                    var errorMessage: String?
+                    
+                    if !self.internetAvailable {
+                        errorMessage = "Internet is not available"
+                    }
+                    
+                    if let error = error, errorMessage == nil {
+                        errorMessage = error.localizedDescription
+                    }
+                    
+                    self.gpsView.display(error: errorMessage ?? "Unknown error")
+                    self.gpsView.activityIndicator.stopAnimating()
+                    return
+                    
+                }
+                
+                self.gpsView.addMarker(placemark: placemark)
+                self.gpsView.display(city: city, country: country)
+                self.gpsView.activityIndicator.stopAnimating()
+                
+            })
+            
+            
+        })
     }
     
     @IBAction func scan(_ sender: Any) {
