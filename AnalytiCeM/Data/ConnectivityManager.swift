@@ -27,6 +27,10 @@ final class ConnectivityManager: NSObject {
             // notification of the changed status
             NotificationCenter.default.post(name: .internetStatusChanged, object: self._isConnected)
             
+            if _isConnected == false {
+                shouldDisplayError = true
+            }
+            
             // display error?
             if (self.shouldDisplayError) {
                 self.displayError()
@@ -66,12 +70,15 @@ final class ConnectivityManager: NSObject {
         switch _isConnected {
         case false:
             message.title = "No Internet 👎"
+            message.subtitle = "This is really bad"
             message.style = .danger
             break
         case true:
             message.title = "Internet 👍"
             message.subtitle = "Everything is good"
             message.style = .success
+            // remove error display
+            shouldDisplayError = false
             break
         }
         
