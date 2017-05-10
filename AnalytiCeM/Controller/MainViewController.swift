@@ -19,6 +19,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     // MARK: - Properties
     
     var locationTimer: Timer?
+    var weatherTimer: Timer?
     
     var manager: IXNMuseManagerIos?
     weak var muse: IXNMuse?
@@ -144,6 +145,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         
         // we can init
         initLocationRefresher()
+        initWeatherRefresher()
         
     }
     
@@ -199,7 +201,6 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
                 self.gpsView.addMarker(placemark: placemark)
                 self.gpsView.display(city: city, country: country)
                 self.gpsView.activityIndicator.stopAnimating()
-                self.updateWeather()
                 
             })
             
@@ -276,6 +277,28 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
             
         })
         
+    }
+    
+    private func initWeatherRefresher() {
+        
+        // in case of
+        weatherTimer?.invalidate()
+        
+        // init timer, every 30 minutes, until it's stopped
+        weatherTimer = Timer.scheduledTimer(
+            timeInterval: 60*30,
+            target: self,
+            selector: #selector(updateWeather),
+            userInfo: nil,
+            repeats: true
+        )
+        
+        // launch it now
+        weatherTimer?.fire()
+    }
+    
+    private func stopWeatherRefresher() {
+        weatherTimer?.invalidate()
     }
     
     // MARK: - IBAction & UIButton
@@ -357,6 +380,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     func didAllowPermission(permission: SPRequestPermissionType) {
         // we can init
         initLocationRefresher()
+        initWeatherRefresher()
     }
     
     func didDeniedPermission(permission: SPRequestPermissionType) {
