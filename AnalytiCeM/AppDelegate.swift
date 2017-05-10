@@ -46,6 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // our tab bar controller
         tabBarController = ESTabBarController()
+        tabBarController?.tabBar.isTranslucent = false
         
         // session controller
         let tabViewControllerSession = SessionViewController(

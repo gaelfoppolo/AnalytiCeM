@@ -62,14 +62,13 @@
                     </constraints>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nbP-8K-bkw" userLabel="GPS View" customClass="GPSView" customModule="AnalytiCeM" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="432" width="186" height="186"/>
+                    <rect key="frame" x="0.0" y="479.5" width="187.5" height="187.5"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="nbP-8K-bkw" secondAttribute="height" multiplier="1:1" id="5d9-NS-L9e"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Exk-4m-naJ" userLabel="Weather View">
-                    <rect key="frame" x="189" y="432" width="186" height="186"/>
-                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <rect key="frame" x="187.5" y="479.5" width="187.5" height="187.5"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="Exk-4m-naJ" secondAttribute="height" multiplier="1:1" id="1vG-Ne-uQd"/>
                     </constraints>
@@ -87,24 +86,27 @@
                 <constraint firstItem="5xN-NN-VyJ" firstAttribute="top" secondItem="cTP-0x-BKW" secondAttribute="top" constant="20" id="6Iv-4E-7lg"/>
                 <constraint firstItem="Exk-4m-naJ" firstAttribute="height" secondItem="nbP-8K-bkw" secondAttribute="height" id="8q2-jd-cMg"/>
                 <constraint firstItem="lTv-0v-jd4" firstAttribute="baseline" secondItem="uIK-AX-srM" secondAttribute="baseline" id="9bP-nJ-nxm"/>
-                <constraint firstItem="Exk-4m-naJ" firstAttribute="leading" secondItem="nbP-8K-bkw" secondAttribute="trailing" constant="3" id="HJV-rw-1ov"/>
+                <constraint firstItem="Exk-4m-naJ" firstAttribute="leading" secondItem="nbP-8K-bkw" secondAttribute="trailing" id="HJV-rw-1ov"/>
                 <constraint firstItem="nbP-8K-bkw" firstAttribute="leading" secondItem="cTP-0x-BKW" secondAttribute="leading" id="HJp-lI-EjR"/>
-                <constraint firstAttribute="bottom" secondItem="Exk-4m-naJ" secondAttribute="bottom" constant="49" id="HVY-1H-bvG"/>
                 <constraint firstItem="Byv-QM-7xu" firstAttribute="top" secondItem="lTv-0v-jd4" secondAttribute="bottom" constant="8" id="HYq-8n-yqh"/>
                 <constraint firstItem="5xN-NN-VyJ" firstAttribute="leading" secondItem="cTP-0x-BKW" secondAttribute="leadingMargin" constant="-8" id="K5v-78-eZ3"/>
                 <constraint firstItem="Exk-4m-naJ" firstAttribute="width" secondItem="nbP-8K-bkw" secondAttribute="width" id="LPl-aa-tr0"/>
+                <constraint firstAttribute="bottom" secondItem="Exk-4m-naJ" secondAttribute="bottom" id="LrU-JD-42E"/>
                 <constraint firstItem="5xN-NN-VyJ" firstAttribute="trailing" secondItem="cTP-0x-BKW" secondAttribute="trailingMargin" constant="8" id="QHa-es-NWW"/>
                 <constraint firstAttribute="trailing" secondItem="Byv-QM-7xu" secondAttribute="trailing" id="YeL-Td-LzZ"/>
                 <constraint firstAttribute="trailing" secondItem="Exk-4m-naJ" secondAttribute="trailing" id="czX-wy-f8b"/>
                 <constraint firstAttribute="trailing" secondItem="uIK-AX-srM" secondAttribute="trailing" constant="7" id="egj-gx-6ZR"/>
-                <constraint firstAttribute="bottom" secondItem="nbP-8K-bkw" secondAttribute="bottom" constant="49" id="fJz-2R-glx"/>
                 <constraint firstItem="RJj-Qc-Mr4" firstAttribute="top" secondItem="5xN-NN-VyJ" secondAttribute="bottom" constant="8" symbolic="YES" id="hv9-6I-VGo"/>
                 <constraint firstItem="5xN-NN-VyJ" firstAttribute="leading" secondItem="RJj-Qc-Mr4" secondAttribute="leading" constant="-8" id="iU6-cQ-vqt"/>
+                <constraint firstAttribute="bottom" secondItem="nbP-8K-bkw" secondAttribute="bottom" id="krH-WM-MYX"/>
                 <constraint firstItem="5xN-NN-VyJ" firstAttribute="centerX" secondItem="lTv-0v-jd4" secondAttribute="centerX" id="nt6-iP-icI"/>
                 <constraint firstItem="RJj-Qc-Mr4" firstAttribute="baseline" secondItem="lTv-0v-jd4" secondAttribute="baseline" id="pcB-l8-SqG"/>
                 <constraint firstItem="Byv-QM-7xu" firstAttribute="leading" secondItem="cTP-0x-BKW" secondAttribute="leading" id="qCw-RJ-hQE"/>
             </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="290.5" y="258.5"/>
         </view>
     </objects>
