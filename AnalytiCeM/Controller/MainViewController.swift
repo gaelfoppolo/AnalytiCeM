@@ -14,15 +14,17 @@ import RealmSwift
 import Sparrow
 import SwiftSpinner
 
-class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionListener, IXNLogListener, IXNMuseDataListener, SPRequestPermissionEventsDelegate {
+class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionListener, IXNMuseDataListener, SPRequestPermissionEventsDelegate {
+    
+    private enum MuseButtonStatus: Int {
+        case connecting, connected, disconnected
+    }
     
     // MARK: - Properties
     
     var locationTimer: Timer?
     var weatherTimer: Timer?
-    
-    var manager: IXNMuseManagerIos?
-    weak var muse: IXNMuse?
+    var owmManager: OWMManager!
     
     var bluetoothAvailable: Bool = false {
         didSet {
@@ -32,23 +34,23 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     
     var internetAvailable: Bool = false {
         didSet {
-            // todo:
-            // try to fetch if online?
+            
         }
     }
     
-    var owmManager: OWMManager!
+    // Muse
+    var museManager: IXNMuseManagerIos?
+    weak var muse: IXNMuse?
+    var currentMuse: Results<Muse>?
     
     let maxDataPoints: Int = 500
     var emptyEEGHistory: Array<EEGSnapshot> = Array<EEGSnapshot>()
-    
     var eegHistory: [EEGSnapshot] = [EEGSnapshot]()
     
     let realm = try! Realm()
     
     // MARK: - IBOutlet
     
-    @IBOutlet var logView: UITextView!
     @IBOutlet weak var waveView: WaveView!
     
     @IBOutlet weak var weatherView: WeatherView!
@@ -63,14 +65,10 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         
         setupManagers()
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
-        let dateStr: String = dateFormatter.string(from: Date()) + (".log")
-        print("\(dateStr)")
+        setupRealm()
         
         emptyEEGHistory = Array<EEGSnapshot>(repeating: EEGSnapshot.allZeros, count: maxDataPoints)
         eegHistory = emptyEEGHistory
-        
         refreshViews()
 
     }
@@ -101,13 +99,19 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     
     private func setupUI() {
         
-        // button Add on the right
+        // button logout on the right
         let logoutButtonItem = UIBarButtonItem(image: UIImage(named: "main-logout"),
                                                style: .plain,
                                                target: self,
                                                action: #selector(MainViewController.logoutAction(_:))
                                 )
         self.navigationItem.rightBarButtonItem = logoutButtonItem
+        
+        // title
+        self.navigationItem.title = "AnalytiCeM"
+        
+        // set button to disconnected
+        changeMuseButton(to: .disconnected)
         
     }
     
@@ -117,13 +121,10 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         owmManager = OWMManager(apiKey: APIKey.openWeatherMap.getKey()!)
         
         // get the manager of Muse (singleton)
-        manager = IXNMuseManagerIos.sharedManager()
+        museManager = IXNMuseManagerIos.sharedManager()
         
         // set the view as delegate
-        manager?.museListener = self
-        
-        // register as log listener
-        IXNLogManager.instance()?.setLogListener(self)
+        museManager?.museListener = self
         
     }
     
@@ -230,6 +231,8 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         locationTimer?.invalidate()
     }
     
+    // MARK: Weather
+    
     @objc private func updateWeather() {
         self.weatherView.activityIndicator.startAnimating()
         
@@ -301,27 +304,88 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         weatherTimer?.invalidate()
     }
     
-    // MARK: - IBAction & UIButton
+    // MARK: - Realm
     
-    @IBAction func disconnect(_ sender: Any) {
-        /*if let muse = muse {
-            muse.disconnect()
-        }*/
-        // @todo: test, to remove/move
+    private func setupRealm() {
+        
+        // get the current Muse
+        currentMuse = realm.objects(Muse.self).filter("isCurrent == true")
         
     }
     
-    @IBAction func scan(_ sender: Any) {
-        //if (btManager.isBluetoothEnabled()) {
-        manager?.startListening()
-        //tableView.reloadData()
-        //}
+    // MARK: - Muse Status Button
+    
+    private func changeMuseButton(to status: MuseButtonStatus) {
+        
+        // the attributes of the button to be set
+        let button: (image: String, action: Selector?, enabled: Bool)
+        
+        switch status {
+            case .connecting:
+                button.image = "muse-connecting"
+                button.enabled = false
+                button.action = nil
+                break
+            case .connected:
+                button.image = "muse-connected"
+                button.enabled = false
+                button.action = nil
+                break
+            case .disconnected:
+                button.image = "muse-disconnected"
+                button.enabled = true
+                button.action = #selector(startResearchMuses)
+                break
+        }
+        
+        // button Muse status on the left
+        let museStatusButtonItem = UIBarButtonItem(image: UIImage(named: button.image),
+                                                   style: .plain,
+                                                   target: self,
+                                                   action: button.action
+        )
+        self.navigationItem.leftBarButtonItem = museStatusButtonItem
+        self.navigationItem.leftBarButtonItem?.isEnabled = button.enabled
+        
     }
     
-    @IBAction func stopScan(_ sender: Any) {
-        manager?.stopListening()
-        //tableView.reloadData()
+    // MARK: - Muse
+    
+    @objc private func startResearchMuses() {
+        if bluetoothAvailable {
+            museManager?.startListening()
+            // todo: update to connecting
+            // todo: start a timer to stop after X seconds
+            // prevent infinity search if no Muse, then list does not changed
+        }
     }
+    
+    func connect(to muse: IXNMuse) {
+        
+        // disconnect first (in case of)
+        disconnect()
+        
+        // connection listener
+        muse.register(self)
+        // eeg data packet listener
+        muse.register(self, type: .eeg)
+        
+        //muse?.register(self, type: .betaRelative)
+        
+        // launch
+        muse.runAsynchronously()
+    }
+    
+    func disconnect() {
+        // stop listening to Muses
+        museManager?.stopListening()
+        // remove all listeners
+        muse?.unregisterAllListeners()
+        // disconnect
+        muse?.disconnect()
+    }
+    
+    // MARK: - IBAction & UIButton
     
     func logoutAction(_ sender: UIButton) {
         
@@ -405,38 +469,66 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         self.internetAvailable = status
     }
     
-    // MARK: - Muse
+    // MARK: - MuseListener
     
     func museListChanged() {
-        //tableView.reloadData()
+        
+        // get the muses found
+        let listMuses = museManager!.getMuses()
+        
+        // current Muse
+        guard let currentMuse = currentMuse?.first else {
+            
+            // disconnect state
+            changeMuseButton(to: .disconnected)
+            disconnect()
+            return
+        }
+        
+        // name of the current Muse
+        let lMuseName = currentMuse.getName()
+        // check if Muse is in the list
+        let museFound = listMuses.filter({ $0.getName() == lMuseName }).first
+        
+        // yep found
+        if let museFound = museFound {
+            
+            // connect to it
+            connect(to: museFound)
+            
+        // not found :(
+        } else {
+            
+            // disconnect state
+            changeMuseButton(to: .disconnected)
+            disconnect()
+            
+        }
+        
     }
     
     func receive(_ packet: IXNMuseConnectionPacket, muse: IXNMuse?) {
-        print(muse?.getName())
-        print(muse?.getMacAddress())
+        dump(muse?.getName())
         
-        var state: String
         switch packet.currentConnectionState {
             case .disconnected:
-                state = "disconnected"
+                changeMuseButton(to: .disconnected)
             case .connected:
-                state = "connected"
+                changeMuseButton(to: .connected)
             case .connecting:
-                state = "connecting"
-            case .needsUpdate:
-                state = "needs update"
-            case .unknown:
-                state = "unknown"
+                changeMuseButton(to: .connecting)
+            default:
+                break
         }
-        
-        print(state)
     }
     
     func receive(_ packet: IXNMuseDataPacket?, muse: IXNMuse?) {
         
         guard let packet = packet else { return }
         
-        log(String(format: "%5.2f %5.2f %5.2f %5.2f", CDouble((packet.values()[IXNEeg.EEG1.rawValue])), CDouble((packet.values()[IXNEeg.EEG2.rawValue])), CDouble((packet.values()[IXNEeg.EEG3.rawValue])), CDouble((packet.values()[IXNEeg.EEG4.rawValue]))))
+        //log(String(format: "%5.2f %5.2f %5.2f %5.2f", CDouble((packet.values()[IXNEeg.EEG1.rawValue])), CDouble((packet.values()[IXNEeg.EEG2.rawValue])), CDouble((packet.values()[IXNEeg.EEG3.rawValue])), CDouble((packet.values()[IXNEeg.EEG4.rawValue]))))
+        
+        // todo: other thread
         
         // add data if valid
         let snapshot = EEGSnapshot(data: packet)
@@ -461,43 +553,15 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     
     func receive(_ packet: IXNMuseArtifactPacket, muse: IXNMuse?) {
         if packet.blink {
-            log("blink detected")
+            //log("blink detected")
         }
         
         if packet.jawClench {
-            log("jaw clench detected")
+            //log("jaw clench detected")
         }
     }
     
-    func receiveLog(_ l: IXNLogPacket) {
-        log(String(format: "%@: %llu raw:%d %@", l.tag, l.timestamp, l.raw as CVarArg, l.message))
-    }
-    
-    func connect() {
-        muse?.register(self)
-        muse?.register(self, type: .artifacts)
-        //muse?.register(self, type: .alphaAbsolute)
-        //muse?.register(self, type: .alphaRelative)
-        //muse?.register(self, type: .alphaScore)
-        //muse?.register(self, type: .battery)
-        //muse?.register(self, type: .)
-        //muse?.unregisterAllListeners()
-        
-        //muse?.register(self, type: .betaRelative)
-        
-        muse?.runAsynchronously()
-    }
-    
-    // MARK: - Business
-    
-    func log(_ message: String) {
-        print("\(message)")
-        //logLines?.insert(message, at: 0)
-        //DispatchQueue.main.async(execute: {() -> Void in
-        //self.logView.text = self.logLines?.joined(separator: "\n")
-        //            self.logView.text = (self.logLines as NSArray).componentsJoined(by: "\n")
-        //})
-    }
+    // MARK: - WaveView
     
     func refreshViews() {
         

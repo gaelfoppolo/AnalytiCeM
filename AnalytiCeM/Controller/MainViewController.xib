@@ -24,36 +24,6 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RJj-Qc-Mr4">
-                    <rect key="frame" x="8" y="98" width="78" height="30"/>
-                    <state key="normal" title="Disconnect">
-                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </state>
-                    <connections>
-                        <action selector="disconnect:" destination="-1" eventType="touchUpInside" id="dNQ-lM-P3y"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uIK-AX-srM">
-                    <rect key="frame" x="298" y="98" width="70" height="30"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="70" id="3HX-rN-5GZ"/>
-                    </constraints>
-                    <state key="normal" title="Stop scan">
-                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </state>
-                    <connections>
-                        <action selector="stopScan:" destination="-1" eventType="touchUpInside" id="tnz-tQ-x4k"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lTv-0v-jd4">
-                    <rect key="frame" x="170" y="98" width="35" height="30"/>
-                    <state key="normal" title="Scan">
-                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </state>
-                    <connections>
-                        <action selector="scan:" destination="-1" eventType="touchUpInside" id="xF9-Ip-hGg"/>
-                    </connections>
-                </button>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="5xN-NN-VyJ">
                     <rect key="frame" x="0.0" y="20" width="375" height="70"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -74,7 +44,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Byv-QM-7xu" customClass="WaveView" customModule="AnalytiCeM">
-                    <rect key="frame" x="0.0" y="136" width="375" height="145"/>
+                    <rect key="frame" x="0.0" y="98" width="375" height="145"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="145" id="FhP-dC-Dcn"/>
@@ -85,22 +55,16 @@
             <constraints>
                 <constraint firstItem="5xN-NN-VyJ" firstAttribute="top" secondItem="cTP-0x-BKW" secondAttribute="top" constant="20" id="6Iv-4E-7lg"/>
                 <constraint firstItem="Exk-4m-naJ" firstAttribute="height" secondItem="nbP-8K-bkw" secondAttribute="height" id="8q2-jd-cMg"/>
-                <constraint firstItem="lTv-0v-jd4" firstAttribute="baseline" secondItem="uIK-AX-srM" secondAttribute="baseline" id="9bP-nJ-nxm"/>
+                <constraint firstItem="Byv-QM-7xu" firstAttribute="top" secondItem="5xN-NN-VyJ" secondAttribute="bottom" constant="8" id="Dfo-u0-1oz"/>
                 <constraint firstItem="Exk-4m-naJ" firstAttribute="leading" secondItem="nbP-8K-bkw" secondAttribute="trailing" id="HJV-rw-1ov"/>
                 <constraint firstItem="nbP-8K-bkw" firstAttribute="leading" secondItem="cTP-0x-BKW" secondAttribute="leading" id="HJp-lI-EjR"/>
-                <constraint firstItem="Byv-QM-7xu" firstAttribute="top" secondItem="lTv-0v-jd4" secondAttribute="bottom" constant="8" id="HYq-8n-yqh"/>
                 <constraint firstItem="5xN-NN-VyJ" firstAttribute="leading" secondItem="cTP-0x-BKW" secondAttribute="leadingMargin" constant="-8" id="K5v-78-eZ3"/>
                 <constraint firstItem="Exk-4m-naJ" firstAttribute="width" secondItem="nbP-8K-bkw" secondAttribute="width" id="LPl-aa-tr0"/>
                 <constraint firstAttribute="bottom" secondItem="Exk-4m-naJ" secondAttribute="bottom" id="LrU-JD-42E"/>
                 <constraint firstItem="5xN-NN-VyJ" firstAttribute="trailing" secondItem="cTP-0x-BKW" secondAttribute="trailingMargin" constant="8" id="QHa-es-NWW"/>
                 <constraint firstAttribute="trailing" secondItem="Byv-QM-7xu" secondAttribute="trailing" id="YeL-Td-LzZ"/>
                 <constraint firstAttribute="trailing" secondItem="Exk-4m-naJ" secondAttribute="trailing" id="czX-wy-f8b"/>
-                <constraint firstAttribute="trailing" secondItem="uIK-AX-srM" secondAttribute="trailing" constant="7" id="egj-gx-6ZR"/>
-                <constraint firstItem="RJj-Qc-Mr4" firstAttribute="top" secondItem="5xN-NN-VyJ" secondAttribute="bottom" constant="8" symbolic="YES" id="hv9-6I-VGo"/>
-                <constraint firstItem="5xN-NN-VyJ" firstAttribute="leading" secondItem="RJj-Qc-Mr4" secondAttribute="leading" constant="-8" id="iU6-cQ-vqt"/>
                 <constraint firstAttribute="bottom" secondItem="nbP-8K-bkw" secondAttribute="bottom" id="krH-WM-MYX"/>
-                <constraint firstItem="5xN-NN-VyJ" firstAttribute="centerX" secondItem="lTv-0v-jd4" secondAttribute="centerX" id="nt6-iP-icI"/>
-                <constraint firstItem="RJj-Qc-Mr4" firstAttribute="baseline" secondItem="lTv-0v-jd4" secondAttribute="baseline" id="pcB-l8-SqG"/>
                 <constraint firstItem="Byv-QM-7xu" firstAttribute="leading" secondItem="cTP-0x-BKW" secondAttribute="leading" id="qCw-RJ-hQE"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
