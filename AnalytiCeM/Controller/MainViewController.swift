@@ -53,6 +53,8 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     // MARK: - IBOutlet
     
     @IBOutlet weak var topLabel: UILabel!
+    @IBOutlet weak var sessionAction: UIButton!
+
     @IBOutlet weak var waveView: WaveView!
     
     @IBOutlet weak var weatherView: WeatherView!
@@ -115,6 +117,14 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         
         // set button to disconnected
         changeMuseButton(to: .disconnected)
+        
+        self.sessionAction.layer.cornerRadius = 5
+        self.sessionAction.layer.borderColor = Theme.current.mainColor.cgColor
+        self.sessionAction.layer.borderWidth = 1
+        self.sessionAction.setTitleColor(Theme.current.mainColor, for: .normal)
+        
+        self.sessionAction.setImage(UIImage(named: "session-start"), for: .normal)
+        self.sessionAction.setTitle("Start a new session", for: .normal)
         
     }
     
