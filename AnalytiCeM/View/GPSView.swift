@@ -60,7 +60,7 @@ class GPSView: UIView {
         self.activityIndicator.color = Theme.current.mainColor
         
         // label
-        self.cityLabel.text = ""
+        self.cityLabel.text = "No info yet"
         self.countryLabel.text = ""
         
     }

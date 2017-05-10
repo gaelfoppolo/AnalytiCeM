@@ -18,6 +18,8 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     
     // MARK: - Properties
     
+    var locationTimer: Timer?
+    
     var manager: IXNMuseManagerIos?
     weak var muse: IXNMuse?
     
@@ -29,7 +31,8 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     
     var internetAvailable: Bool = false {
         didSet {
-            
+            // todo:
+            // try to fetch if online?
         }
     }
     
@@ -59,16 +62,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         
         setupUI()
         
-        // get the manager of Muse (singleton)
-        manager = IXNMuseManagerIos.sharedManager()
-        
-        // set the view as delegate
-        manager?.museListener = self
-        
-        // register as log listener
-        IXNLogManager.instance()?.setLogListener(self)
-        
-        owmManager = OWMManager(apiKey: APIKey.openWeatherMap.getKey()!)
+        setupManagers()
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
@@ -123,6 +117,22 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         
     }
     
+    private func setupManagers() {
+        
+        // manager of OpenWeatherMap
+        owmManager = OWMManager(apiKey: APIKey.openWeatherMap.getKey()!)
+        
+        // get the manager of Muse (singleton)
+        manager = IXNMuseManagerIos.sharedManager()
+        
+        // set the view as delegate
+        manager?.museListener = self
+        
+        // register as log listener
+        IXNLogManager.instance()?.setLogListener(self)
+        
+    }
+    
     // MARK: - Location
     
     private func setupLocation() {
@@ -131,25 +141,20 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         guard SPRequestPermission.isAllowPermission(.locationWithBackground) else {
             
             // requestion permission to use location
-            SPRequestPermission.dialog.interactive.present(on: self,
-                                                           with: [.locationWithBackground],
-                                                           delegate: self
+            SPRequestPermission.dialog.interactive.present(
+                on: self,
+                with: [.locationWithBackground],
+                delegate: self
             )
-            
             return
-            
         }
+        
+        // we can init
+        initLocationRefresher()
         
     }
     
-    // MARK: - IBAction & UIButton
-    
-    @IBAction func disconnect(_ sender: Any) {
-        /*if let muse = muse {
-            muse.disconnect()
-        }*/
-        // @todo: test, to remove/move
-        
+    @objc private func updateLocation() {
         self.gpsView.activityIndicator.startAnimating()
         LocationManagerSwift.shared.updateLocation(completionHandler: { (latitude, longitude, status, error) in
             
@@ -206,6 +211,44 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
             
             
         })
+    }
+    
+    private func initLocationRefresher() {
+        
+        // in case of
+        locationTimer?.invalidate()
+        
+        // init timer, every minute, until it's stopped
+        locationTimer = Timer.scheduledTimer(
+            timeInterval: 60,
+            target: self,
+            selector: #selector(updateLocation),
+            userInfo: nil,
+            repeats: true
+        )
+        
+        // launch it now
+        locationTimer?.fire()
+    }
+    
+    private func stopLocationRefresher() {
+        locationTimer?.invalidate()
+    }
+    
+    @objc private func updateWeather() {
+        
+        
+        
+    }
+    
+    // MARK: - IBAction & UIButton
+    
+    @IBAction func disconnect(_ sender: Any) {
+        /*if let muse = muse {
+            muse.disconnect()
+        }*/
+        // @todo: test, to remove/move
+        
     }
     
     @IBAction func scan(_ sender: Any) {
@@ -275,7 +318,8 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     func didHide() {}
     
     func didAllowPermission(permission: SPRequestPermissionType) {
-        print("permission is allowed")
+        // we can init
+        initLocationRefresher()
     }
     
     func didDeniedPermission(permission: SPRequestPermissionType) {
@@ -402,15 +446,5 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         })
         
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
