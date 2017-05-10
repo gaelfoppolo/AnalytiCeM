@@ -42,6 +42,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     var museManager: IXNMuseManagerIos?
     weak var muse: IXNMuse?
     var currentMuse: Results<Muse>?
+    var currentUser: Results<User>?
     
     let maxDataPoints: Int = 500
     var emptyEEGHistory: Array<EEGSnapshot> = Array<EEGSnapshot>()
@@ -51,6 +52,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     
     // MARK: - IBOutlet
     
+    @IBOutlet weak var topLabel: UILabel!
     @IBOutlet weak var waveView: WaveView!
     
     @IBOutlet weak var weatherView: WeatherView!
@@ -61,11 +63,11 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupUI()
-        
         setupManagers()
         
         setupRealm()
+        
+        setupUI()
         
         emptyEEGHistory = Array<EEGSnapshot>(repeating: EEGSnapshot.allZeros, count: maxDataPoints)
         eegHistory = emptyEEGHistory
@@ -77,6 +79,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         // subscribe
         registerBluetoothStatusChange(handler: handleBluetoothChange)
         registerInternetStatusChange(handler: handleInternetChange)
+        updateHey()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -113,6 +116,10 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         // set button to disconnected
         changeMuseButton(to: .disconnected)
         
+    }
+    
+    private func updateHey() {
+        self.topLabel.text = "Hey \(self.currentUser?.first?.firstName ?? "")"
     }
     
     private func setupManagers() {
@@ -311,6 +318,9 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         // get the current Muse
         currentMuse = realm.objects(Muse.self).filter("isCurrent == true")
         
+        // get the current User
+        currentUser = realm.objects(User.self).filter("isCurrent == true")
+        
     }
     
     // MARK: - Muse Status Button
@@ -364,6 +374,9 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         
         // disconnect first (in case of)
         disconnect()
+        
+        // save
+        self.muse = muse
         
         // connection listener
         muse.register(self)
