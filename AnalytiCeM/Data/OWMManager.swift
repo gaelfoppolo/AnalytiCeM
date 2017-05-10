@@ -132,10 +132,10 @@ public class OWMManager {
         )
     }
     
-    public func currentWeatherByCoordinatesAsJson(coordinates: CLLocationCoordinate2D, data: @escaping (WeatherResult) -> Void) {
+    public func currentWeatherByCoordinatesAsJson(latitude: CLLocationDegrees, longitude: CLLocationDegrees, data: @escaping (WeatherResult) -> Void) {
         
-        params["lat"] = String(stringInterpolationSegment: coordinates.latitude) as AnyObject
-        params["lon"] = String(stringInterpolationSegment: coordinates.longitude) as AnyObject
+        params["lat"] = String(stringInterpolationSegment: latitude) as AnyObject
+        params["lon"] = String(stringInterpolationSegment: longitude) as AnyObject
         
         currentWeather(params: params,
                        data: { response in

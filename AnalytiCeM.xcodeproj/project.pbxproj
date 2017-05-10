@@ -11,14 +11,14 @@
 		932B76781EBFAECA00562FD1 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 932B76771EBFAECA00562FD1 /* Keys.plist */; };
 		932B767A1EBFB6F700562FD1 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932B76791EBFB6F700562FD1 /* Weather.swift */; };
 		932B767C1EBFBE1800562FD1 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932B767B1EBFBE1800562FD1 /* WeatherManager.swift */; };
-		932B76821EBFBFD700562FD1 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932B76801EBFBFD700562FD1 /* WeatherViewController.swift */; };
-		932B76831EBFBFD700562FD1 /* WeatherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 932B76811EBFBFD700562FD1 /* WeatherViewController.xib */; };
 		9331360C1EBA6DF800B90410 /* PasswordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9331360B1EBA6DF800B90410 /* PasswordManager.swift */; };
 		9340981E1EB76E780079B7C2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9340981D1EB76E780079B7C2 /* User.swift */; };
 		934098221EB7786F0079B7C2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934098201EB7786E0079B7C2 /* LoginViewController.swift */; };
 		934098231EB7786F0079B7C2 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 934098211EB7786E0079B7C2 /* LoginViewController.xib */; };
 		934098261EB7F1BD0079B7C2 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934098241EB7F1BC0079B7C2 /* RegisterViewController.swift */; };
 		934098271EB7F1BD0079B7C2 /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 934098251EB7F1BD0079B7C2 /* RegisterViewController.xib */; };
+		9357A0541EC36F1B00C704A8 /* WeatherView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9357A0531EC36F1B00C704A8 /* WeatherView.xib */; };
+		9357A0571EC36F3400C704A8 /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9357A0561EC36F3400C704A8 /* WeatherView.swift */; };
 		936564D21EB8BADD007F469E /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936564D01EB8BADD007F469E /* UserProfileViewController.swift */; };
 		936564D31EB8BADD007F469E /* UserProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 936564D11EB8BADD007F469E /* UserProfileViewController.xib */; };
 		9374B30E1E9D80DB00052AA5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9374B30D1E9D80DB00052AA5 /* AppDelegate.swift */; };
@@ -65,14 +65,14 @@
 		932B76771EBFAECA00562FD1 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		932B76791EBFB6F700562FD1 /* Weather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		932B767B1EBFBE1800562FD1 /* WeatherManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
-		932B76801EBFBFD700562FD1 /* WeatherViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
-		932B76811EBFBFD700562FD1 /* WeatherViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeatherViewController.xib; sourceTree = "<group>"; };
 		9331360B1EBA6DF800B90410 /* PasswordManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordManager.swift; sourceTree = "<group>"; };
 		9340981D1EB76E780079B7C2 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		934098201EB7786E0079B7C2 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		934098211EB7786E0079B7C2 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		934098241EB7F1BC0079B7C2 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		934098251EB7F1BD0079B7C2 /* RegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterViewController.xib; sourceTree = "<group>"; };
+		9357A0531EC36F1B00C704A8 /* WeatherView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeatherView.xib; sourceTree = "<group>"; };
+		9357A0561EC36F3400C704A8 /* WeatherView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
 		936564D01EB8BADD007F469E /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		936564D11EB8BADD007F469E /* UserProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserProfileViewController.xib; sourceTree = "<group>"; };
 		9374B30A1E9D80DB00052AA5 /* AnalytiCeM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnalytiCeM.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -139,15 +139,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		932B767F1EBFBF9800562FD1 /* Weather */ = {
-			isa = PBXGroup;
-			children = (
-				932B76801EBFBFD700562FD1 /* WeatherViewController.swift */,
-				932B76811EBFBFD700562FD1 /* WeatherViewController.xib */,
-			);
-			name = Weather;
-			sourceTree = "<group>";
-		};
 		9340981F1EB7778E0079B7C2 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,6 +150,15 @@
 				934098251EB7F1BD0079B7C2 /* RegisterViewController.xib */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		9357A0551EC36F1F00C704A8 /* Weather */ = {
+			isa = PBXGroup;
+			children = (
+				9357A0531EC36F1B00C704A8 /* WeatherView.xib */,
+				9357A0561EC36F3400C704A8 /* WeatherView.swift */,
+			);
+			name = Weather;
 			sourceTree = "<group>";
 		};
 		9374B3011E9D80DB00052AA5 = {
@@ -263,7 +263,6 @@
 			children = (
 				937933B71EC09B9100A1FFE1 /* Session */,
 				937933B61EC09B8100A1FFE1 /* Main */,
-				932B767F1EBFBF9800562FD1 /* Weather */,
 				9340981F1EB7778E0079B7C2 /* Login */,
 				937D66A21EA69B4E00A8E3DC /* Settings */,
 				939A3CF71EB0AA0400031C03 /* AnalytiCeMNotificatioNameExtension.swift */,
@@ -291,6 +290,7 @@
 		938237701EA3C76100CE8D1E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9357A0551EC36F1F00C704A8 /* Weather */,
 				937933B81EC0AA2900A1FFE1 /* GPS */,
 				93E4721A1EC05B1A006C6F9E /* AnalytiCeMUIViewExtension.swift */,
 				93AD2ACA1EBBD70500803122 /* TabBar */,
@@ -380,13 +380,13 @@
 				937D66B01EA6C85400A8E3DC /* AddMuseViewController.xib in Resources */,
 				934098231EB7786F0079B7C2 /* LoginViewController.xib in Resources */,
 				9374B3181E9D80DB00052AA5 /* LaunchScreen.storyboard in Resources */,
+				9357A0541EC36F1B00C704A8 /* WeatherView.xib in Resources */,
 				932B76781EBFAECA00562FD1 /* Keys.plist in Resources */,
 				93C0FED41EB557020035D66A /* DeviceViewController.xib in Resources */,
 				937D66A11EA67A0700A8E3DC /* SettingsTableViewCell.xib in Resources */,
 				936564D31EB8BADD007F469E /* UserProfileViewController.xib in Resources */,
 				937D66B41EA6CF4F00A8E3DC /* AddMuseTableViewCell.xib in Resources */,
 				9374B3151E9D80DB00052AA5 /* Assets.xcassets in Resources */,
-				932B76831EBFBFD700562FD1 /* WeatherViewController.xib in Resources */,
 				93C6D3591EA375D000A21FB4 /* SessionViewController.xib in Resources */,
 				93C6D35D1EA3761900A21FB4 /* MainViewController.xib in Resources */,
 				93C6D3551EA375AA00A21FB4 /* SettingsViewController.xib in Resources */,
@@ -450,7 +450,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				93774D481EAB98D900B11A00 /* Muse.swift in Sources */,
-				932B76821EBFBFD700562FD1 /* WeatherViewController.swift in Sources */,
 				939085BC1EA270CE007495D1 /* WaveView.swift in Sources */,
 				937D66A51EA69DF600A8E3DC /* UserViewController.swift in Sources */,
 				937D66AF1EA6C85400A8E3DC /* AddMuseViewController.swift in Sources */,
@@ -464,6 +463,7 @@
 				936564D21EB8BADD007F469E /* UserProfileViewController.swift in Sources */,
 				9374B30E1E9D80DB00052AA5 /* AppDelegate.swift in Sources */,
 				9331360C1EBA6DF800B90410 /* PasswordManager.swift in Sources */,
+				9357A0571EC36F3400C704A8 /* WeatherView.swift in Sources */,
 				93AD2AC91EBBD6FD00803122 /* BigContentView.swift in Sources */,
 				938F222C1EBF2B9000FF5C70 /* OWMManager.swift in Sources */,
 				93AD2AC81EBBD6FD00803122 /* BounceContentView.swift in Sources */,

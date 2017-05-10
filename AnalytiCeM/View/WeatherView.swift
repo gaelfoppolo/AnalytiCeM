@@ -1,21 +1,20 @@
 //
-//  GPSView.swift
+//  WeatherView.swift
 //  AnalytiCeM
 //
-//  Created by Gaël on 08/05/2017.
+//  Created by Gaël on 10/05/2017.
 //  Copyright © 2017 Polytech. All rights reserved.
 //
 
-import MapKit
 import UIKit
 
-class GPSView: UIView {
-
-    // MARK: - IBOutlet
+class WeatherView: UIView {
     
-    @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var cityLabel: UILabel!
-    @IBOutlet weak var countryLabel: UILabel!
+    // MARK: - IBOutlet
+
+    @IBOutlet weak var icon: UIImageView!
+    @IBOutlet weak var conditions: UILabel!
+    @IBOutlet weak var temperature: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // MARK: - Initializers
@@ -51,18 +50,13 @@ class GPSView: UIView {
     
     private func setupUI() {
         
-        // disable user interaction
-        self.mapView.isZoomEnabled = false
-        self.mapView.isScrollEnabled = false
-        self.mapView.isUserInteractionEnabled = false
-        
         // activity
         self.activityIndicator.hidesWhenStopped = true
         self.activityIndicator.color = Theme.current.mainColor
         
         // label
-        self.cityLabel.text = "No info yet"
-        self.countryLabel.text = ""
+        self.conditions.text = "No info yet"
+        self.temperature.text = ""
         
     }
     
@@ -78,37 +72,23 @@ class GPSView: UIView {
     
     // MARK: - Logic
     
-    public func changeZoomToCoordinate(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
+    public func display(weather: Weather) {
         
-        let coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(coordinate, 1000, 1000)
-        self.mapView.setRegion(coordinateRegion, animated: true)
-    }
-    
-    public func addMarker(placemark: CLPlacemark) {
-        // remove annotations first
-        self.mapView.removeAnnotations(self.mapView.annotations)
-        // add marker then
-        let mapPlacemark = MKPlacemark(placemark: placemark)
-        self.mapView.addAnnotation(mapPlacemark)
-    }
-    
-    public func display(city: String, country: String) {
+        // temperature is not hidden
+        self.temperature.isHidden = false
         
-        // country is not hidden
-        self.countryLabel.isHidden = false
-        
-        self.cityLabel.text = city
-        self.countryLabel.text = country
+        self.icon.image = UIImage(named: weather.icon)
+        self.conditions.text = weather.condition
+        self.temperature.text = "\(weather.temperature)°C"
         
     }
     
     public func display(error: String) {
         
-        // country is hidden
-        self.countryLabel.isHidden = true
+        // temperature is hidden
+        self.temperature.isHidden = true
         
-        self.cityLabel.text = error
+        self.conditions.text = error
         
     }
 

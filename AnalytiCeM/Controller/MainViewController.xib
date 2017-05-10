@@ -67,7 +67,7 @@
                         <constraint firstAttribute="width" secondItem="nbP-8K-bkw" secondAttribute="height" multiplier="1:1" id="5d9-NS-L9e"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Exk-4m-naJ" userLabel="Weather View">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Exk-4m-naJ" userLabel="Weather View" customClass="WeatherView" customModule="AnalytiCeM" customModuleProvider="target">
                     <rect key="frame" x="187.5" y="479.5" width="187.5" height="187.5"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="Exk-4m-naJ" secondAttribute="height" multiplier="1:1" id="1vG-Ne-uQd"/>

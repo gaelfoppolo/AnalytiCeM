@@ -45,14 +45,12 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     
     let realm = try! Realm()
     
-    var weatherController: WeatherViewController!
-    
     // MARK: - IBOutlet
     
     @IBOutlet var logView: UITextView!
     @IBOutlet weak var waveView: WaveView!
     
-    @IBOutlet weak var weatherView: UIView!
+    @IBOutlet weak var weatherView: WeatherView!
     @IBOutlet weak var gpsView: GPSView!
     
     // MARK: - View
@@ -109,11 +107,6 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
                                                action: #selector(MainViewController.logoutAction(_:))
                                 )
         self.navigationItem.rightBarButtonItem = logoutButtonItem
-        
-        // @todo: will be removed, controller is not a good idea, switch to UIView only
-        // the weather view to display
-        weatherController = WeatherViewController(nibName: "WeatherViewController", bundle: nil)
-        weatherView.layout(child: weatherController.view)
         
     }
     
@@ -206,6 +199,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
                 self.gpsView.addMarker(placemark: placemark)
                 self.gpsView.display(city: city, country: country)
                 self.gpsView.activityIndicator.stopAnimating()
+                self.updateWeather()
                 
             })
             
@@ -236,8 +230,51 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     }
     
     @objc private func updateWeather() {
+        self.weatherView.activityIndicator.startAnimating()
         
-        
+        LocationManagerSwift.shared.updateLocation(completionHandler: { (latitude, longitude, status, error) in
+            
+            guard status == .OK else {
+                
+                // then error
+                var errorMessage: String?
+                
+                if !self.internetAvailable {
+                    errorMessage = "Internet is not available"
+                }
+                
+                if let error = error, errorMessage == nil {
+                    errorMessage = error.localizedDescription
+                }
+                
+                self.weatherView.display(error: errorMessage ?? "Unknown error")
+                self.weatherView.activityIndicator.stopAnimating()
+                return
+                
+            }
+            
+            // get the weather
+            self.owmManager.currentWeatherByCoordinatesAsJson(
+                latitude: latitude,
+                longitude: longitude,
+                data: { result in
+                    
+                    switch result {
+                        case .Success(let json):
+                            let weather = Weather(json: json)
+                            self.weatherView.display(weather: weather)
+                            break
+                        case .Error(let errorMessage):
+                            self.weatherView.display(error: errorMessage)
+                            break
+                    }
+                    
+                    self.weatherView.activityIndicator.stopAnimating()
+            
+                }
+            )
+            
+        })
         
     }
     
