@@ -118,6 +118,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         // set button to disconnected
         changeMuseButton(to: .disconnected)
         
+        // todo: custom subclass of UIButton
         self.sessionAction.layer.cornerRadius = 5
         self.sessionAction.layer.borderColor = Theme.current.mainColor.cgColor
         self.sessionAction.layer.borderWidth = 1
@@ -348,8 +349,8 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
                 break
             case .connected:
                 button.image = "muse-connected"
-                button.enabled = false
-                button.action = nil
+                button.enabled = true
+                button.action = #selector(muse?.disconnect)
                 break
             case .disconnected:
                 button.image = "muse-disconnected"
@@ -365,6 +366,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
                                                    action: button.action
         )
         self.navigationItem.leftBarButtonItem = museStatusButtonItem
+        // todo: bluetooth status too
         self.navigationItem.leftBarButtonItem?.isEnabled = button.enabled
         
     }
@@ -372,18 +374,46 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     // MARK: - Muse
     
     @objc private func startResearchMuses() {
+        
+        self.muse = nil
+        
+        // only if we have bluetooth
         if bluetoothAvailable {
+            
+            // start
             museManager?.startListening()
-            // todo: update to connecting
-            // todo: start a timer to stop after X seconds
+            // update to connecting status
+            changeMuseButton(to: .connecting)
+            
+            // already Muses found, try to check
+            if museManager?.getMuses().count != 0 {
+               museListChanged()
+            }
+            
+            // start a timer to stop after 30 seconds, if nothing found
             // prevent infinity search if no Muse, then list does not changed
+            
+            Timer.scheduledTimer(
+                withTimeInterval: 30,
+                repeats: false,
+                block: { timer in
+                    
+                    if (self.muse == nil) {
+                        self.disconnect()
+                    }
+                    
+                }
+            )
+
         }
     }
     
     func connect(to muse: IXNMuse) {
         
         // disconnect first (in case of)
-        disconnect()
+        if let lMuse = self.muse, lMuse != muse {
+            disconnect()
+        }
         
         // save
         self.muse = muse
@@ -406,6 +436,10 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         muse?.unregisterAllListeners()
         // disconnect
         muse?.disconnect()
+        // change status
+        changeMuseButton(to: .disconnected)
+        // set
+        self.muse = nil
     }
     
     // MARK: - IBAction & UIButton
@@ -502,8 +536,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         // current Muse
         guard let currentMuse = currentMuse?.first else {
             
-            // disconnect state
-            changeMuseButton(to: .disconnected)
+            // disconnect
             disconnect()
             return
         }
@@ -522,8 +555,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         // not found :(
         } else {
             
-            // disconnect state
-            changeMuseButton(to: .disconnected)
+            // disconnect
             disconnect()
             
         }
@@ -531,11 +563,11 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     }
     
     func receive(_ packet: IXNMuseConnectionPacket, muse: IXNMuse?) {
-        dump(muse?.getName())
         
         switch packet.currentConnectionState {
             case .disconnected:
-                changeMuseButton(to: .disconnected)
+                // case of, clean
+                disconnect()
             case .connected:
                 changeMuseButton(to: .connected)
             case .connecting:
@@ -554,13 +586,13 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         // todo: other thread
         
         // add data if valid
-        let snapshot = EEGSnapshot(data: packet)
+        /*let snapshot = EEGSnapshot(data: packet)
         if let snapshot = snapshot {
             eegHistory.append(snapshot)
             // forget surplus points
             eegHistory.removeSubrange(0 ..< max(0, eegHistory.count - maxDataPoints))
             refreshViews()
-        }
+        }*/
         
         
         //        if (packet.packetType() == .alphaRelative /*|| packet?.packetType() == .eeg*/) {
