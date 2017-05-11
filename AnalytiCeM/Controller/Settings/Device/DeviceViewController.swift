@@ -71,7 +71,7 @@ class DeviceViewController: FormViewController, ChooseMuseDelegate {
         self.navigationItem.rightBarButtonItem = rightButtonItem
         
         // default
-        self.navigationItem.rightBarButtonItem?.isEnabled = bluetoothAvailable
+        self.navigationItem.rightBarButtonItem?.isEnabled = (BluetoothStatusManager.shared.currentStatus == .poweredOn)
         
         // create the section with proper setup
         let deviceSection = SelectableSection<ListCheckRow<String>>(
@@ -227,13 +227,17 @@ class DeviceViewController: FormViewController, ChooseMuseDelegate {
                 listRow.value = nil
         }
         
-        // select the row
-        newRow.didSelect()
-        
         // append the row to the section and reload the table
         let sectionMuse = self.form.sectionBy(tag: self.kSectionTagMuseList)
         sectionMuse?.append(newRow)
         sectionMuse?.reload()
+        
+        // select the row
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+
+            newRow.didSelect()
+        
+        })
     }
     
     // MARK: - Logic
