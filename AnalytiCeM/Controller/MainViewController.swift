@@ -66,9 +66,11 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     var currentMuse: Results<Muse>?
     var currentUser: Results<User>?
     
-    let maxDataPoints: Int = 500
-    var emptyEEGHistory: Array<EEGSnapshot> = Array<EEGSnapshot>()
-    var eegHistory: [EEGSnapshot] = [EEGSnapshot]()
+    let idleMaxPoints: Int = 60
+    var emptyHistory: Array<EEGSnapshot> = Array<EEGSnapshot>()
+    
+    
+    var museHistory: [EEGType: Array<EEGSnapshot>] = [EEGType: Array<EEGSnapshot>]()
     
     let realm = try! Realm()
     
@@ -93,9 +95,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         
         setupUI()
         
-        emptyEEGHistory = Array<EEGSnapshot>(repeating: EEGSnapshot.allZeros, count: maxDataPoints)
-        eegHistory = emptyEEGHistory
-        refreshViews()
+        initHistory()
 
     }
     
@@ -275,7 +275,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         locationTimer?.invalidate()
     }
     
-    // MARK: Weather
+    // MARK: - Weather
     
     @objc private func updateWeather() {
         self.weatherView.activityIndicator.startAnimating()
@@ -357,6 +357,25 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         
         // get the current User
         currentUser = realm.objects(User.self).filter("isCurrent == true")
+        
+    }
+    
+    // MARK: - History
+    
+    private func initHistory() {
+        
+        // empty history
+        emptyHistory = Array<EEGSnapshot>(repeating: EEGSnapshot.allZeros, count: idleMaxPoints)
+        
+        // create the differents history
+        museHistory[.eeg] = emptyHistory
+        museHistory[.alphaRelative] = emptyHistory
+        museHistory[.betaRelative] = emptyHistory
+        museHistory[.deltaRelative] = emptyHistory
+        museHistory[.thetaRelative] = emptyHistory
+        museHistory[.gammaRelative] = emptyHistory
+        
+        refreshWaveView()
         
     }
     
@@ -608,49 +627,48 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     
     func receive(_ packet: IXNMuseDataPacket?, muse: IXNMuse?) {
         
+        // check validity
         guard let packet = packet else { return }
         
-        //log(String(format: "%5.2f %5.2f %5.2f %5.2f", CDouble((packet.values()[IXNEeg.EEG1.rawValue])), CDouble((packet.values()[IXNEeg.EEG2.rawValue])), CDouble((packet.values()[IXNEeg.EEG3.rawValue])), CDouble((packet.values()[IXNEeg.EEG4.rawValue]))))
-        
-        // todo: other thread
-        
-        // add data if valid
-        /*let snapshot = EEGSnapshot(data: packet)
-        if let snapshot = snapshot {
-            eegHistory.append(snapshot)
+        if packet.packetType() == .eeg {
+            
+            print(String(format: "%5.2f %5.2f %5.2f %5.2f", CDouble((packet.values()[IXNEeg.EEG1.rawValue])), CDouble((packet.values()[IXNEeg.EEG2.rawValue])), CDouble((packet.values()[IXNEeg.EEG3.rawValue])), CDouble((packet.values()[IXNEeg.EEG4.rawValue]))))
+            
+            let eegSnapshot = EEGSnapshot(data: packet)
+            // can fail
+            
+            guard let eegSnap = eegSnapshot, self.museHistory[.eeg] != nil else { return }
+            
+            // add the snapshot to the history
+            self.museHistory[.eeg]!.append(eegSnap)
+                
             // forget surplus points
-            eegHistory.removeSubrange(0 ..< max(0, eegHistory.count - maxDataPoints))
-            refreshViews()
-        }*/
-        
-        
-        //        if (packet.packetType() == .alphaRelative /*|| packet?.packetType() == .eeg*/) {
-        
-        //        if let type = type {
-        
-        //let eeg1 = (packet.values()[IXNEeg.EEG1.rawValue])
-        //
-        //            log(String(format: "%5.2f %5.2f %5.2f %5.2f", CDouble((packet.values()[IXNEeg.EEG1.rawValue])), CDouble((packet.values()[IXNEeg.EEG2.rawValue])), CDouble((packet.values()[IXNEeg.EEG3.rawValue])), CDouble((packet.values()[IXNEeg.EEG4.rawValue]))))
-        //        }
+            self.museHistory[.eeg]!.removeSubrange(0 ..< max(0, self.museHistory[.eeg]!.count - self.idleMaxPoints))
+
+            // then refresh the wave view
+            refreshWaveView()
+            
+        }
         
     }
     
     func receive(_ packet: IXNMuseArtifactPacket, muse: IXNMuse?) {
         if packet.blink {
-            //log("blink detected")
+            print("blink detected")
         }
         
         if packet.jawClench {
-            //log("jaw clench detected")
+            print("jaw clench detected")
         }
     }
     
     // MARK: - WaveView
     
-    func refreshViews() {
+    func refreshWaveView() {
         
+        // display only the EEG
         // recover only the property we want for each snapshot of the history
-        waveView.points = eegHistory.map({
+        waveView.points = museHistory[.eeg]!.map({
             return $0.value
         })
         
