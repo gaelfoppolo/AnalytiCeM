@@ -23,7 +23,7 @@ open class WaveView: UIView {
         tintColorDidChange()
         
         wave.fillColor = nil
-        wave.lineWidth = 3.0
+        wave.lineWidth = 2.0
         
         layer.addSublayer(wave)
     }

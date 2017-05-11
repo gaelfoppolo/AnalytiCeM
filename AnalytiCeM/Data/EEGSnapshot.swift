@@ -35,10 +35,10 @@ public enum EEGType: Int {
 
 public struct EEGSnapshot {
     
-    private let leftEar: Double?
-    private let leftFront: Double?
-    private let rightFront: Double?
-    private let rightEar: Double?
+    var leftEar: Double?
+    var leftFront: Double?
+    var rightFront: Double?
+    var rightEar: Double?
     
     public var value: Double {
         

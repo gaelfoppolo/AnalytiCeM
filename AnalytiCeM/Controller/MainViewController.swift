@@ -69,8 +69,12 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     let idleMaxPoints: Int = 60
     var emptyHistory: Array<EEGSnapshot> = Array<EEGSnapshot>()
     
-    
+    // the history of the last minute, 60 values, one per second
     var museHistory: [EEGType: Array<EEGSnapshot>] = [EEGType: Array<EEGSnapshot>]()
+    
+    // values retrieved in the last second
+    var currentValues: [EEGType: Array<EEGSnapshot>] = [EEGType: Array<EEGSnapshot>]()
+    var currentHistoryTimer: Timer?
     
     let realm = try! Realm()
     
@@ -375,8 +379,92 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         museHistory[.thetaRelative] = emptyHistory
         museHistory[.gammaRelative] = emptyHistory
         
-        refreshWaveView()
+        // create current values
+        currentValues[.eeg] = Array<EEGSnapshot>()
         
+    }
+    
+    private func initHistoryRefresher() {
+        
+        // in case of
+        currentHistoryTimer?.invalidate()
+        
+        // init timer, every second, until it's stopped
+        currentHistoryTimer = Timer.scheduledTimer(
+            withTimeInterval: 1,
+            repeats: true,
+            block: { (timer) in
+                
+                func calc(type: EEGType) {
+                    
+                    var sumLeftEar = self.currentValues[type]!
+                        .map({ return $0.leftEar ?? 0 })
+                        .reduce(0, +)
+                    
+                    if sumLeftEar != 0 {
+                        sumLeftEar = sumLeftEar/Double(self.currentValues[type]!.count)
+                    }
+                    
+                    var sumRightEar = self.currentValues[type]!
+                        .map({ return $0.rightEar ?? 0 })
+                        .reduce(0, +)
+                    
+                    if sumRightEar != 0 {
+                        sumRightEar = sumRightEar/Double(self.currentValues[type]!.count)
+                    }
+                    
+                    var sumLeftFront = self.currentValues[type]!
+                        .map({ return $0.leftFront ?? 0 })
+                        .reduce(0, +)
+                    
+                    if sumLeftFront != 0 {
+                        sumLeftFront = sumLeftFront/Double(self.currentValues[type]!.count)
+                    }
+                    
+                    var sumRightFront = self.currentValues[type]!
+                        .map({ return $0.rightFront ?? 0 })
+                        .reduce(0, +)
+                    
+                    if sumRightFront != 0 {
+                        sumRightFront = sumRightFront/Double(self.currentValues[type]!.count)
+                    }
+                    
+                    var snapshot = EEGSnapshot()
+                    snapshot.leftEar = sumLeftEar
+                    snapshot.rightEar = sumRightEar
+                    snapshot.leftFront = sumLeftFront
+                    snapshot.rightFront = sumRightFront
+                    
+                    // add the snapshot to the history
+                    self.museHistory[.eeg]!.append(snapshot)
+                    
+                    // forget surplus points
+                    self.museHistory[.eeg]!.removeSubrange(0 ..< max(0, self.museHistory[.eeg]!.count - self.idleMaxPoints))
+                }
+                
+                calc(type: .eeg)
+                
+                // then refresh the wave view
+                self.refreshWaveView()
+                
+            }
+        )
+            
+            
+            Timer.scheduledTimer(
+            timeInterval: 1,
+            target: self,
+            selector: #selector(refreshWaveView),
+            userInfo: nil,
+            repeats: true
+        )
+        
+        // launch it now
+        //weatherTimer?.fire()
+    }
+    
+    private func stopHistoryRefresher() {
+        currentHistoryTimer?.invalidate()
     }
     
     // MARK: - Muse Status Button
@@ -618,6 +706,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
                 disconnect()
             case .connected:
                 changeMuseButton(to: .connected)
+                initHistoryRefresher()
             case .connecting:
                 changeMuseButton(to: .connecting)
             default:
@@ -635,18 +724,12 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
             print(String(format: "%5.2f %5.2f %5.2f %5.2f", CDouble((packet.values()[IXNEeg.EEG1.rawValue])), CDouble((packet.values()[IXNEeg.EEG2.rawValue])), CDouble((packet.values()[IXNEeg.EEG3.rawValue])), CDouble((packet.values()[IXNEeg.EEG4.rawValue]))))
             
             let eegSnapshot = EEGSnapshot(data: packet)
-            // can fail
             
-            guard let eegSnap = eegSnapshot, self.museHistory[.eeg] != nil else { return }
+            // can fail
+            guard let eegSnap = eegSnapshot, self.currentValues[.eeg] != nil else { return }
             
             // add the snapshot to the history
-            self.museHistory[.eeg]!.append(eegSnap)
-                
-            // forget surplus points
-            self.museHistory[.eeg]!.removeSubrange(0 ..< max(0, self.museHistory[.eeg]!.count - self.idleMaxPoints))
-
-            // then refresh the wave view
-            refreshWaveView()
+            self.currentValues[.eeg]!.append(eegSnap)
             
         }
         
@@ -671,6 +754,9 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         waveView.points = museHistory[.eeg]!.map({
             return $0.value
         })
+        
+        // reset
+        currentValues[.eeg]?.removeAll()
         
     }
 
