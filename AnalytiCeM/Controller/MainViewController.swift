@@ -26,8 +26,30 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     var weatherTimer: Timer?
     var owmManager: OWMManager!
     
-    var bluetoothAvailable: Bool = false {
+    var bluetoothAvailable: Bool? {
+        
+        willSet(newBluetoothStatus) {
+            
+            // if we loose Bluetooth, disconnect Muse
+            if (bluetoothAvailable == true && newBluetoothStatus == false) {
+                disconnect()
+            }
+            
+            // if we gain Bluetooth
+            if (bluetoothAvailable == false && newBluetoothStatus == true) {
+                if let leftButton = self.navigationItem.leftBarButtonItem {
+                    leftButton.isEnabled = true
+                }
+            }
+            
+            
+        }
+        
         didSet {
+    
+            if let leftButton = self.navigationItem.leftBarButtonItem {
+                leftButton.isEnabled = leftButton.isEnabled && bluetoothAvailable!
+            }
             
         }
     }
@@ -126,6 +148,10 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         
         self.sessionAction.setImage(UIImage(named: "session-start"), for: .normal)
         self.sessionAction.setTitle("Start a new session", for: .normal)
+        
+        self.sessionAction.titleLabel?.numberOfLines = 1
+        self.sessionAction.titleLabel?.adjustsFontSizeToFitWidth = true
+        self.sessionAction.titleLabel?.lineBreakMode = .byClipping
         
     }
     
@@ -339,7 +365,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     private func changeMuseButton(to status: MuseButtonStatus) {
         
         // the attributes of the button to be set
-        let button: (image: String, action: Selector?, enabled: Bool)
+        var button: (image: String, action: Selector?, enabled: Bool)
         
         switch status {
             case .connecting:
@@ -355,6 +381,10 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
             case .disconnected:
                 button.image = "muse-disconnected"
                 button.enabled = true
+                // only if bluetooth is available
+                if let bluetoothAvailable = bluetoothAvailable {
+                    button.enabled = button.enabled && bluetoothAvailable
+                }
                 button.action = #selector(startResearchMuses)
                 break
         }
@@ -366,7 +396,6 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
                                                    action: button.action
         )
         self.navigationItem.leftBarButtonItem = museStatusButtonItem
-        // todo: bluetooth status too
         self.navigationItem.leftBarButtonItem?.isEnabled = button.enabled
         
     }
@@ -378,7 +407,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         self.muse = nil
         
         // only if we have bluetooth
-        if bluetoothAvailable {
+        if let bluetoothAvailable = bluetoothAvailable, bluetoothAvailable {
             
             // start
             museManager?.startListening()
@@ -390,11 +419,11 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
                museListChanged()
             }
             
-            // start a timer to stop after 30 seconds, if nothing found
+            // start a timer to stop after 5 seconds, if nothing found
             // prevent infinity search if no Muse, then list does not changed
             
             Timer.scheduledTimer(
-                withTimeInterval: 30,
+                withTimeInterval: 5,
                 repeats: false,
                 block: { timer in
                     
