@@ -23,7 +23,7 @@ open class WaveView: UIView {
         tintColorDidChange()
         
         wave.fillColor = nil
-        wave.lineWidth = 1.0
+        wave.lineWidth = 3.0
         
         layer.addSublayer(wave)
     }
@@ -48,8 +48,11 @@ open class WaveView: UIView {
     
     private func buildPath(points: [Double], inBounds bounds: CGRect) -> UIBezierPath? {
         
-        // il y a au moins deux points
+        // at least two points
         guard points.count >= 2 else { return nil }
+        
+        // get max value
+        guard let maxValue = points.max(), maxValue > 0 else { return nil }
         
         let path = UIBezierPath()
         
@@ -57,12 +60,12 @@ open class WaveView: UIView {
         
         for (index, point) in points.enumerated() {
             
-            // position dans l'axe horizontal
+            // x position
             let xProgress = CGFloat(index) / CGFloat(points.count - 1)
             
-            let normalizedValue = CGFloat(point)
+            let normalizedValue = CGFloat(point) / CGFloat(maxValue)
             
-            // ajout au chemin
+            // add to the path
             path.addLine(to: CGPoint(x: xProgress * bounds.width,
                                      y: bounds.height * (1.0 - normalizedValue)))
         }
