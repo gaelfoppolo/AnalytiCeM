@@ -641,7 +641,21 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     }
     
     func launchSession() {
-        self.sessionAction.update(to: .stop, controller: self)
+        //self.sessionAction.update(to: .stop, controller: self)
+        
+        // the view to display
+        let lPopupVC = NewSessionViewController(nibName: "NewSessionViewController", bundle: nil)
+        
+        // no background
+        lPopupVC.view.backgroundColor = UIColor.clear
+        
+        // on top of the parent view
+        lPopupVC.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
+        
+        lPopupVC.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        
+        // display
+        self.present(lPopupVC, animated: true, completion: nil)
     }
     
     func stopSession() {
