@@ -82,7 +82,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     // MARK: - IBOutlet
     
     @IBOutlet weak var topLabel: HeyUILabel!
-    @IBOutlet weak var sessionAction: UIButton!
+    @IBOutlet weak var sessionAction: StartStopSessionUIButton!
 
     @IBOutlet weak var waveView: WaveView!
     
@@ -145,18 +145,8 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         // set button to disconnected
         changeMuseButton(to: .disconnected)
         
-        // todo: custom subclass of UIButton
-        self.sessionAction.layer.cornerRadius = 5
-        self.sessionAction.layer.borderColor = Theme.current.mainColor.cgColor
-        self.sessionAction.layer.borderWidth = 1
-        self.sessionAction.setTitleColor(Theme.current.mainColor, for: .normal)
-        
-        self.sessionAction.setImage(UIImage(named: "session-start"), for: .normal)
-        self.sessionAction.setTitle("Start a new session", for: .normal)
-        
-        self.sessionAction.titleLabel?.numberOfLines = 1
-        self.sessionAction.titleLabel?.adjustsFontSizeToFitWidth = true
-        self.sessionAction.titleLabel?.lineBreakMode = .byClipping
+        // session start/stop button
+        self.sessionAction.update(to: .start, controller: self)
         
     }
     
@@ -648,6 +638,14 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         
         present(alertController, animated: true, completion: nil)
         
+    }
+    
+    func launchSession() {
+        self.sessionAction.update(to: .stop, controller: self)
+    }
+    
+    func stopSession() {
+        self.sessionAction.update(to: .start, controller: self)
     }
     
     // MARK: - SPRequestPermissionEventsDelegate

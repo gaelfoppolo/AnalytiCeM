@@ -55,6 +55,7 @@
 		93C6D35C1EA3761900A21FB4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C6D35A1EA3761900A21FB4 /* MainViewController.swift */; };
 		93C6D35D1EA3761900A21FB4 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93C6D35B1EA3761900A21FB4 /* MainViewController.xib */; };
 		93D3373C1EC65CAE00AF7A8E /* HeyUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D3373B1EC65CAE00AF7A8E /* HeyUILabel.swift */; };
+		93D3373E1EC6645B00AF7A8E /* StartStopSessionUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D3373D1EC6645B00AF7A8E /* StartStopSessionUIButton.swift */; };
 		93E4721B1EC05B1A006C6F9E /* AnalytiCeMUIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E4721A1EC05B1A006C6F9E /* AnalytiCeMUIViewExtension.swift */; };
 		EFEAA179F796F07DAA2643E0 /* Pods_AnalytiCeM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA481F5BA3FC0EB0FE72F433 /* Pods_AnalytiCeM.framework */; };
 /* End PBXBuildFile section */
@@ -113,6 +114,7 @@
 		93C6D35A1EA3761900A21FB4 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		93C6D35B1EA3761900A21FB4 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		93D3373B1EC65CAE00AF7A8E /* HeyUILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeyUILabel.swift; sourceTree = "<group>"; };
+		93D3373D1EC6645B00AF7A8E /* StartStopSessionUIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartStopSessionUIButton.swift; sourceTree = "<group>"; };
 		93E4721A1EC05B1A006C6F9E /* AnalytiCeMUIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnalytiCeMUIViewExtension.swift; path = AnalytiCeM/View/AnalytiCeMUIViewExtension.swift; sourceTree = SOURCE_ROOT; };
 		DA481F5BA3FC0EB0FE72F433 /* Pods_AnalytiCeM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AnalytiCeM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -212,6 +214,7 @@
 				93C6D35A1EA3761900A21FB4 /* MainViewController.swift */,
 				93C6D35B1EA3761900A21FB4 /* MainViewController.xib */,
 				93D3373B1EC65CAE00AF7A8E /* HeyUILabel.swift */,
+				93D3373D1EC6645B00AF7A8E /* StartStopSessionUIButton.swift */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -473,6 +476,7 @@
 				93AD2AC81EBBD6FD00803122 /* BounceContentView.swift in Sources */,
 				932B767A1EBFB6F700562FD1 /* Weather.swift in Sources */,
 				9340981E1EB76E780079B7C2 /* User.swift in Sources */,
+				93D3373E1EC6645B00AF7A8E /* StartStopSessionUIButton.swift in Sources */,
 				939A3CF81EB0AA0400031C03 /* AnalytiCeMNotificatioNameExtension.swift in Sources */,
 				93C6D3541EA375AA00A21FB4 /* SettingsViewController.swift in Sources */,
 				9399F9B81EBE561D00736206 /* Theme.swift in Sources */,
