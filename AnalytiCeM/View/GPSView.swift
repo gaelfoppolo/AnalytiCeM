@@ -51,6 +51,12 @@ class GPSView: UIView {
     
     private func setupUI() {
         
+        // corner
+        self.layer.cornerRadius = 5
+        // border
+        self.layer.borderColor = Theme.current.mainColor.cgColor
+        self.layer.borderWidth = 1
+        
         // disable user interaction
         self.mapView.isZoomEnabled = false
         self.mapView.isScrollEnabled = false

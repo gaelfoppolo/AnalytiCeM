@@ -27,19 +27,19 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nbP-8K-bkw" userLabel="GPS View" customClass="GPSView" customModule="AnalytiCeM" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="479.5" width="187.5" height="187.5"/>
+                    <rect key="frame" x="2" y="480.5" width="184.5" height="184.5"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="nbP-8K-bkw" secondAttribute="height" multiplier="1:1" id="5d9-NS-L9e"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Exk-4m-naJ" userLabel="Weather View" customClass="WeatherView" customModule="AnalytiCeM" customModuleProvider="target">
-                    <rect key="frame" x="187.5" y="479.5" width="187.5" height="187.5"/>
+                    <rect key="frame" x="188.5" y="480.5" width="184.5" height="184.5"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="Exk-4m-naJ" secondAttribute="height" multiplier="1:1" id="1vG-Ne-uQd"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Byv-QM-7xu" customClass="WaveView" customModule="AnalytiCeM">
-                    <rect key="frame" x="0.0" y="279.5" width="375" height="200"/>
+                    <rect key="frame" x="0.0" y="278.5" width="375" height="200"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hyt-9A-P06" customClass="HeyUILabel" customModule="AnalytiCeM" customModuleProvider="target">
@@ -59,22 +59,22 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="nbP-8K-bkw" firstAttribute="top" secondItem="Byv-QM-7xu" secondAttribute="bottom" id="2M2-Zr-47P"/>
+                <constraint firstItem="nbP-8K-bkw" firstAttribute="top" secondItem="Byv-QM-7xu" secondAttribute="bottom" constant="2" id="2M2-Zr-47P"/>
                 <constraint firstAttribute="trailing" secondItem="Hyt-9A-P06" secondAttribute="trailing" constant="16" id="3Kn-Li-qb9"/>
                 <constraint firstItem="Exk-4m-naJ" firstAttribute="height" secondItem="nbP-8K-bkw" secondAttribute="height" id="8q2-jd-cMg"/>
                 <constraint firstAttribute="trailing" secondItem="vsV-hZ-dvh" secondAttribute="trailing" constant="50" id="Cew-GW-WE7"/>
-                <constraint firstItem="Exk-4m-naJ" firstAttribute="leading" secondItem="nbP-8K-bkw" secondAttribute="trailing" id="HJV-rw-1ov"/>
-                <constraint firstItem="nbP-8K-bkw" firstAttribute="leading" secondItem="cTP-0x-BKW" secondAttribute="leading" id="HJp-lI-EjR"/>
+                <constraint firstItem="Exk-4m-naJ" firstAttribute="leading" secondItem="nbP-8K-bkw" secondAttribute="trailing" constant="2" id="HJV-rw-1ov"/>
+                <constraint firstItem="nbP-8K-bkw" firstAttribute="leading" secondItem="cTP-0x-BKW" secondAttribute="leading" constant="2" id="HJp-lI-EjR"/>
                 <constraint firstItem="Exk-4m-naJ" firstAttribute="width" secondItem="nbP-8K-bkw" secondAttribute="width" id="LPl-aa-tr0"/>
-                <constraint firstAttribute="bottom" secondItem="Exk-4m-naJ" secondAttribute="bottom" id="LrU-JD-42E"/>
+                <constraint firstAttribute="bottom" secondItem="Exk-4m-naJ" secondAttribute="bottom" constant="2" id="LrU-JD-42E"/>
                 <constraint firstItem="vsV-hZ-dvh" firstAttribute="leading" secondItem="cTP-0x-BKW" secondAttribute="leading" constant="50" id="Lwd-4g-dWb"/>
                 <constraint firstItem="Hyt-9A-P06" firstAttribute="top" secondItem="cTP-0x-BKW" secondAttribute="top" constant="20" id="W7q-J6-gYe"/>
                 <constraint firstItem="Byv-QM-7xu" firstAttribute="height" secondItem="cTP-0x-BKW" secondAttribute="height" multiplier="0.3" id="X3H-ea-EnY"/>
                 <constraint firstAttribute="trailing" secondItem="Byv-QM-7xu" secondAttribute="trailing" id="YeL-Td-LzZ"/>
                 <constraint firstItem="vsV-hZ-dvh" firstAttribute="top" secondItem="Hyt-9A-P06" secondAttribute="bottom" constant="20" id="cI1-X6-30g"/>
-                <constraint firstAttribute="trailing" secondItem="Exk-4m-naJ" secondAttribute="trailing" id="czX-wy-f8b"/>
-                <constraint firstAttribute="bottom" secondItem="nbP-8K-bkw" secondAttribute="bottom" id="krH-WM-MYX"/>
-                <constraint firstItem="Exk-4m-naJ" firstAttribute="top" secondItem="Byv-QM-7xu" secondAttribute="bottom" id="nu5-v9-bvp"/>
+                <constraint firstAttribute="trailing" secondItem="Exk-4m-naJ" secondAttribute="trailing" constant="2" id="czX-wy-f8b"/>
+                <constraint firstAttribute="bottom" secondItem="nbP-8K-bkw" secondAttribute="bottom" constant="2" id="krH-WM-MYX"/>
+                <constraint firstItem="Exk-4m-naJ" firstAttribute="top" secondItem="Byv-QM-7xu" secondAttribute="bottom" constant="2" id="nu5-v9-bvp"/>
                 <constraint firstItem="Byv-QM-7xu" firstAttribute="leading" secondItem="cTP-0x-BKW" secondAttribute="leading" id="qCw-RJ-hQE"/>
                 <constraint firstItem="vsV-hZ-dvh" firstAttribute="centerX" secondItem="cTP-0x-BKW" secondAttribute="centerX" id="tN5-FO-8Bd"/>
                 <constraint firstItem="Hyt-9A-P06" firstAttribute="leading" secondItem="cTP-0x-BKW" secondAttribute="leading" constant="16" id="xjt-zQ-kJI"/>
