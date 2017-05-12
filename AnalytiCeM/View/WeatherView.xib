@@ -24,22 +24,22 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1kn-Qm-5kH" userLabel="Icon">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                    <rect key="frame" x="8" y="20" width="359" height="131.5"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6nc-nq-WFs" userLabel="Conditions">
-                    <rect key="frame" x="0.0" y="148" width="375" height="112.5"/>
+                    <rect key="frame" x="0.0" y="151.5" width="375" height="112.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VDb-ar-crt" userLabel="Temperature">
-                    <rect key="frame" x="0.0" y="251" width="375" height="112.5"/>
+                    <rect key="frame" x="0.0" y="254.5" width="375" height="75"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="xft-qa-sYg">
-                    <rect key="frame" x="16" y="158" width="20" height="20"/>
+                    <rect key="frame" x="16" y="167.5" width="20" height="20"/>
                 </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -48,15 +48,15 @@
                 <constraint firstAttribute="trailing" secondItem="6nc-nq-WFs" secondAttribute="trailing" id="1IC-ph-eFo"/>
                 <constraint firstItem="xft-qa-sYg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="4Sk-dk-ywc"/>
                 <constraint firstItem="VDb-ar-crt" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Aue-fy-GW7"/>
-                <constraint firstItem="VDb-ar-crt" firstAttribute="top" secondItem="6nc-nq-WFs" secondAttribute="bottom" constant="-9.5" id="EyP-6b-zQw"/>
+                <constraint firstItem="VDb-ar-crt" firstAttribute="top" secondItem="6nc-nq-WFs" secondAttribute="bottom" constant="-9" id="EyP-6b-zQw"/>
                 <constraint firstItem="6nc-nq-WFs" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="G5n-yD-CDr"/>
-                <constraint firstItem="VDb-ar-crt" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.3" id="Gn7-oY-KsM"/>
-                <constraint firstItem="1kn-Qm-5kH" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="brY-zE-Orr"/>
-                <constraint firstAttribute="trailing" secondItem="1kn-Qm-5kH" secondAttribute="trailing" id="dfy-q6-I3s"/>
-                <constraint firstItem="1kn-Qm-5kH" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="euq-54-mvn"/>
-                <constraint firstItem="1kn-Qm-5kH" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.4" id="he6-rL-Jnu"/>
-                <constraint firstItem="6nc-nq-WFs" firstAttribute="top" secondItem="1kn-Qm-5kH" secondAttribute="bottom" constant="-2" id="nv9-hf-aa6"/>
-                <constraint firstItem="xft-qa-sYg" firstAttribute="top" secondItem="1kn-Qm-5kH" secondAttribute="bottom" constant="8" id="onb-KP-BFK"/>
+                <constraint firstItem="VDb-ar-crt" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.2" id="Gn7-oY-KsM"/>
+                <constraint firstItem="1kn-Qm-5kH" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="brY-zE-Orr"/>
+                <constraint firstAttribute="trailing" secondItem="1kn-Qm-5kH" secondAttribute="trailing" constant="8" id="dfy-q6-I3s"/>
+                <constraint firstItem="1kn-Qm-5kH" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="euq-54-mvn"/>
+                <constraint firstItem="1kn-Qm-5kH" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.35" id="he6-rL-Jnu"/>
+                <constraint firstItem="6nc-nq-WFs" firstAttribute="top" secondItem="1kn-Qm-5kH" secondAttribute="bottom" id="nv9-hf-aa6"/>
+                <constraint firstItem="xft-qa-sYg" firstAttribute="top" secondItem="1kn-Qm-5kH" secondAttribute="bottom" constant="16" id="onb-KP-BFK"/>
                 <constraint firstAttribute="trailing" secondItem="VDb-ar-crt" secondAttribute="trailing" id="wFm-Zf-QkE"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
