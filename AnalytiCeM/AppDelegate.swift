@@ -26,8 +26,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // realm, delete the data if the DB scheme changed
         // prevent crashes, remove when go prod
-        let config = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
-        Realm.Configuration.defaultConfiguration = config
+        //let config = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
+        //Realm.Configuration.defaultConfiguration = config
+        
+        // fill database
+        FillRealm.defaults()
         
         // theme of the app
         Theme.default.apply()
