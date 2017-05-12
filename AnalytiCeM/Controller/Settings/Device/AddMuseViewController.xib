@@ -86,11 +86,11 @@
                             <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a Muse" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ws5-CW-G6e">
-                                    <rect key="frame" x="110" y="2" width="81" height="45"/>
+                                    <rect key="frame" x="110.5" y="2" width="81" height="45"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="45" id="vQM-GF-PRB"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>

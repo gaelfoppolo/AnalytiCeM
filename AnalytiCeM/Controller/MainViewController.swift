@@ -77,10 +77,11 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     var currentHistoryTimer: Timer?
     
     let realm = try! Realm()
+    var notificationUser: NotificationToken? = nil
     
     // MARK: - IBOutlet
     
-    @IBOutlet weak var topLabel: UILabel!
+    @IBOutlet weak var topLabel: HeyUILabel!
     @IBOutlet weak var sessionAction: UIButton!
 
     @IBOutlet weak var waveView: WaveView!
@@ -160,11 +161,30 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     }
     
     private func updateHey() {
-        self.topLabel.text = "Hey \(self.currentUser?.first?.firstName ?? "")"
+        
+        // observe results notifications
+        notificationUser = self.currentUser?.addNotificationBlock { [weak self] (changes: RealmCollectionChange) in
+        
+            switch changes {
+            case .initial(let users):
+                self?.topLabel.display(name: users.first?.firstName ?? "")
+                break
+            case .update(let users, _, _, _):
+                self?.topLabel.display(name: users.first?.firstName ?? "")
+                break
+            case .error(let error):
+                fatalError("\(error)")
+                break
+            }
+        }
+    }
+    
+    deinit {
+        notificationUser?.stop()
     }
     
     private func setupManagers() {
-        
+    
         // manager of OpenWeatherMap
         owmManager = OWMManager(apiKey: APIKey.openWeatherMap.getKey()!)
         

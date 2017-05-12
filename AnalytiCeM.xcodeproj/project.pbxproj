@@ -54,6 +54,7 @@
 		93C6D3591EA375D000A21FB4 /* SessionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93C6D3571EA375D000A21FB4 /* SessionViewController.xib */; };
 		93C6D35C1EA3761900A21FB4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C6D35A1EA3761900A21FB4 /* MainViewController.swift */; };
 		93C6D35D1EA3761900A21FB4 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93C6D35B1EA3761900A21FB4 /* MainViewController.xib */; };
+		93D3373C1EC65CAE00AF7A8E /* HeyUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D3373B1EC65CAE00AF7A8E /* HeyUILabel.swift */; };
 		93E4721B1EC05B1A006C6F9E /* AnalytiCeMUIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E4721A1EC05B1A006C6F9E /* AnalytiCeMUIViewExtension.swift */; };
 		EFEAA179F796F07DAA2643E0 /* Pods_AnalytiCeM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA481F5BA3FC0EB0FE72F433 /* Pods_AnalytiCeM.framework */; };
 /* End PBXBuildFile section */
@@ -111,6 +112,7 @@
 		93C6D3571EA375D000A21FB4 /* SessionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SessionViewController.xib; sourceTree = "<group>"; };
 		93C6D35A1EA3761900A21FB4 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		93C6D35B1EA3761900A21FB4 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		93D3373B1EC65CAE00AF7A8E /* HeyUILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeyUILabel.swift; sourceTree = "<group>"; };
 		93E4721A1EC05B1A006C6F9E /* AnalytiCeMUIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnalytiCeMUIViewExtension.swift; path = AnalytiCeM/View/AnalytiCeMUIViewExtension.swift; sourceTree = SOURCE_ROOT; };
 		DA481F5BA3FC0EB0FE72F433 /* Pods_AnalytiCeM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AnalytiCeM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -209,6 +211,7 @@
 			children = (
 				93C6D35A1EA3761900A21FB4 /* MainViewController.swift */,
 				93C6D35B1EA3761900A21FB4 /* MainViewController.xib */,
+				93D3373B1EC65CAE00AF7A8E /* HeyUILabel.swift */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -454,6 +457,7 @@
 				937D66A51EA69DF600A8E3DC /* UserViewController.swift in Sources */,
 				937D66AF1EA6C85400A8E3DC /* AddMuseViewController.swift in Sources */,
 				937933BD1EC0ADBC00A1FFE1 /* GPSView.swift in Sources */,
+				93D3373C1EC65CAE00AF7A8E /* HeyUILabel.swift in Sources */,
 				932B767C1EBFBE1800562FD1 /* WeatherManager.swift in Sources */,
 				939085BA1EA22610007495D1 /* EEGSnapshot.swift in Sources */,
 				93E4721B1EC05B1A006C6F9E /* AnalytiCeMUIViewExtension.swift in Sources */,
