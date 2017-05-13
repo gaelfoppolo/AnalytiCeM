@@ -58,9 +58,6 @@ class AddMuseViewController: UIViewController, UITableViewDataSource, UITableVie
         
         // get the manager of Muse (singleton)
         manager = IXNMuseManagerIos.sharedManager()
-        
-        // set the view as delegate
-        manager?.museListener = self
 
     }
 
@@ -71,6 +68,9 @@ class AddMuseViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // set the view as delegate
+        manager?.museListener = self
         
         // opening
         self.viewPopup.animation = "zoomIn"
@@ -98,6 +98,9 @@ class AddMuseViewController: UIViewController, UITableViewDataSource, UITableVie
         self.viewPopup.animation = "zoomOut"
         self.viewPopup.duration	= 0.5
         self.viewPopup.animate()
+        
+        // unset the view as delegate
+        manager?.museListener = nil
         
         // stop scan
         manager?.stopListening()

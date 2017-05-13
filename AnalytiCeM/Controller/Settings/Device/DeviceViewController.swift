@@ -44,6 +44,7 @@ class DeviceViewController: FormViewController, ChooseMuseDelegate {
     override func viewWillAppear(_ animated: Bool) {
         // subscribe
         registerBluetoothStatusChange(handler: handleBluetoothChange)
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
