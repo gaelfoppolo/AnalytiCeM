@@ -20,28 +20,7 @@ class NewSessionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // session parameters controller
-        let sessionParametersViewController = SessionParametersViewController(nibName: "SessionParametersViewController", bundle: nil)
-        
-        // the nav controller
-        let sessionController = UINavigationController(rootViewController: sessionParametersViewController)
-        
-        // navigation bar
-        sessionParametersViewController.navigationItem.title = "New session"
-        
-        // button exit on the right
-        let logoutButtonItem = UIBarButtonItem(title: "Cancel",
-                                               style: .plain,
-                                               target: self,
-                                               action: #selector(actionClose(_:))
-        )
-        sessionParametersViewController.navigationItem.rightBarButtonItem = logoutButtonItem
-        
-        // add it to the view
-        self.addChildViewController(sessionController)
-        self.viewPopup.layout(child: sessionController.view)
-        self.viewPopup.addSubview(sessionController.view)
-        sessionController.didMove(toParentViewController: self)
+        setupUI()
 
     }
 
@@ -66,6 +45,33 @@ class NewSessionViewController: UIViewController {
         self.viewPopup.animation = "zoomOut"
         self.viewPopup.duration	= 0.5
         self.viewPopup.animate()
+        
+    }
+    
+    private func setupUI() {
+        
+        // session parameters controller
+        let sessionParametersViewController = SessionParametersViewController(nibName: "SessionParametersViewController", bundle: nil)
+        
+        // the nav controller
+        let sessionController = UINavigationController(rootViewController: sessionParametersViewController)
+        
+        // navigation bar
+        sessionParametersViewController.navigationItem.title = "New session"
+        
+        // button exit on the right
+        let logoutButtonItem = UIBarButtonItem(title: "Cancel",
+                                               style: .plain,
+                                               target: self,
+                                               action: #selector(actionClose(_:))
+        )
+        sessionParametersViewController.navigationItem.rightBarButtonItem = logoutButtonItem
+        
+        // add it to the view
+        self.addChildViewController(sessionController)
+        self.viewPopup.layout(child: sessionController.view)
+        self.viewPopup.addSubview(sessionController.view)
+        sessionController.didMove(toParentViewController: self)
         
     }
     
