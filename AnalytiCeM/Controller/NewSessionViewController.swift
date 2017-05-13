@@ -16,17 +16,33 @@ class NewSessionViewController: UIViewController {
     
     @IBOutlet weak var viewBackground: UIView!
     @IBOutlet weak var viewPopup: SpringView!
-
-    @IBOutlet weak var btnClose: UIButton!
-
-    @IBOutlet weak var viewCenter: UIView!
-    
-    @IBOutlet weak var btnStart: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // session parameters controller
+        let sessionParametersViewController = SessionParametersViewController(nibName: "SessionParametersViewController", bundle: nil)
+        
+        // the nav controller
+        let sessionController = UINavigationController(rootViewController: sessionParametersViewController)
+        
+        // navigation bar
+        sessionParametersViewController.navigationItem.title = "New session"
+        
+        // button exit on the right
+        let logoutButtonItem = UIBarButtonItem(title: "Cancel",
+                                               style: .plain,
+                                               target: self,
+                                               action: #selector(actionClose(_:))
+        )
+        sessionParametersViewController.navigationItem.rightBarButtonItem = logoutButtonItem
+        
+        // add it to the view
+        self.addChildViewController(sessionController)
+        self.viewPopup.layout(child: sessionController.view)
+        self.viewPopup.addSubview(sessionController.view)
+        sessionController.didMove(toParentViewController: self)
 
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
