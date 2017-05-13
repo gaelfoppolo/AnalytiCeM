@@ -14,7 +14,7 @@ import RealmSwift
 import Sparrow
 import SwiftSpinner
 
-class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionListener, IXNMuseDataListener, SPRequestPermissionEventsDelegate {
+class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionListener, IXNMuseDataListener, SPRequestPermissionEventsDelegate, ActivityParameterDelegate {
     
     private enum MuseButtonStatus: Int {
         case connecting, connected, disconnected
@@ -94,6 +94,8 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.bluetoothAvailable = (BluetoothStatusManager.shared.currentStatus == .poweredOn)
+        
         setupManagers()
         
         setupRealm()
@@ -108,6 +110,8 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         // subscribe
         registerBluetoothStatusChange(handler: handleBluetoothChange)
         registerInternetStatusChange(handler: handleInternetChange)
+        // set the view as delegate
+        museManager?.museListener = self
         updateHey()
     }
     
@@ -115,6 +119,8 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         // unsubscribe
         unregisterBluetoothStatusChange()
         unregisterInternetStatusChange()
+        // unset the view as delegate
+        museManager?.museListener = nil
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -180,9 +186,6 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         
         // get the manager of Muse (singleton)
         museManager = IXNMuseManagerIos.sharedManager()
-        
-        // set the view as delegate
-        museManager?.museListener = self
         
     }
     
@@ -540,7 +543,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
             // prevent infinity search if no Muse, then list does not changed
             
             Timer.scheduledTimer(
-                withTimeInterval: 5,
+                withTimeInterval: 10,
                 repeats: false,
                 block: { timer in
                     
@@ -654,12 +657,23 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         
         lPopupVC.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         
+        // delegate
+        lPopupVC.delegate = self
+        
         // display
         self.present(lPopupVC, animated: true, completion: nil)
+        
+        
     }
     
     func stopSession() {
         self.sessionAction.update(to: .start, controller: self)
+    }
+    
+    // MARK: - ActivityParameterDelegate
+    
+    func didChoose(parameters activity: Activity) {
+        dump(activity)
     }
     
     // MARK: - SPRequestPermissionEventsDelegate

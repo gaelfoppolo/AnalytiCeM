@@ -34,4 +34,7 @@ class MentalState: Object {
         return (realm.objects(MentalState.self).max(ofProperty: "id") as Int? ?? 0) + 1
     }
     
+    // MARK: - CustomStringConvertible
+    
+    override var description: String { return label }
 }

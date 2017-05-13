@@ -10,38 +10,19 @@ import UIKit
 
 import Spring
 
-class NewSessionViewController: UIViewController {
+class NewSessionViewController: UIViewController, ActivityParameterDelegate {
     
     // MARK: - IBOutlet
     
     @IBOutlet weak var viewBackground: UIView!
     @IBOutlet weak var viewPopup: SpringView!
     
+    var delegate: ActivityParameterDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // session parameters controller
-        let sessionParametersViewController = SessionParametersViewController(nibName: "SessionParametersViewController", bundle: nil)
-        
-        // the nav controller
-        let sessionController = UINavigationController(rootViewController: sessionParametersViewController)
-        
-        // navigation bar
-        sessionParametersViewController.navigationItem.title = "New session"
-        
-        // button exit on the right
-        let logoutButtonItem = UIBarButtonItem(title: "Cancel",
-                                               style: .plain,
-                                               target: self,
-                                               action: #selector(actionClose(_:))
-        )
-        sessionParametersViewController.navigationItem.rightBarButtonItem = logoutButtonItem
-        
-        // add it to the view
-        self.addChildViewController(sessionController)
-        self.viewPopup.layout(child: sessionController.view)
-        self.viewPopup.addSubview(sessionController.view)
-        sessionController.didMove(toParentViewController: self)
+        setupUI()
 
     }
 
@@ -69,25 +50,51 @@ class NewSessionViewController: UIViewController {
         
     }
     
-    // MARK: - IBAction
+    private func setupUI() {
+        
+        // session parameters controller
+        let sessionParametersViewController = SessionParametersViewController(nibName: "SessionParametersViewController", bundle: nil)
+        
+        // the nav controller
+        let sessionController = UINavigationController(rootViewController: sessionParametersViewController)
+        
+        // navigation bar
+        sessionParametersViewController.navigationItem.title = "New session"
+        
+        // button exit on the right
+        let logoutButtonItem = UIBarButtonItem(title: "Cancel",
+                                               style: .plain,
+                                               target: self,
+                                               action: #selector(actionClose)
+        )
+        sessionParametersViewController.navigationItem.rightBarButtonItem = logoutButtonItem
+        
+        // add it to the view
+        self.addChildViewController(sessionController)
+        self.viewPopup.layout(child: sessionController.view)
+        self.viewPopup.addSubview(sessionController.view)
+        sessionController.didMove(toParentViewController: self)
+        
+        // add ourself as delegate
+        sessionParametersViewController.delegate = self
+        
+    }
     
-    @IBAction func actionClose(_ sender: Any) {
+   func actionClose() {
         // close popup
         self.dismiss(animated: true, completion: nil)
     }
-
-    @IBAction func actionStart(_ sender: Any) {
-    }
     
+    // MARK: - ActivityParameterDelegate
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func didChoose(parameters activity: Activity) {
+        // if delegate
+        if (self.delegate != nil) {
+            
+            // call delegate
+            self.delegate!.didChoose(parameters: activity)
+            self.dismiss(animated: true, completion: nil)
+        }
     }
-    */
 
 }

@@ -27,7 +27,7 @@
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dFV-86-REU" customClass="SpringView" customModule="Spring">
-                    <rect key="frame" x="60" y="120" width="480" height="360"/>
+                    <rect key="frame" x="60" y="90" width="480" height="420"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
             </subviews>
@@ -35,7 +35,7 @@
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="CQ4-Ww-1Re" secondAttribute="bottom" id="GRC-7g-dgS"/>
                 <constraint firstItem="dFV-86-REU" firstAttribute="centerX" secondItem="A3W-6n-uQH" secondAttribute="centerX" id="JaT-8u-acc"/>
-                <constraint firstItem="dFV-86-REU" firstAttribute="height" secondItem="A3W-6n-uQH" secondAttribute="height" multiplier="0.6" id="MU0-tJ-tbL"/>
+                <constraint firstItem="dFV-86-REU" firstAttribute="height" secondItem="A3W-6n-uQH" secondAttribute="height" multiplier="0.7" id="MU0-tJ-tbL"/>
                 <constraint firstAttribute="trailing" secondItem="CQ4-Ww-1Re" secondAttribute="trailing" id="Qnb-ue-Vie"/>
                 <constraint firstItem="dFV-86-REU" firstAttribute="width" secondItem="A3W-6n-uQH" secondAttribute="width" multiplier="0.8" id="S1C-l0-5r0"/>
                 <constraint firstItem="CQ4-Ww-1Re" firstAttribute="top" secondItem="A3W-6n-uQH" secondAttribute="top" id="SLo-cI-j04"/>
