@@ -25,6 +25,8 @@ class User: Object {
     dynamic var weight: Int = 0
     dynamic var size: Int = 0
     
+    let sessions = LinkingObjects(fromType: Session.self, property: "user")
+    
     dynamic var isCurrent: Bool = false
     
     // MARK: - Initializers

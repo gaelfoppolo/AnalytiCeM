@@ -11,6 +11,8 @@ import RealmSwift
 
 class Activity: Object {
     
+    // MARK: - Properties
+    
     dynamic var id: Int = 0
     dynamic var label: String = ""
     let types = List<ActivityType>()
@@ -40,6 +42,5 @@ class Activity: Object {
         let realm = try! Realm()
         return (realm.objects(Activity.self).max(ofProperty: "id") as Int? ?? 0) + 1
     }
-    
     
 }

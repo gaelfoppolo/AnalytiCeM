@@ -40,6 +40,7 @@
 		938D77251EC7B321005C707A /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D77241EC7B321005C707A /* Activity.swift */; };
 		938D77271EC7BA6F005C707A /* GPS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D77261EC7BA6F005C707A /* GPS.swift */; };
 		938D77291EC7BB3E005C707A /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D77281EC7BB3E005C707A /* Data.swift */; };
+		938D772B1EC7BDC4005C707A /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D772A1EC7BDC4005C707A /* Session.swift */; };
 		938F222C1EBF2B9000FF5C70 /* OWMManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938F222B1EBF2B9000FF5C70 /* OWMManager.swift */; };
 		939085BA1EA22610007495D1 /* EEGSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939085B91EA22610007495D1 /* EEGSnapshot.swift */; };
 		939085BC1EA270CE007495D1 /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939085BB1EA270CE007495D1 /* WaveView.swift */; };
@@ -109,6 +110,7 @@
 		938D77241EC7B321005C707A /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		938D77261EC7BA6F005C707A /* GPS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPS.swift; sourceTree = "<group>"; };
 		938D77281EC7BB3E005C707A /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		938D772A1EC7BDC4005C707A /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		938F222B1EBF2B9000FF5C70 /* OWMManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OWMManager.swift; sourceTree = "<group>"; };
 		939085B91EA22610007495D1 /* EEGSnapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EEGSnapshot.swift; sourceTree = "<group>"; };
 		939085BB1EA270CE007495D1 /* WaveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
@@ -312,6 +314,7 @@
 				938D77261EC7BA6F005C707A /* GPS.swift */,
 				938D77281EC7BB3E005C707A /* Data.swift */,
 				9340981D1EB76E780079B7C2 /* User.swift */,
+				938D772A1EC7BDC4005C707A /* Session.swift */,
 				938F222B1EBF2B9000FF5C70 /* OWMManager.swift */,
 				932B76751EBF9F8100562FD1 /* ConnectivityManager.swift */,
 				932B767B1EBFBE1800562FD1 /* WeatherManager.swift */,
@@ -507,6 +510,7 @@
 				93C6D3581EA375D000A21FB4 /* SessionViewController.swift in Sources */,
 				936564D21EB8BADD007F469E /* UserProfileViewController.swift in Sources */,
 				9374B30E1E9D80DB00052AA5 /* AppDelegate.swift in Sources */,
+				938D772B1EC7BDC4005C707A /* Session.swift in Sources */,
 				9331360C1EBA6DF800B90410 /* PasswordManager.swift in Sources */,
 				9357A0571EC36F3400C704A8 /* WeatherView.swift in Sources */,
 				93AD2AC91EBBD6FD00803122 /* BigContentView.swift in Sources */,
