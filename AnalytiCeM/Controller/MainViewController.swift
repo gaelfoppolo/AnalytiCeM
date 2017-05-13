@@ -14,7 +14,7 @@ import RealmSwift
 import Sparrow
 import SwiftSpinner
 
-class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionListener, IXNMuseDataListener, SPRequestPermissionEventsDelegate {
+class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionListener, IXNMuseDataListener, SPRequestPermissionEventsDelegate, ActivityParameterDelegate {
     
     private enum MuseButtonStatus: Int {
         case connecting, connected, disconnected
@@ -654,12 +654,23 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         
         lPopupVC.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         
+        // delegate
+        lPopupVC.delegate = self
+        
         // display
         self.present(lPopupVC, animated: true, completion: nil)
+        
+        
     }
     
     func stopSession() {
         self.sessionAction.update(to: .start, controller: self)
+    }
+    
+    // MARK: - ActivityParameterDelegate
+    
+    func didChoose(parameters activity: Activity) {
+        dump(activity)
     }
     
     // MARK: - SPRequestPermissionEventsDelegate

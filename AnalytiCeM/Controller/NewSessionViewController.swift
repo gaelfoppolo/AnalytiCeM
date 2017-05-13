@@ -10,12 +10,14 @@ import UIKit
 
 import Spring
 
-class NewSessionViewController: UIViewController {
+class NewSessionViewController: UIViewController, ActivityParameterDelegate {
     
     // MARK: - IBOutlet
     
     @IBOutlet weak var viewBackground: UIView!
     @IBOutlet weak var viewPopup: SpringView!
+    
+    var delegate: ActivityParameterDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +65,7 @@ class NewSessionViewController: UIViewController {
         let logoutButtonItem = UIBarButtonItem(title: "Cancel",
                                                style: .plain,
                                                target: self,
-                                               action: #selector(actionClose(_:))
+                                               action: #selector(actionClose)
         )
         sessionParametersViewController.navigationItem.rightBarButtonItem = logoutButtonItem
         
@@ -73,27 +75,26 @@ class NewSessionViewController: UIViewController {
         self.viewPopup.addSubview(sessionController.view)
         sessionController.didMove(toParentViewController: self)
         
+        // add ourself as delegate
+        sessionParametersViewController.delegate = self
+        
     }
     
-    // MARK: - IBAction
-    
-    @IBAction func actionClose(_ sender: Any) {
+   func actionClose() {
         // close popup
         self.dismiss(animated: true, completion: nil)
     }
-
-    @IBAction func actionStart(_ sender: Any) {
-    }
     
+    // MARK: - ActivityParameterDelegate
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func didChoose(parameters activity: Activity) {
+        // if delegate
+        if (self.delegate != nil) {
+            
+            // call delegate
+            self.delegate!.didChoose(parameters: activity)
+            self.dismiss(animated: true, completion: nil)
+        }
     }
-    */
 
 }

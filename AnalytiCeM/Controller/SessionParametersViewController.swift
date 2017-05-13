@@ -11,6 +11,12 @@ import UIKit
 import Eureka
 import RealmSwift
 
+protocol ActivityParameterDelegate {
+    
+    func didChoose(parameters activity: Activity)
+    
+}
+
 class SessionParametersViewController: FormViewController {
     
     // MARK: - Properties
@@ -28,6 +34,8 @@ class SessionParametersViewController: FormViewController {
     let kSectionValidateTagRegister = "validate.label"
     
     let realm = try! Realm()
+    
+    var delegate: ActivityParameterDelegate?
 
     // MARK: - View
 
@@ -181,8 +189,30 @@ class SessionParametersViewController: FormViewController {
                 // no error, then validate
                 if errors.count == 0 {
                     
-                    print("lets go")
+                    self.validate()
                 }
+        }
+        
+    }
+    
+    private func validate() {
+        
+        // if delegate
+        if (self.delegate != nil) {
+            
+            // retrieve values
+            let labelValue = (form.rowBy(tag: kSectionActivityTagLabel) as! TextRow).value!
+            let activityTypes = (form.rowBy(tag: kSectionActivityTypeTagLabel) as! MultipleSelectorRow<ActivityType>).value!
+            let mentalStateValue = (form.rowBy(tag: kSectionMentalStateTagLabel) as! PushRow<MentalState>).value!
+            
+            let activity = Activity(label: labelValue,
+                                    types: activityTypes,
+                                    mentalState: mentalStateValue
+            )
+            
+            // call delegate
+            self.delegate!.didChoose(parameters: activity)
+            
         }
         
     }
