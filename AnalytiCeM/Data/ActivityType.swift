@@ -33,5 +33,9 @@ class ActivityType: Object {
         let realm = try! Realm()
         return (realm.objects(ActivityType.self).max(ofProperty: "id") as Int? ?? 0) + 1
     }
+    
+    // MARK: - CustomStringConvertible
+    
+    override var description: String { return label }
 
 }

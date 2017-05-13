@@ -9,15 +9,25 @@
 import UIKit
 
 import Eureka
+import RealmSwift
 
 class SessionParametersViewController: FormViewController {
     
     // MARK: - Properties
     
-    let kSectionTagSession = "session"
-    let kSectionSessionTagLabel = "session.label"
-    let kSectionSessionTagActivityType = "session.activity"
-    let kSectionSessionTagMentalState = "session.mental"
+    let kSectionTagActivity = "activity"
+    let kSectionActivityTagLabel = "activity.label"
+    
+    let kSectionTagActivityType = "activityType"
+    let kSectionActivityTypeTagLabel = "activityType.label"
+    
+    let kSectionTagMentalState = "mentalState"
+    let kSectionMentalStateTagLabel = "mentalState.label"
+    
+    let kSectionTagValidate = "validate"
+    let kSectionValidateTagRegister = "validate.label"
+    
+    let realm = try! Realm()
 
     // MARK: - View
 
@@ -32,28 +42,147 @@ class SessionParametersViewController: FormViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
     private func setupUI() {
         
-        // create the section
-        let section = Section()
-        section.tag = kSectionTagSession
-        
-        // add the section
-        form +++ section
-        
-        // label
-        section <<< TextRow() {
-            $0.title = "Your activity"
-            $0.placeholder = "Hiking"
-            $0.tag = kSectionSessionTagLabel
+        TextRow.defaultOnRowValidationChanged = { cell, row in
+            let rowIndex = row.indexPath!.row
+            while row.section!.count > rowIndex + 1 && row.section?[rowIndex  + 1] is LabelRow {
+                row.section?.remove(at: rowIndex + 1)
+            }
+            if !row.isValid {
+                let labelRow = LabelRow() {
+                    $0.title = "Please type your activity"
+                    $0.cell.height = { 30 }
+                    $0.cell.backgroundColor = .red
+                }
+                row.section?.insert(labelRow, at: row.indexPath!.row + 1)
+            }
         }
         
-        <<< MultipleSelectorRow<String>() {
-            $0.title = "Your activity type"
-            $0.options = ["💁🏻", "🍐", "👦🏼", "🐗", "🐼", "🐻"]
-            $0.value = ["👦🏼", "🍐", "🐗"]
-            $0.tag = kSectionSessionTagActivityType
+        MultipleSelectorRow<ActivityType>.defaultOnRowValidationChanged = { cell, row in
+            let rowIndex = row.indexPath!.row
+            while row.section!.count > rowIndex + 1 && row.section?[rowIndex  + 1] is LabelRow {
+                row.section?.remove(at: rowIndex + 1)
+            }
+            if !row.isValid {
+                let labelRow = LabelRow() {
+                    $0.title = "Please choose at least one category"
+                    $0.cell.height = { 30 }
+                    $0.cell.backgroundColor = .red
+                }
+                row.section?.insert(labelRow, at: row.indexPath!.row + 1)
+            }
+        }
+        
+        PushRow<MentalState>.defaultOnRowValidationChanged = { cell, row in
+            let rowIndex = row.indexPath!.row
+            while row.section!.count > rowIndex + 1 && row.section?[rowIndex  + 1] is LabelRow {
+                row.section?.remove(at: rowIndex + 1)
+            }
+            if !row.isValid {
+                let labelRow = LabelRow() {
+                    $0.title = "Please choose a mental state"
+                    $0.cell.height = { 30 }
+                    $0.cell.backgroundColor = .red
+                }
+                row.section?.insert(labelRow, at: row.indexPath!.row + 1)
+            }
+        }
+        
+        // create the section activity
+        let sectionActivity = Section(header: "What is your activity?", footer: "Should be between 2 and 15 characters")
+        sectionActivity.tag = kSectionTagActivity
+        
+        // add the section
+        form +++ sectionActivity
+        
+        // label
+        sectionActivity <<< TextRow() {
+            $0.placeholder = "Hiking"
+            // rules
+            $0.add(rule: RuleRequired())
+            $0.add(rule: RuleMinLength(minLength: 2))
+            $0.add(rule: RuleMaxLength(maxLength: 15))
+            // tag
+            $0.tag = kSectionActivityTagLabel
+        }
+        
+        // create the section activity type
+        let sectionActivityType = Section("What kind of activity is it?")
+        sectionActivityType.tag = kSectionTagActivityType
+        
+        // add the section
+        form +++ sectionActivityType
+            
+        // activity type
+        sectionActivityType <<< MultipleSelectorRow<ActivityType>() { (row : MultipleSelectorRow<ActivityType>) -> Void in
+            
+            row.options = []
+            
+            // get activity types
+            let activityTypes = realm.objects(ActivityType.self)
+            activityTypes.forEach({ at in
+                row.options.append(at)
+            })
+            
+            row.displayValueFor = { (rowValue: Set<ActivityType>?) in
+                return rowValue?.map({ $0.label }).sorted().joined(separator: ", ")
+            }
+            
+            // rules
+            row.add(rule: RuleRequired())
+            // tag
+            
+            row.tag = kSectionActivityTypeTagLabel
+        }
+        
+        // create the section mental state
+        let sectionMentalState = Section("What's your current mood?")
+        sectionMentalState.tag = kSectionTagMentalState
+        
+        // add the section
+        form +++ sectionMentalState
+            
+        sectionMentalState <<< PushRow<MentalState>() { (row : PushRow<MentalState>) -> Void in
+            row.options = []
+            
+            // get mental state
+            let mentalStates = realm.objects(MentalState.self)
+            mentalStates.forEach({ ms in
+                row.options.append(ms)
+            })
+            
+            row.displayValueFor = { (rowValue: MentalState?) in
+                return rowValue?.label
+            }
+            
+            // rules
+            row.add(rule: RuleRequired())
+            // tag
+            
+            row.tag = kSectionMentalStateTagLabel
+        }
+        
+        // create the section validate
+        let validateSection = Section()
+        validateSection.tag = kSectionTagValidate
+        
+        // add the section displaying the account section to the form
+        form +++ validateSection
+        
+        validateSection <<< ButtonRow() {
+            $0.title = "Start session"
+            $0.tag = kSectionValidateTagRegister
+            }
+            .onCellSelection { cell, row in
+                
+                let errors = self.form.validate()
+                
+                // no error, then validate
+                if errors.count == 0 {
+                    
+                    print("lets go")
+                }
         }
         
     }
