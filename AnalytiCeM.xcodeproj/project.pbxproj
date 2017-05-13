@@ -38,6 +38,7 @@
 		937D66B31EA6CF4F00A8E3DC /* AddMuseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937D66B11EA6CF4F00A8E3DC /* AddMuseTableViewCell.swift */; };
 		937D66B41EA6CF4F00A8E3DC /* AddMuseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937D66B21EA6CF4F00A8E3DC /* AddMuseTableViewCell.xib */; };
 		938D77251EC7B321005C707A /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D77241EC7B321005C707A /* Activity.swift */; };
+		938D77271EC7BA6F005C707A /* GPS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D77261EC7BA6F005C707A /* GPS.swift */; };
 		938F222C1EBF2B9000FF5C70 /* OWMManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938F222B1EBF2B9000FF5C70 /* OWMManager.swift */; };
 		939085BA1EA22610007495D1 /* EEGSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939085B91EA22610007495D1 /* EEGSnapshot.swift */; };
 		939085BC1EA270CE007495D1 /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939085BB1EA270CE007495D1 /* WaveView.swift */; };
@@ -105,6 +106,7 @@
 		937D66B11EA6CF4F00A8E3DC /* AddMuseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMuseTableViewCell.swift; sourceTree = "<group>"; };
 		937D66B21EA6CF4F00A8E3DC /* AddMuseTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddMuseTableViewCell.xib; sourceTree = "<group>"; };
 		938D77241EC7B321005C707A /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		938D77261EC7BA6F005C707A /* GPS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPS.swift; sourceTree = "<group>"; };
 		938F222B1EBF2B9000FF5C70 /* OWMManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OWMManager.swift; sourceTree = "<group>"; };
 		939085B91EA22610007495D1 /* EEGSnapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EEGSnapshot.swift; sourceTree = "<group>"; };
 		939085BB1EA270CE007495D1 /* WaveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
@@ -305,6 +307,7 @@
 				939085B91EA22610007495D1 /* EEGSnapshot.swift */,
 				93774D471EAB98D900B11A00 /* Muse.swift */,
 				932B76791EBFB6F700562FD1 /* Weather.swift */,
+				938D77261EC7BA6F005C707A /* GPS.swift */,
 				9340981D1EB76E780079B7C2 /* User.swift */,
 				938F222B1EBF2B9000FF5C70 /* OWMManager.swift */,
 				932B76751EBF9F8100562FD1 /* ConnectivityManager.swift */,
@@ -487,6 +490,7 @@
 				937D66A51EA69DF600A8E3DC /* UserViewController.swift in Sources */,
 				937D66AF1EA6C85400A8E3DC /* AddMuseViewController.swift in Sources */,
 				937933BD1EC0ADBC00A1FFE1 /* GPSView.swift in Sources */,
+				938D77271EC7BA6F005C707A /* GPS.swift in Sources */,
 				93D3373C1EC65CAE00AF7A8E /* HeyUILabel.swift in Sources */,
 				93D337421EC67B7600AF7A8E /* MentalState.swift in Sources */,
 				93D337471EC67DDD00AF7A8E /* NewSessionViewController.swift in Sources */,
