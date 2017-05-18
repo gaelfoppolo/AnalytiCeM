@@ -24,6 +24,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     
     var locationTimer: Timer?
     var weatherTimer: Timer?
+    var currentWeather: Weather?
     var owmManager: OWMManager!
     
     var bluetoothAvailable: Bool? {
@@ -327,10 +328,12 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
                     switch result {
                         case .Success(let json):
                             let weather = Weather(json: json)
+                            self.currentWeather = weather
                             self.weatherView.display(weather: weather)
                             break
                         case .Error(let errorMessage):
                             self.weatherView.display(error: errorMessage)
+                            self.currentWeather = nil
                             break
                     }
                     
@@ -394,6 +397,10 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         
         // create current values
         currentValues[.eeg] = Array<EEGSnapshot>()
+        // todo: for each type
+        
+        // todo: init values of jaw and blink
+        // int ?
         
     }
     
@@ -449,35 +456,30 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
                     snapshot.rightFront = sumRightFront
                     
                     // add the snapshot to the history
-                    self.museHistory[.eeg]!.append(snapshot)
+                    self.museHistory[type]!.append(snapshot)
                     
                     // forget surplus points
-                    self.museHistory[.eeg]!.removeSubrange(0 ..< max(0, self.museHistory[.eeg]!.count - self.idleMaxPoints))
+                    self.museHistory[type]!.removeSubrange(0 ..< max(0, self.museHistory[type]!.count - self.idleMaxPoints))
                 }
                 
                 calc(type: .eeg)
+                // todo:
+                // calc the other types
+                // removeAll currentvalues
                 
                 // then refresh the wave view
                 self.refreshWaveView()
                 
             }
         )
-            
-            
-            Timer.scheduledTimer(
-            timeInterval: 1,
-            target: self,
-            selector: #selector(refreshWaveView),
-            userInfo: nil,
-            repeats: true
-        )
         
         // launch it now
-        //weatherTimer?.fire()
+        currentHistoryTimer?.fire()
     }
     
     private func stopHistoryRefresher() {
         currentHistoryTimer?.invalidate()
+        // todo: reset to zero?
     }
     
     // MARK: - Muse Status Button
@@ -572,6 +574,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         // eeg data packet listener
         muse.register(self, type: .eeg)
         
+        // todo: register all relatives and artifacts
         //muse?.register(self, type: .betaRelative)
         
         // launch
@@ -644,7 +647,6 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     }
     
     func launchSession() {
-        //self.sessionAction.update(to: .stop, controller: self)
         
         // the view to display
         let lPopupVC = NewSessionViewController(nibName: "NewSessionViewController", bundle: nil)
@@ -663,17 +665,87 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         // display
         self.present(lPopupVC, animated: true, completion: nil)
         
-        
     }
     
     func stopSession() {
         self.sessionAction.update(to: .start, controller: self)
+        
+        //todo: add endtime to current session
+        // change top label
+        // stop timers (which ones ?)
+        // currentSession to nil
     }
     
     // MARK: - ActivityParameterDelegate
     
     func didChoose(parameters activity: Activity) {
-        dump(activity)
+        //dump(activity)
+        
+        var message: String?
+        
+        // weather
+        if self.currentWeather == nil {
+            message = "No weather"
+        }
+        
+        // internet
+        if !internetAvailable {
+            message = "No internet"
+        }
+        
+        // bluetooth
+        if bluetoothAvailable == nil || !bluetoothAvailable! {
+            message = "No Bluetooth"
+        }
+        
+        // user
+        if self.currentUser?.first == nil {
+            message = "No user"
+        }
+        
+        guard message != nil else {
+            
+            SwiftSpinner.show(message!, animated: false)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                SwiftSpinner.hide()
+            }
+            return
+            
+        }
+        
+        // display view with messages
+        SwiftSpinner.show("Session is about\nto begin", animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            SwiftSpinner.show("Please keep the Muse\non your head",
+                              animated: true
+            )
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            SwiftSpinner.hide()
+        }
+        
+        // button to stop mode
+        self.sessionAction.update(to: .stop, controller: self)
+        
+        // store the current session
+        let session = Session(start: NSDate(),
+                              user: currentUser!.first!,
+                              weather: currentWeather!,
+                              activity: activity
+        )
+        
+        // realm
+        try! realm.write {
+            realm.add(session)
+        }
+        
+        //todo: store currentSession (results.last ou this ?)
+        // add to this and add with update?
+        // add timer at top
+        // init timers to generate data and add it to session each 10 sec
+        // -> function
+        // function to updateLocation every 10 sec
+        
     }
     
     // MARK: - SPRequestPermissionEventsDelegate
@@ -765,9 +837,17 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         // check validity
         guard let packet = packet else { return }
         
+        // test to retrieve timestamp
+        let date = NSDate.init(timeIntervalSince1970: TimeInterval(packet.timestamp()/1_000_000))
+        print(packet.timestamp()/1_000_000)
+        print(date.description)
+        print(date.description(with: NSLocale.autoupdatingCurrent))
+        
+        packet.timestamp()
+        
         if packet.packetType() == .eeg {
             
-            print(String(format: "%5.2f %5.2f %5.2f %5.2f", CDouble((packet.values()[IXNEeg.EEG1.rawValue])), CDouble((packet.values()[IXNEeg.EEG2.rawValue])), CDouble((packet.values()[IXNEeg.EEG3.rawValue])), CDouble((packet.values()[IXNEeg.EEG4.rawValue]))))
+            //print(String(format: "%5.2f %5.2f %5.2f %5.2f", CDouble((packet.values()[IXNEeg.EEG1.rawValue])), CDouble((packet.values()[IXNEeg.EEG2.rawValue])), CDouble((packet.values()[IXNEeg.EEG3.rawValue])), CDouble((packet.values()[IXNEeg.EEG4.rawValue]))))
             
             let eegSnapshot = EEGSnapshot(data: packet)
             
@@ -779,11 +859,17 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
             
         }
         
+        // todo: use switch case to dispact
+        // packetType in array, then retrieve
+        // switch to put in good case of currentValues
+        
     }
     
     func receive(_ packet: IXNMuseArtifactPacket, muse: IXNMuse?) {
+        // todo: check if in session to store
         if packet.blink {
             print("blink detected")
+            
         }
         
         if packet.jawClench {
@@ -800,9 +886,6 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         waveView.points = museHistory[.eeg]!.map({
             return $0.value
         })
-        
-        // reset
-        currentValues[.eeg]?.removeAll()
         
     }
 
