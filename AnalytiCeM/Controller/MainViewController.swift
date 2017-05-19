@@ -57,7 +57,6 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     
     var internetAvailable: Bool = false {
         didSet {
-            
         }
     }
     
@@ -79,6 +78,12 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     
     let realm = try! Realm()
     var notificationUser: NotificationToken? = nil
+    
+    // Session
+    var currentSession: Session?
+    var sessionTimer: Timer?
+    // will always be positive
+    var currentTime: UInt = 0
     
     // MARK: - IBOutlet
     
@@ -668,12 +673,17 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     }
     
     func stopSession() {
-        self.sessionAction.update(to: .start, controller: self)
+        
+        // stop & change label back
+        self.stopSessionTimer()
+        self.currentSession = nil
         
         //todo: add endtime to current session
-        // change top label
         // stop timers (which ones ?)
-        // currentSession to nil
+        // logout to on
+        
+        // can start a new session
+        self.sessionAction.update(to: .start, controller: self)
     }
     
     // MARK: - ActivityParameterDelegate
@@ -727,24 +737,28 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         // button to stop mode
         self.sessionAction.update(to: .stop, controller: self)
         
-        // store the current session
+        // create the session object
         let session = Session(start: NSDate(),
                               user: currentUser!.first!,
                               weather: currentWeather!,
                               activity: activity
         )
         
-        // realm
+        // store it to realm
         try! realm.write {
-            realm.add(session)
+            realm.add(session, update: true)
         }
         
-        //todo: store currentSession (results.last ou this ?)
-        // add to this and add with update?
-        // add timer at top
+        // keep a reference
+        self.currentSession = session
+        
+        
+        //todo:
+        self.runSessionTimer()
         // init timers to generate data and add it to session each 10 sec
         // -> function
         // function to updateLocation every 10 sec
+        // logout off
         
     }
     
@@ -888,5 +902,36 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         })
         
     }
-
+    
+    // MARK: - Session
+    
+    func runSessionTimer() {
+        
+        // reset
+        self.currentTime = 0
+        
+        // set timer to fire event every second
+        self.sessionTimer = Timer.scheduledTimer(timeInterval: 1,
+                                                 target: self,
+                                                 selector: (#selector(MainViewController.updateSessionTimer)),
+                                                 userInfo: nil,
+                                                 repeats: true
+        )
+    }
+    
+    func updateSessionTimer() {
+        // increment
+        self.currentTime += 1
+        // update label
+        self.topLabel.display(time: self.currentTime)
+    }
+    
+    func stopSessionTimer() {
+        
+        // stop timer
+        self.sessionTimer?.invalidate()
+        
+        // display name
+        self.topLabel.display(name: currentUser?.first?.firstName ?? "")
+    }
 }
