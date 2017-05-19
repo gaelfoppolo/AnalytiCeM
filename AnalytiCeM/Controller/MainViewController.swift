@@ -1,4 +1,4 @@
-//
+    //
 //  MainViewController.swift
 //  AnalytiCeM
 //
@@ -26,6 +26,9 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     var weatherTimer: Timer?
     var currentWeather: Weather?
     var owmManager: OWMManager!
+    
+    let kUpdateLocationSession: TimeInterval = 10
+    let kUpdateLocationIdle: TimeInterval = 60
     
     var bluetoothAvailable: Bool? {
         
@@ -57,6 +60,10 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     
     var internetAvailable: Bool = false {
         didSet {
+            if internetAvailable {
+                updateLocation()
+                updateWeather()
+            }
         }
     }
     
@@ -84,6 +91,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     var sessionTimer: Timer?
     // will always be positive
     var currentTime: UInt = 0
+    var dataGatherTimer: Timer?
     
     // MARK: - IBOutlet
     
@@ -212,7 +220,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         }
         
         // we can init
-        initLocationRefresher()
+        initLocationRefresher(every: kUpdateLocationIdle)
         initWeatherRefresher()
         
     }
@@ -276,14 +284,14 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         })
     }
     
-    private func initLocationRefresher() {
+    private func initLocationRefresher(every seconds: TimeInterval) {
         
         // in case of
         locationTimer?.invalidate()
         
-        // init timer, every minute, until it's stopped
+        // init timer, every x, until it's stopped
         locationTimer = Timer.scheduledTimer(
-            timeInterval: 60,
+            timeInterval: seconds,
             target: self,
             selector: #selector(updateLocation),
             userInfo: nil,
@@ -402,7 +410,11 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         
         // create current values
         currentValues[.eeg] = Array<EEGSnapshot>()
-        // todo: for each type
+        currentValues[.alphaRelative] = Array<EEGSnapshot>()
+        currentValues[.betaRelative] = Array<EEGSnapshot>()
+        currentValues[.deltaRelative] = Array<EEGSnapshot>()
+        currentValues[.thetaRelative] = Array<EEGSnapshot>()
+        currentValues[.gammaRelative] = Array<EEGSnapshot>()
         
         // todo: init values of jaw and blink
         // int ?
@@ -467,10 +479,21 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
                     self.museHistory[type]!.removeSubrange(0 ..< max(0, self.museHistory[type]!.count - self.idleMaxPoints))
                 }
                 
+                // calc
                 calc(type: .eeg)
-                // todo:
-                // calc the other types
-                // removeAll currentvalues
+                calc(type: .alphaRelative)
+                calc(type: .betaRelative)
+                calc(type: .deltaRelative)
+                calc(type: .thetaRelative)
+                calc(type: .gammaRelative)
+                
+                // empty temp after calc is done
+                self.currentValues[.eeg]?.removeAll()
+                self.currentValues[.alphaRelative]?.removeAll()
+                self.currentValues[.betaRelative]?.removeAll()
+                self.currentValues[.deltaRelative]?.removeAll()
+                self.currentValues[.thetaRelative]?.removeAll()
+                self.currentValues[.gammaRelative]?.removeAll()
                 
                 // then refresh the wave view
                 self.refreshWaveView()
@@ -484,7 +507,8 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     
     private func stopHistoryRefresher() {
         currentHistoryTimer?.invalidate()
-        // todo: reset to zero?
+        // todo: reset to zero the history
+        // cf initHistory()
     }
     
     // MARK: - Muse Status Button
@@ -576,10 +600,16 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         
         // connection listener
         muse.register(self)
+        
         // eeg data packet listener
         muse.register(self, type: .eeg)
+        muse.register(self, type: .alphaRelative)
+        muse.register(self, type: .betaRelative)
+        muse.register(self, type: .deltaRelative)
+        muse.register(self, type: .gammaRelative)
+        muse.register(self, type: .thetaRelative)
         
-        // todo: register all relatives and artifacts
+        // todo: register artifacts
         //muse?.register(self, type: .betaRelative)
         
         // launch
@@ -676,10 +706,19 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         
         // stop & change label back
         self.stopSessionTimer()
-        self.currentSession = nil
+        self.stopDataRefresher()
         
-        //todo: add endtime to current session
-        // stop timers (which ones ?)
+        initLocationRefresher(every: kUpdateLocationIdle)
+        
+        // update
+        try! realm.write {
+            // add entime
+            self.currentSession?.end = NSDate()
+            // reset
+            self.currentSession = nil
+        }
+        
+        //todo:       
         // logout to on
         
         // can start a new session
@@ -689,7 +728,6 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     // MARK: - ActivityParameterDelegate
     
     func didChoose(parameters activity: Activity) {
-        //dump(activity)
         
         var message: String?
         
@@ -713,7 +751,8 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
             message = "No user"
         }
         
-        guard message != nil else {
+        // check no message
+        guard message == nil else {
             
             SwiftSpinner.show(message!, animated: false)
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -752,13 +791,15 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         // keep a reference
         self.currentSession = session
         
+        self.runSessionTimer()
+        self.initSessionDataRefresher()
         
         //todo:
-        self.runSessionTimer()
-        // init timers to generate data and add it to session each 10 sec
-        // -> function
-        // function to updateLocation every 10 sec
         // logout off
+        
+        // location update closer
+        initLocationRefresher(every: kUpdateLocationSession)
+        
         
     }
     
@@ -768,7 +809,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     
     func didAllowPermission(permission: SPRequestPermissionType) {
         // we can init
-        initLocationRefresher()
+        initLocationRefresher(every: kUpdateLocationIdle)
         initWeatherRefresher()
     }
     
@@ -848,34 +889,40 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     
     func receive(_ packet: IXNMuseDataPacket?, muse: IXNMuse?) {
         
+        // list of type accepted
+        let acceptedType = [IXNMuseDataPacketType.eeg,
+                            IXNMuseDataPacketType.alphaRelative,
+                            IXNMuseDataPacketType.betaRelative,
+                            IXNMuseDataPacketType.deltaRelative,
+                            IXNMuseDataPacketType.thetaRelative,
+                            IXNMuseDataPacketType.gammaRelative
+        ]
+        
         // check validity
-        guard let packet = packet else { return }
+        guard let packet = packet, acceptedType.contains(packet.packetType()) else { return }
+        
+        // retrieve our custom type
+        let eegType = EEGType.fromMuse(type: packet.packetType())
+        
+        // build our snapshot, can fail
+        let eegSnapshot = EEGSnapshot(data: packet)
+        
+        // check type is found
+        // and currentValues index is ok
+        guard let eegSnap = eegSnapshot,
+            let eegTy = eegType,
+            self.currentValues[eegTy] != nil
+            else { return }
+        
+        // add the snapshot to the history
+        self.currentValues[eegTy]!.append(eegSnap)
         
         // test to retrieve timestamp
-        let date = NSDate.init(timeIntervalSince1970: TimeInterval(packet.timestamp()/1_000_000))
-        print(packet.timestamp()/1_000_000)
-        print(date.description)
-        print(date.description(with: NSLocale.autoupdatingCurrent))
-        
-        packet.timestamp()
-        
-        if packet.packetType() == .eeg {
-            
-            //print(String(format: "%5.2f %5.2f %5.2f %5.2f", CDouble((packet.values()[IXNEeg.EEG1.rawValue])), CDouble((packet.values()[IXNEeg.EEG2.rawValue])), CDouble((packet.values()[IXNEeg.EEG3.rawValue])), CDouble((packet.values()[IXNEeg.EEG4.rawValue]))))
-            
-            let eegSnapshot = EEGSnapshot(data: packet)
-            
-            // can fail
-            guard let eegSnap = eegSnapshot, self.currentValues[.eeg] != nil else { return }
-            
-            // add the snapshot to the history
-            self.currentValues[.eeg]!.append(eegSnap)
-            
-        }
-        
-        // todo: use switch case to dispact
-        // packetType in array, then retrieve
-        // switch to put in good case of currentValues
+        //let date = NSDate.init(timeIntervalSince1970: TimeInterval(packet.timestamp()/1_000_000))
+        //print(packet.timestamp()/1_000_000)
+        //print(date.description)
+        //print(date.description(with: NSLocale.autoupdatingCurrent))
+        //packet.timestamp()
         
     }
     
@@ -933,5 +980,72 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         
         // display name
         self.topLabel.display(name: currentUser?.first?.firstName ?? "")
+    }
+    
+    private func initSessionDataRefresher() {
+        
+        // in case of
+        dataGatherTimer?.invalidate()
+        
+        // init timer, every 10 seconds, until it's stopped
+        dataGatherTimer = Timer.scheduledTimer(
+            withTimeInterval: 10,
+            repeats: true,
+            block: { (timer) in
+                
+                func calc(type: EEGType) -> Double {
+                    
+                    let lastValues = self.museHistory[type]!.suffix(10)
+                    
+                    // calc the sum of the last ten
+                    var sum: Double = lastValues
+                        .map({ return $0.value })
+                        .reduce(0.0, +)
+                        
+                    // mean
+                    if sum != 0 {
+                        sum = sum/Double(lastValues.count)
+                    }
+
+                    return sum
+                }
+                
+                // calc
+                let eeg = calc(type: .eeg)
+                let alphaRelative = calc(type: .alphaRelative)
+                let betaRelative = calc(type: .betaRelative)
+                let deltaRelative = calc(type: .deltaRelative)
+                let thetaRelative = calc(type: .thetaRelative)
+                let gammaRelative = calc(type: .gammaRelative)
+                
+                // location
+                let gps: GPS = GPS(location: LocationManagerSwift.shared.getLocation())
+                
+                // todo: blink and jaw
+                var data: Data = Data(timestamp: NSDate(),
+                                      eeg: eeg,
+                                      alpha: alphaRelative,
+                                      beta: betaRelative,
+                                      delta: deltaRelative,
+                                      gamma: thetaRelative,
+                                      theta: gammaRelative,
+                                      blinkCount: 0,
+                                      jawCount: 0,
+                                      gps: gps
+                )
+                
+                // append the new data
+                try! self.realm.write {
+                    self.currentSession?.data.append(data)
+                }
+                
+            }
+        )
+        
+    }
+    
+    private func stopDataRefresher() {
+        dataGatherTimer?.invalidate()
+        // todo: something?
     }
 }
