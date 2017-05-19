@@ -82,6 +82,8 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     // values retrieved in the last second
     var currentValues: [EEGType: Array<EEGSnapshot>] = [EEGType: Array<EEGSnapshot>]()
     var currentHistoryTimer: Timer?
+    var jawCount: UInt = 0
+    var blinkCount: UInt = 0
     
     let realm = try! Realm()
     var notificationUser: NotificationToken? = nil
@@ -416,8 +418,8 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         currentValues[.thetaRelative] = Array<EEGSnapshot>()
         currentValues[.gammaRelative] = Array<EEGSnapshot>()
         
-        // todo: init values of jaw and blink
-        // int ?
+        self.blinkCount = 0
+        self.jawCount = 0
         
     }
     
@@ -507,8 +509,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     
     private func stopHistoryRefresher() {
         currentHistoryTimer?.invalidate()
-        // todo: reset to zero the history
-        // cf initHistory()
+        initHistory()
     }
     
     // MARK: - Muse Status Button
@@ -609,8 +610,8 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         muse.register(self, type: .gammaRelative)
         muse.register(self, type: .thetaRelative)
         
-        // todo: register artifacts
-        //muse?.register(self, type: .betaRelative)
+        // artifacts: blink and jaw
+        muse.register(self, type: .artifacts)
         
         // launch
         muse.runAsynchronously()
@@ -716,9 +717,11 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
             self.currentSession?.end = NSDate()
             // reset
             self.currentSession = nil
+            self.blinkCount = 0
+            self.jawCount = 0
         }
         
-        //todo:       
+        //todo:
         // logout to on
         
         // can start a new session
@@ -927,14 +930,16 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     }
     
     func receive(_ packet: IXNMuseArtifactPacket, muse: IXNMuse?) {
-        // todo: check if in session to store
+        
+        // check currently in session
+        guard currentSession != nil else { return }
+        
         if packet.blink {
-            print("blink detected")
-            
+            self.blinkCount += 1
         }
         
         if packet.jawClench {
-            print("jaw clench detected")
+            self.jawCount += 1
         }
     }
     
@@ -1022,17 +1027,21 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
                 let gps: GPS = GPS(location: LocationManagerSwift.shared.getLocation())
                 
                 // todo: blink and jaw
-                var data: Data = Data(timestamp: NSDate(),
+                let data: Data = Data(timestamp: NSDate(),
                                       eeg: eeg,
                                       alpha: alphaRelative,
                                       beta: betaRelative,
                                       delta: deltaRelative,
                                       gamma: thetaRelative,
                                       theta: gammaRelative,
-                                      blinkCount: 0,
-                                      jawCount: 0,
+                                      blinkCount: Int(self.blinkCount),
+                                      jawCount: Int(self.jawCount),
                                       gps: gps
                 )
+                
+                // reset
+                self.jawCount = 0
+                self.blinkCount = 0
                 
                 // append the new data
                 try! self.realm.write {
