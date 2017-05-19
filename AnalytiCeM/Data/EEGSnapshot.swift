@@ -31,6 +31,25 @@ public enum EEGType: Int {
         self = EEGType(value)
     }
     
+    public static func fromMuse(type: IXNMuseDataPacketType) -> EEGType? {
+        switch type {
+            case .eeg:
+                return .eeg
+            case .alphaRelative:
+                return .alphaRelative
+            case .betaRelative:
+                return .betaRelative
+            case .deltaRelative:
+                return .deltaRelative
+            case .thetaRelative:
+                return .thetaRelative
+            case .gammaRelative:
+                return .gammaRelative
+            default:
+                return nil
+            }
+    }
+    
 }
 
 public struct EEGSnapshot {
