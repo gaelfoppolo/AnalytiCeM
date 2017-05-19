@@ -18,6 +18,12 @@ class GPS: Object {
     dynamic var latitude: Double = 0.0
     dynamic var longitude: Double = 0.0
     
+    convenience init(location: CLLocation) {
+        self.init()
+        self.latitude = location.coordinate.latitude
+        self.longitude = location.coordinate.longitude
+    }
+    
     // Computed properties are ignored in Realm
     
     var coordinate: CLLocationCoordinate2D {
