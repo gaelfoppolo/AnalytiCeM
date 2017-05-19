@@ -9,6 +9,8 @@
 import UIKit
 
 class HeyUILabel: UILabel {
+    
+    private let dateFormatter = DateComponentsFormatter()
 
     // MARK: - Initializers
     
@@ -26,6 +28,10 @@ class HeyUILabel: UILabel {
     
     // Performs the initial setup.
     private func setupView() {
+        
+        // formatter
+        dateFormatter.allowedUnits = [.day, .hour, .minute, .second]
+        dateFormatter.unitsStyle = .abbreviated
     
         self.text = ""
         
@@ -34,6 +40,12 @@ class HeyUILabel: UILabel {
     public func display(name: String) {
         
         self.text = "Hey \(name)"
+        
+    }
+    
+    public func display(time seconds: UInt) {
+        
+        self.text = dateFormatter.string(from: TimeInterval(seconds))!
         
     }
 
