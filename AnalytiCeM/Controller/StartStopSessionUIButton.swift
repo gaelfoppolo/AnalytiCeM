@@ -38,6 +38,7 @@ class StartStopSessionUIButton: UIButton {
         self.layer.borderWidth = 1
         // title color
         self.setTitleColor(Theme.current.mainColor, for: .normal)
+        self.setTitleColor(.lightGray, for: .disabled)
         
         // title adaptative
         self.titleLabel?.numberOfLines = 1
@@ -69,6 +70,10 @@ class StartStopSessionUIButton: UIButton {
         
         self.removeTarget(nil, action: nil, for: .allEvents)
         self.addTarget(controller, action: button.action, for: .touchUpInside)
+    }
+    
+    public func enabled(_ enabled: Bool) {
+        self.isEnabled = enabled
     }
 
 }

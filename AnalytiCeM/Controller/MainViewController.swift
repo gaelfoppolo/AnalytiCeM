@@ -46,7 +46,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         didSet {
             
             changeMuseButtonInteraction()
-            
+            changeSessionButtonInteraction()
         }
     }
     
@@ -56,12 +56,23 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
                 updateLocation()
                 updateWeather()
             }
+            
+            changeSessionButtonInteraction()
+            
         }
     }
     
     // Muse
     var museManager: IXNMuseManagerIos?
-    weak var muse: IXNMuse?
+    weak var muse: IXNMuse? {
+        
+        didSet {
+            
+            changeSessionButtonInteraction()
+            
+        }
+        
+    }
     var currentMuse: Results<Muse>?
     var currentUser: Results<User>?
     
@@ -162,6 +173,10 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         
         // set button to disconnected
         changeMuseButton(to: .disconnected)
+        
+        // init interaction
+        changeMuseButtonInteraction()
+        changeSessionButtonInteraction()
         
         // session start/stop button
         self.sessionAction.update(to: .start, controller: self)
@@ -566,8 +581,27 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         self.navigationItem.leftBarButtonItem?.isEnabled = enabled
     }
     
-    private func changeLogoutButton(enabled: Bool) {
-        self.navigationItem.rightBarButtonItem?.isEnabled = enabled
+    // MARK: Session button
+    
+    private func changeSessionButtonInteraction() {
+        
+        // check bluetooth, internet, muse
+        guard self.bluetoothAvailable,
+            self.internetAvailable,
+            let muse = self.muse,
+            muse.getConnectionState() == .connected
+        else {
+            changeSessionButton(enabled: false)
+            return
+        }
+        
+        // everything is fine
+        changeSessionButton(enabled: true)
+        
+    }
+    
+    private func changeSessionButton(enabled: Bool) {
+        self.sessionAction.enabled(enabled)
     }
     
     // MARK: - Muse
@@ -648,7 +682,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         self.stopHistoryRefresher()
     }
     
-    // MARK: - IBAction & UIButton
+    // MARK: - Logout
     
     func logoutAction(_ sender: UIButton) {
         
@@ -700,6 +734,12 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         
     }
     
+    private func changeLogoutButton(enabled: Bool) {
+        self.navigationItem.rightBarButtonItem?.isEnabled = enabled
+    }
+    
+    // MARK: Session actions
+    
     func launchSession() {
         
         // todo: check bt, internet and muse ?
@@ -724,6 +764,17 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     }
     
     func stopSession() {
+        
+        // display view with messages
+        SwiftSpinner.show("Finalizing\nsession..", animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            SwiftSpinner.show("Session completed\n👍",
+                              animated: false
+            )
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            SwiftSpinner.hide()
+        }
         
         // stop & change label back
         self.stopSessionTimer()
@@ -922,6 +973,9 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         
         // display banner if needed
         banner?.show()
+        
+        // session button
+        changeSessionButtonInteraction()
     }
     
     func receive(_ packet: IXNMuseDataPacket?, muse: IXNMuse?) {
