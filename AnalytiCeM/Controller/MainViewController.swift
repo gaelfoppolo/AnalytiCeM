@@ -40,21 +40,10 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
                 self.disconnect()
             }
             
-            /*// if we gain Bluetooth
-            if (bluetoothAvailable == false && newBluetoothStatus == true) {
-                if let leftButton = self.navigationItem.leftBarButtonItem {
-                    leftButton.isEnabled = true
-                }
-            }*/
-            
         }
         
         didSet {
             
-            /*if let leftButton = self.navigationItem.leftBarButtonItem {
-                leftButton.isEnabled = leftButton.isEnabled && bluetoothAvailable
-            }*/
-            // update button status according to status
             changeMuseButtonInteraction()
             
         }
@@ -112,8 +101,10 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        BluetoothStatusManager.shared.shouldDisplayError = true
         self.bluetoothAvailable = (BluetoothStatusManager.shared.currentStatus == .poweredOn)
         
+        ConnectivityManager.shared.shouldDisplayError = true
         self.internetAvailable = ConnectivityManager.shared.isConnected
         
         setupManagers()
@@ -574,6 +565,10 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         self.navigationItem.leftBarButtonItem?.isEnabled = enabled
     }
     
+    private func changeLogoutButton(enabled: Bool) {
+        self.navigationItem.rightBarButtonItem?.isEnabled = enabled
+    }
+    
     // MARK: - Muse
     
     @objc private func startResearchMuses() {
@@ -747,14 +742,14 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
             self.jawCount = 0
         }
         
-        //todo:
         // logout to on
+        changeLogoutButton(enabled: true)
         
         // can start a new session
         self.sessionAction.update(to: .start, controller: self)
         
         // can remove Muse
-        changeMuseButton(enabled: false)
+        changeMuseButton(enabled: true)
     }
     
     // MARK: - ActivityParameterDelegate
@@ -828,8 +823,8 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         self.runSessionTimer()
         self.initSessionDataRefresher()
         
-        //todo:
         // logout off
+        changeLogoutButton(enabled: false)
         
         // location update closer
         initLocationRefresher(every: kUpdateLocationSession)
