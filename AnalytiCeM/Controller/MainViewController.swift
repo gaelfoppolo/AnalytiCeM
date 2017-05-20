@@ -10,6 +10,7 @@ import CoreBluetooth
 import UIKit
 
 import LocationManagerSwift
+import NotificationBannerSwift
 import RealmSwift
 import Sparrow
 import SwiftSpinner
@@ -635,12 +636,10 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     }
     
     func disconnect() {
-        // stop listening to Muses
-        museManager?.stopListening()
-        // remove all listeners
-        muse?.unregisterAllListeners()
         // disconnect
         muse?.disconnect()
+        // stop listening to Muses
+        museManager?.stopListening()
         // change status
         changeMuseButton(to: .disconnected)
         // set
@@ -904,11 +903,15 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     
     func receive(_ packet: IXNMuseConnectionPacket, muse: IXNMuse?) {
         
+        var banner: NotificationBanner?
+        
         switch packet.currentConnectionState {
             case .disconnected:
+                banner = NotificationBanner(title: "Disconnected from \(muse!.getName())", style: .danger)
                 // case of, clean
                 disconnect()
             case .connected:
+                banner = NotificationBanner(title: "Connected to \(muse!.getName())", style: .success)
                 changeMuseButton(to: .connected)
                 initHistoryRefresher()
             case .connecting:
@@ -916,6 +919,9 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
             default:
                 break
         }
+        
+        // display banner if needed
+        banner?.show()
     }
     
     func receive(_ packet: IXNMuseDataPacket?, muse: IXNMuse?) {
