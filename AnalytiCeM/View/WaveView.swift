@@ -14,6 +14,8 @@ open class WaveView: UIView {
     
     fileprivate let wave = CAShapeLayer()
     
+    fileprivate let labelMessage: UILabel = UILabel(frame: CGRect.zero)
+    
     open override func awakeFromNib() {
         
         super.awakeFromNib()
@@ -26,6 +28,58 @@ open class WaveView: UIView {
         wave.lineWidth = 2.0
         
         layer.addSublayer(wave)
+        
+        // text
+        labelMessage.text = "No Muse data"
+        labelMessage.textColor = Theme.current.mainColor
+        labelMessage.textAlignment = .center
+        // adapt size
+        labelMessage.adjustsFontSizeToFitWidth = true
+        labelMessage.minimumScaleFactor = 0.5
+        labelMessage.font = labelMessage.font.withSize(25)
+        
+        // constraints, center
+        labelMessage.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(labelMessage)
+        
+        let xConstraint = NSLayoutConstraint(item: labelMessage,
+                                             attribute: .centerX,
+                                             relatedBy: .equal,
+                                             toItem: self,
+                                             attribute: .centerX,
+                                             multiplier: 1,
+                                             constant: 0
+        )
+        
+        let yConstraint = NSLayoutConstraint(item: labelMessage,
+                                             attribute: .centerY,
+                                             relatedBy: .equal,
+                                             toItem: self,
+                                             attribute: .centerY,
+                                             multiplier: 1,
+                                             constant: 0
+        )
+        
+        let widthConstraint = NSLayoutConstraint(item: labelMessage,
+                                                 attribute: .width,
+                                                 relatedBy: .equal,
+                                                 toItem: self,
+                                                 attribute: .width,
+                                                 multiplier: 1,
+                                                 constant: 0
+        )
+        
+        let heightConstraint = NSLayoutConstraint(item: labelMessage,
+                                                  attribute: .height,
+                                                  relatedBy: .equal,
+                                                  toItem: self,
+                                                  attribute: .height,
+                                                  multiplier: 1,
+                                                  constant: 0
+        )
+        
+        NSLayoutConstraint.activate([xConstraint, yConstraint, widthConstraint, heightConstraint])
+
     }
     
     open override func tintColorDidChange() {
@@ -36,7 +90,13 @@ open class WaveView: UIView {
     
     open override func draw(_ rect: CGRect) {
         
-        wave.path = buildPath(points: points, inBounds: bounds)?.cgPath
+        // build path
+        let path: CGPath? = buildPath(points: points, inBounds: bounds)?.cgPath
+        wave.path = path
+        
+        // display message
+        self.labelMessage.isHidden = (path != nil)
+        
         super.draw(rect)
     }
     

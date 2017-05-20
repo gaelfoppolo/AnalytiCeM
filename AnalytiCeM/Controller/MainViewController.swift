@@ -30,30 +30,32 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     let kUpdateLocationSession: TimeInterval = 10
     let kUpdateLocationIdle: TimeInterval = 60
     
-    var bluetoothAvailable: Bool? {
+    var bluetoothAvailable: Bool = false {
         
         willSet(newBluetoothStatus) {
             
-            // if we loose Bluetooth, disconnect Muse
+            // if we loose Bluetooth
             if (bluetoothAvailable == true && newBluetoothStatus == false) {
-                disconnect()
+                // disconnect Muse
+                self.disconnect()
             }
             
-            // if we gain Bluetooth
+            /*// if we gain Bluetooth
             if (bluetoothAvailable == false && newBluetoothStatus == true) {
                 if let leftButton = self.navigationItem.leftBarButtonItem {
                     leftButton.isEnabled = true
                 }
-            }
-            
+            }*/
             
         }
         
         didSet {
-    
-            if let leftButton = self.navigationItem.leftBarButtonItem {
-                leftButton.isEnabled = leftButton.isEnabled && bluetoothAvailable!
-            }
+            
+            /*if let leftButton = self.navigationItem.leftBarButtonItem {
+                leftButton.isEnabled = leftButton.isEnabled && bluetoothAvailable
+            }*/
+            // update button status according to status
+            changeMuseButtonInteraction()
             
         }
     }
@@ -111,6 +113,8 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         super.viewDidLoad()
         
         self.bluetoothAvailable = (BluetoothStatusManager.shared.currentStatus == .poweredOn)
+        
+        self.internetAvailable = ConnectivityManager.shared.isConnected
         
         setupManagers()
         
@@ -509,7 +513,10 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     
     private func stopHistoryRefresher() {
         currentHistoryTimer?.invalidate()
+        // clean
         initHistory()
+        // refresh the wave view to zero
+        self.refreshWaveView()
     }
     
     // MARK: - Muse Status Button
@@ -517,26 +524,24 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     private func changeMuseButton(to status: MuseButtonStatus) {
         
         // the attributes of the button to be set
-        var button: (image: String, action: Selector?, enabled: Bool)
+        var button: (image: String, action: Selector?)
         
         switch status {
             case .connecting:
                 button.image = "muse-connecting"
-                button.enabled = false
                 button.action = nil
                 break
             case .connected:
                 button.image = "muse-connected"
-                button.enabled = true
                 button.action = #selector(muse?.disconnect)
                 break
             case .disconnected:
                 button.image = "muse-disconnected"
-                button.enabled = true
-                // only if bluetooth is available
+                
+                /*// only if bluetooth is available
                 if let bluetoothAvailable = bluetoothAvailable {
                     button.enabled = button.enabled && bluetoothAvailable
-                }
+                }*/
                 button.action = #selector(startResearchMuses)
                 break
         }
@@ -548,8 +553,25 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
                                                    action: button.action
         )
         self.navigationItem.leftBarButtonItem = museStatusButtonItem
-        self.navigationItem.leftBarButtonItem?.isEnabled = button.enabled
+        //self.navigationItem.leftBarButtonItem?.isEnabled = button.enabled
         
+    }
+    
+    private func changeMuseButtonInteraction() {
+        
+        // check bluetooth
+        guard self.bluetoothAvailable else {
+            changeMuseButton(enabled: false)
+            return
+        }
+        
+        // everything is fine
+        changeMuseButton(enabled: true)
+        
+    }
+    
+    private func changeMuseButton(enabled: Bool) {
+        self.navigationItem.leftBarButtonItem?.isEnabled = enabled
     }
     
     // MARK: - Muse
@@ -559,7 +581,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         self.muse = nil
         
         // only if we have bluetooth
-        if let bluetoothAvailable = bluetoothAvailable, bluetoothAvailable {
+        if bluetoothAvailable {
             
             // start
             museManager?.startListening()
@@ -628,6 +650,8 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         changeMuseButton(to: .disconnected)
         // set
         self.muse = nil
+        // stop history
+        self.stopHistoryRefresher()
     }
     
     // MARK: - IBAction & UIButton
@@ -684,6 +708,8 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     
     func launchSession() {
         
+        // todo: check bt, internet and muse ?
+        
         // the view to display
         let lPopupVC = NewSessionViewController(nibName: "NewSessionViewController", bundle: nil)
         
@@ -726,6 +752,9 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         
         // can start a new session
         self.sessionAction.update(to: .start, controller: self)
+        
+        // can remove Muse
+        changeMuseButton(enabled: false)
     }
     
     // MARK: - ActivityParameterDelegate
@@ -745,7 +774,7 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         }
         
         // bluetooth
-        if bluetoothAvailable == nil || !bluetoothAvailable! {
+        if !bluetoothAvailable {
             message = "No Bluetooth"
         }
         
@@ -753,6 +782,8 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         if self.currentUser?.first == nil {
             message = "No user"
         }
+        
+        // todo: check muse
         
         // check no message
         guard message == nil else {
@@ -803,6 +834,8 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         // location update closer
         initLocationRefresher(every: kUpdateLocationSession)
         
+        // can't remove Muse
+        changeMuseButton(enabled: false)
         
     }
     
@@ -920,13 +953,6 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
         // add the snapshot to the history
         self.currentValues[eegTy]!.append(eegSnap)
         
-        // test to retrieve timestamp
-        //let date = NSDate.init(timeIntervalSince1970: TimeInterval(packet.timestamp()/1_000_000))
-        //print(packet.timestamp()/1_000_000)
-        //print(date.description)
-        //print(date.description(with: NSLocale.autoupdatingCurrent))
-        //packet.timestamp()
-        
     }
     
     func receive(_ packet: IXNMuseArtifactPacket, muse: IXNMuse?) {
@@ -947,9 +973,17 @@ class MainViewController: UIViewController, IXNMuseListener, IXNMuseConnectionLi
     
     func refreshWaveView() {
         
+        // check there is data
+        // and Muse
+        guard let history = museHistory[.eeg], muse != nil else {
+            
+            waveView.points = []
+            return
+        }
+        
         // display only the EEG
         // recover only the property we want for each snapshot of the history
-        waveView.points = museHistory[.eeg]!.map({
+        waveView.points = history.map({
             return $0.value
         })
         
