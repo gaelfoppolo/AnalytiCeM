@@ -48,6 +48,8 @@
 		939A3CF31EB09D1700031C03 /* BluetoothStatusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939A3CF21EB09D1700031C03 /* BluetoothStatusManager.swift */; };
 		939A3CF61EB0A54A00031C03 /* AnalytiCeMViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939A3CF51EB0A54A00031C03 /* AnalytiCeMViewControllerExtension.swift */; };
 		939A3CF81EB0AA0400031C03 /* AnalytiCeMNotificatioNameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939A3CF71EB0AA0400031C03 /* AnalytiCeMNotificatioNameExtension.swift */; };
+		93A7D94D1ED105320072C2A2 /* SessionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7D94B1ED105320072C2A2 /* SessionTableViewCell.swift */; };
+		93A7D94E1ED105320072C2A2 /* SessionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93A7D94C1ED105320072C2A2 /* SessionTableViewCell.xib */; };
 		93AD2AC81EBBD6FD00803122 /* BounceContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AD2AC51EBBD6FD00803122 /* BounceContentView.swift */; };
 		93AD2AC91EBBD6FD00803122 /* BigContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AD2AC61EBBD6FD00803122 /* BigContentView.swift */; };
 		93C0FED21EB551E90035D66A /* DeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C0FED11EB551E90035D66A /* DeviceViewController.swift */; };
@@ -118,6 +120,8 @@
 		939A3CF21EB09D1700031C03 /* BluetoothStatusManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothStatusManager.swift; sourceTree = "<group>"; };
 		939A3CF51EB0A54A00031C03 /* AnalytiCeMViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalytiCeMViewControllerExtension.swift; sourceTree = "<group>"; };
 		939A3CF71EB0AA0400031C03 /* AnalytiCeMNotificatioNameExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalytiCeMNotificatioNameExtension.swift; sourceTree = "<group>"; };
+		93A7D94B1ED105320072C2A2 /* SessionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionTableViewCell.swift; sourceTree = "<group>"; };
+		93A7D94C1ED105320072C2A2 /* SessionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SessionTableViewCell.xib; sourceTree = "<group>"; };
 		93AD2AC51EBBD6FD00803122 /* BounceContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceContentView.swift; sourceTree = "<group>"; };
 		93AD2AC61EBBD6FD00803122 /* BigContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BigContentView.swift; sourceTree = "<group>"; };
 		93C0FED11EB551E90035D66A /* DeviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceViewController.swift; sourceTree = "<group>"; };
@@ -250,6 +254,8 @@
 			children = (
 				93C6D3561EA375D000A21FB4 /* SessionViewController.swift */,
 				93C6D3571EA375D000A21FB4 /* SessionViewController.xib */,
+				93A7D94B1ED105320072C2A2 /* SessionTableViewCell.swift */,
+				93A7D94C1ED105320072C2A2 /* SessionTableViewCell.xib */,
 			);
 			name = Session;
 			sourceTree = "<group>";
@@ -432,6 +438,7 @@
 				93C6D35D1EA3761900A21FB4 /* MainViewController.xib in Resources */,
 				93C6D3551EA375AA00A21FB4 /* SettingsViewController.xib in Resources */,
 				934098271EB7F1BD0079B7C2 /* RegisterViewController.xib in Resources */,
+				93A7D94E1ED105320072C2A2 /* SessionTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -514,6 +521,7 @@
 				9331360C1EBA6DF800B90410 /* PasswordManager.swift in Sources */,
 				9357A0571EC36F3400C704A8 /* WeatherView.swift in Sources */,
 				93AD2AC91EBBD6FD00803122 /* BigContentView.swift in Sources */,
+				93A7D94D1ED105320072C2A2 /* SessionTableViewCell.swift in Sources */,
 				938F222C1EBF2B9000FF5C70 /* OWMManager.swift in Sources */,
 				93AD2AC81EBBD6FD00803122 /* BounceContentView.swift in Sources */,
 				932B767A1EBFB6F700562FD1 /* Weather.swift in Sources */,
