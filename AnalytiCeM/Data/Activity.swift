@@ -25,6 +25,7 @@ class Activity: Object {
                      mentalState: MentalState) {
         self.init()
         self.id = Activity.incrementID()
+        self.label = label
         types.forEach { (at) in
             self.types.append(at)
         }
