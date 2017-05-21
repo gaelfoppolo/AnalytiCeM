@@ -22,6 +22,9 @@ class SessionViewController: UIViewController, UITableViewDelegate, UITableViewD
     var sessions: Results<Session>?
     var notificationSession: NotificationToken? = nil
     
+    private let dateFormatter = DateFormatter()
+    private let durationFormatter = DateComponentsFormatter()
+    
     // MARK: - IBOutlet
     
     @IBOutlet var tableView: UITableView!
@@ -29,7 +32,7 @@ class SessionViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = "Session"
+        self.navigationItem.title = "Last sessions"
         
         // being the delegate and the data source of the tableView
         self.tableView.delegate = self
@@ -73,6 +76,14 @@ class SessionViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
         
+        // date formatter
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
+        
+        // duration formatter
+        durationFormatter.allowedUnits = [.day, .hour, .minute, .second]
+        durationFormatter.unitsStyle = .abbreviated
+        
     }
     
     deinit {
@@ -109,8 +120,8 @@ class SessionViewController: UIViewController, UITableViewDelegate, UITableViewD
         guard let duration = interval else { fatalError() }
         
         cell.activityName.text = currentSession.activity?.label
-        cell.date.text = currentSession.start.description
-        cell.duration.text = duration.description
+        cell.date.text = dateFormatter.string(from: currentSession.start as Date)
+        cell.duration.text = durationFormatter.string(from: duration)
         
         // cell is configured
         return cell
