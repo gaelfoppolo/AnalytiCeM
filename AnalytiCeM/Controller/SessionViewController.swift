@@ -43,6 +43,7 @@ class SessionViewController: UIViewController, UITableViewDelegate, UITableViewD
         sessions = realm
             .objects(Session.self)
             .filter(NSPredicate(format: "user == %@", currentUser))
+            .filter("end != nil")
             .sorted(byKeyPath: "id", ascending: false)
         
         // notifications, update tableView
