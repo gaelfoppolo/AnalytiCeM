@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DetailViewController" customModule="AnalytiCeM" customModuleProvider="target">
+            <connections>
+                <outlet property="dateLabel" destination="h5S-8d-6bb" id="oSz-a8-9Og"/>
+                <outlet property="durationLabel" destination="GYQ-l7-har" id="49Y-c7-sKp"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pw0-3D-oVP">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BEL-2y-Xqg">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Duration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GYQ-l7-har" userLabel="Duration Label">
+                                    <rect key="frame" x="192.5" y="8" width="168.5" height="60"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="60" id="jfF-VU-C0Y"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h5S-8d-6bb" userLabel="Date Label">
+                                    <rect key="frame" x="14" y="8" width="168.5" height="60"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="60" id="kSM-vc-apg"/>
+                                    </constraints>
+                                    <edgeInsets key="layoutMargins" top="8" left="8" bottom="10" right="8"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="GYQ-l7-har" firstAttribute="top" secondItem="BEL-2y-Xqg" secondAttribute="top" constant="8" id="2pO-x5-512"/>
+                                <constraint firstItem="GYQ-l7-har" firstAttribute="width" secondItem="BEL-2y-Xqg" secondAttribute="width" multiplier="0.45" id="537-fA-t9H"/>
+                                <constraint firstItem="h5S-8d-6bb" firstAttribute="leading" secondItem="BEL-2y-Xqg" secondAttribute="leading" constant="14" id="74r-NI-ySs"/>
+                                <constraint firstItem="h5S-8d-6bb" firstAttribute="top" secondItem="BEL-2y-Xqg" secondAttribute="top" constant="8" id="SFs-Kb-maG"/>
+                                <constraint firstItem="h5S-8d-6bb" firstAttribute="width" secondItem="BEL-2y-Xqg" secondAttribute="width" multiplier="0.45" id="a08-mF-fun"/>
+                                <constraint firstItem="GYQ-l7-har" firstAttribute="leading" secondItem="h5S-8d-6bb" secondAttribute="trailing" constant="10" id="aPC-zd-yky"/>
+                                <constraint firstItem="GYQ-l7-har" firstAttribute="baseline" secondItem="h5S-8d-6bb" secondAttribute="baseline" id="hl9-GS-QgX"/>
+                                <constraint firstAttribute="height" constant="667" id="lpr-wQ-xsi"/>
+                                <constraint firstAttribute="trailing" secondItem="GYQ-l7-har" secondAttribute="trailing" constant="14" id="uda-Vi-8gl"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="BEL-2y-Xqg" secondAttribute="trailing" id="0Uu-EB-VtN"/>
+                        <constraint firstItem="BEL-2y-Xqg" firstAttribute="width" secondItem="Pw0-3D-oVP" secondAttribute="width" id="9K2-5h-gGa"/>
+                        <constraint firstItem="BEL-2y-Xqg" firstAttribute="leading" secondItem="Pw0-3D-oVP" secondAttribute="leading" id="CQP-qM-qw4"/>
+                        <constraint firstAttribute="bottom" secondItem="BEL-2y-Xqg" secondAttribute="bottom" id="FSV-XX-s0w"/>
+                        <constraint firstItem="BEL-2y-Xqg" firstAttribute="top" secondItem="Pw0-3D-oVP" secondAttribute="top" id="MeA-MM-4iC"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="Pw0-3D-oVP" secondAttribute="bottom" id="DZC-ED-2NX"/>
+                <constraint firstAttribute="trailing" secondItem="Pw0-3D-oVP" secondAttribute="trailing" id="Z9t-aX-9Gx"/>
+                <constraint firstItem="Pw0-3D-oVP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="bvG-FM-HQ3"/>
+                <constraint firstItem="Pw0-3D-oVP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="joU-5E-qXh"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-157.5" y="-51.5"/>
+        </view>
+    </objects>
+</document>

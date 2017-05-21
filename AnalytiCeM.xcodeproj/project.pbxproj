@@ -52,6 +52,8 @@
 		93A7D94E1ED105320072C2A2 /* SessionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93A7D94C1ED105320072C2A2 /* SessionTableViewCell.xib */; };
 		93AD2AC81EBBD6FD00803122 /* BounceContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AD2AC51EBBD6FD00803122 /* BounceContentView.swift */; };
 		93AD2AC91EBBD6FD00803122 /* BigContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AD2AC61EBBD6FD00803122 /* BigContentView.swift */; };
+		93B93D491ED232650043BD16 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B93D471ED232650043BD16 /* DetailViewController.swift */; };
+		93B93D4A1ED232650043BD16 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93B93D481ED232650043BD16 /* DetailViewController.xib */; };
 		93C0FED21EB551E90035D66A /* DeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C0FED11EB551E90035D66A /* DeviceViewController.swift */; };
 		93C0FED41EB557020035D66A /* DeviceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93C0FED31EB557020035D66A /* DeviceViewController.xib */; };
 		93C6D3541EA375AA00A21FB4 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C6D3521EA375AA00A21FB4 /* SettingsViewController.swift */; };
@@ -124,6 +126,8 @@
 		93A7D94C1ED105320072C2A2 /* SessionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SessionTableViewCell.xib; sourceTree = "<group>"; };
 		93AD2AC51EBBD6FD00803122 /* BounceContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceContentView.swift; sourceTree = "<group>"; };
 		93AD2AC61EBBD6FD00803122 /* BigContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BigContentView.swift; sourceTree = "<group>"; };
+		93B93D471ED232650043BD16 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		93B93D481ED232650043BD16 /* DetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
 		93C0FED11EB551E90035D66A /* DeviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceViewController.swift; sourceTree = "<group>"; };
 		93C0FED31EB557020035D66A /* DeviceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeviceViewController.xib; sourceTree = "<group>"; };
 		93C6D3521EA375AA00A21FB4 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -253,6 +257,8 @@
 			isa = PBXGroup;
 			children = (
 				93C6D3561EA375D000A21FB4 /* SessionViewController.swift */,
+				93B93D471ED232650043BD16 /* DetailViewController.swift */,
+				93B93D481ED232650043BD16 /* DetailViewController.xib */,
 				93C6D3571EA375D000A21FB4 /* SessionViewController.xib */,
 				93A7D94B1ED105320072C2A2 /* SessionTableViewCell.swift */,
 				93A7D94C1ED105320072C2A2 /* SessionTableViewCell.xib */,
@@ -427,6 +433,7 @@
 				9374B3181E9D80DB00052AA5 /* LaunchScreen.storyboard in Resources */,
 				93D3374C1EC6835900AF7A8E /* SessionParametersViewController.xib in Resources */,
 				9357A0541EC36F1B00C704A8 /* WeatherView.xib in Resources */,
+				93B93D4A1ED232650043BD16 /* DetailViewController.xib in Resources */,
 				932B76781EBFAECA00562FD1 /* Keys.plist in Resources */,
 				93D337481EC67DDD00AF7A8E /* NewSessionViewController.xib in Resources */,
 				93C0FED41EB557020035D66A /* DeviceViewController.xib in Resources */,
@@ -524,6 +531,7 @@
 				93A7D94D1ED105320072C2A2 /* SessionTableViewCell.swift in Sources */,
 				938F222C1EBF2B9000FF5C70 /* OWMManager.swift in Sources */,
 				93AD2AC81EBBD6FD00803122 /* BounceContentView.swift in Sources */,
+				93B93D491ED232650043BD16 /* DetailViewController.swift in Sources */,
 				932B767A1EBFB6F700562FD1 /* Weather.swift in Sources */,
 				9340981E1EB76E780079B7C2 /* User.swift in Sources */,
 				93D3373E1EC6645B00AF7A8E /* StartStopSessionUIButton.swift in Sources */,

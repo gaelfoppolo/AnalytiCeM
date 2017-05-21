@@ -129,8 +129,10 @@ class SessionViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        var viewController: UserViewController = UserViewController(nibName: "UserViewController", bundle: nil)
-        // todo: pass data
+        let viewController: DetailViewController = DetailViewController(nibName: "DetailViewController", bundle: nil)
+        
+        // pass data
+        viewController.currentSession = self.sessions?[indexPath.row]
         
         // display the view
         self.navigationController?.pushViewController(viewController, animated: true)
