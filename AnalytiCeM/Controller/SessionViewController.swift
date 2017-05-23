@@ -32,7 +32,7 @@ class SessionViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = "Last sessions"
+        self.navigationItem.title = "Sessions"
         
         // being the delegate and the data source of the tableView
         self.tableView.delegate = self

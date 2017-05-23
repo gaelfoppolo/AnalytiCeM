@@ -20,6 +20,10 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
+    @IBOutlet weak var weatherView: WeatherView!
+    @IBOutlet weak var activityTypes: UILabel!
+    @IBOutlet weak var mentalState: UILabel!
+    @IBOutlet weak var distance: UILabel!
     
     // MARK: - UIView
     
@@ -35,6 +39,8 @@ class DetailViewController: UIViewController {
         durationFormatter.unitsStyle = .abbreviated
         
         setupUI()
+        
+        fillView()
 
         // Do any additional setup after loading the view.
     }
@@ -45,28 +51,35 @@ class DetailViewController: UIViewController {
     }
     
     private func setupUI() {
+        self.dateLabel.cornerRoundedWithThinBorder()
+        self.durationLabel.cornerRoundedWithThinBorder()
+        self.weatherView.cornerRoundedWithThinBorder()
+        self.activityTypes.cornerRoundedWithThinBorder()
+        self.mentalState.cornerRoundedWithThinBorder()
+        self.distance.cornerRoundedWithThinBorder()
+        
+    }
+    
+    private func fillView() {
         
         // title
-        
         self.navigationItem.title = currentSession.activity?.label
         
-        // corner
-        self.dateLabel.layer.cornerRadius = 5
-        // border
-        self.dateLabel.layer.borderColor = Theme.current.mainColor.cgColor
-        self.dateLabel.layer.borderWidth = 1
-        
+        // date
         self.dateLabel.text = dateFormatter.string(from: currentSession.start as Date)
         
-        // corner
-        self.durationLabel.layer.cornerRadius = 5
-        // border
-        self.durationLabel.layer.borderColor = Theme.current.mainColor.cgColor
-        self.durationLabel.layer.borderWidth = 1
-        
+        // duration
         let duration = currentSession.end?.timeIntervalSince(currentSession.start as Date)
-        
         self.durationLabel.text = durationFormatter.string(from: duration!)
+        
+        // weather
+        self.weatherView.display(weather: currentSession.weather!)
+        
+        // activity types
+        self.activityTypes.text = currentSession.activity?.types.map({ $0.label }).joined(separator: ", ")
+        
+        // mental state
+        self.mentalState.text = currentSession.activity?.mentalState?.label
         
     }
     
