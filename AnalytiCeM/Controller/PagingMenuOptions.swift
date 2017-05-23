@@ -16,7 +16,7 @@ struct PagingMenuOptions: PagingMenuControllerCustomizable {
     }
     
     var pagingControllers: [UIViewController] {
-        return [UserViewController(), UserViewController(), UserViewController(), UserViewController(), UserViewController()]
+        return [EEGChartViewController(), EEGChartViewController(), EEGChartViewController(), EEGChartViewController(), EEGChartViewController()]
     }
     
     struct MenuOptions: MenuViewCustomizable {

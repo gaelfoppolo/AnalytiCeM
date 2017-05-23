@@ -22,5 +22,6 @@ target 'AnalytiCeM' do
     pod 'LocationManagerSwift', '~> 1.1'
     pod 'Sparrow/Modules/RequestPermission', :git => 'https://github.com/IvanVorobei/Sparrow.git'
     pod 'PagingMenuController'
+    pod 'Charts'
 end
 

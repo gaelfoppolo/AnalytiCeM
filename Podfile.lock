@@ -4,6 +4,9 @@ PODS:
   - AlamofireSwiftyJSON (0.2.0):
     - Alamofire (~> 4.0)
     - SwiftyJSON (~> 3.1)
+  - Charts (3.0.2):
+    - Charts/Core (= 3.0.2)
+  - Charts/Core (3.0.2)
   - CryptoSwift (0.6.9)
   - ESTabBarController-swift (2.4)
   - Eureka (3.0.0)
@@ -31,6 +34,7 @@ DEPENDENCIES:
   - ActionKit (~> 2.0)
   - Alamofire (~> 4.4)
   - AlamofireSwiftyJSON
+  - Charts
   - CryptoSwift
   - ESTabBarController-swift (~> 2.3)
   - Eureka
@@ -63,6 +67,7 @@ SPEC CHECKSUMS:
   ActionKit: a9ac8aa51b1e404489d4ebdeefb587c112b7669f
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   AlamofireSwiftyJSON: 5a49196b8b061e32f5ebc84fa0815300bd8a974e
+  Charts: 236d6ccdd0ce6feae151d89e829a7397381a21fd
   CryptoSwift: a22f6ba238e9ce4d26ee7bf45b9ed82e7122d4a0
   ESTabBarController-swift: af496895039ba10ae60bf825473c45f23fc5c8b6
   Eureka: f36fd440c3ebb7bfea0a4fbe6f16a05f1cb35906
@@ -79,6 +84,6 @@ SPEC CHECKSUMS:
   SwiftSpinner: 62a28bbb4035f252a1e91b0e17fc40bdbbfa0aab
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: aa468f52ce8b7478ac4dc85238757bfc929efe92
+PODFILE CHECKSUM: d6234acdc70e181a849ee99ed07d69f9c80a19d1
 
 COCOAPODS: 1.2.1
