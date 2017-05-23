@@ -14,9 +14,12 @@ class EEGChartViewController: UIViewController {
     
     // MARK: - Properties
     
+    var color: UIColor!
+    var data: [Double]!
+    
     // MARK: IBOutlets
 
-    @IBOutlet weak var chart: BarChartView!
+    @IBOutlet weak var chart: LineChartView!
     
     // MARK: View
     
@@ -25,8 +28,8 @@ class EEGChartViewController: UIViewController {
         
         chart.chartDescription?.enabled = false
         
-        chart.dragEnabled = true
-        chart.setScaleEnabled(true)
+        chart.dragEnabled = false
+        chart.setScaleEnabled(false)
         chart.pinchZoomEnabled = false
         chart.drawGridBackgroundEnabled = false
         chart.maxHighlightDistance = 300.0
@@ -36,10 +39,7 @@ class EEGChartViewController: UIViewController {
         chart.rightAxis.enabled = false
         chart.legend.enabled = false
         
-        let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]
-        let unitsSold = [1.0, 4.0, 6.0, 3.0, 1.0, 6.0]
-        
-        setChart(dataPoints: months, values: unitsSold)
+        setChart(dataPoints: data)
 
         // Do any additional setup after loading the view.
     }
@@ -52,18 +52,32 @@ class EEGChartViewController: UIViewController {
 
     // MARK: - Logic
     
-    func setChart(dataPoints: [String], values: [Double]) {
+    func setChart(dataPoints: [Double]) {
         
-        var dataEntries: [BarChartDataEntry] = []
+        var dataEntries: [ChartDataEntry] = []
         
         for i in 0..<dataPoints.count {
-            let dataEntry = BarChartDataEntry.init(x: Double(i), y: values[i])
+            let dataEntry = ChartDataEntry.init(x: Double(i), y: dataPoints[i])
             dataEntries.append(dataEntry)
         }
         
-        let chartDataSet = BarChartDataSet(values: dataEntries, label: "Units Sold")
-        let chartData = BarChartData(dataSet: chartDataSet)
-        chart.data = chartData
+        let set: LineChartDataSet = LineChartDataSet(values: dataEntries, label: "")
+        
+        set.mode = .horizontalBezier
+        set.cubicIntensity = 0
+        set.drawCirclesEnabled = false
+        set.lineWidth = 0.5
+        set.fillColor = color
+        set.setColor(color)
+        set.drawFilledEnabled = true
+        set.drawValuesEnabled = false
+        
+        var dataSets : [LineChartDataSet] = [LineChartDataSet]()
+        dataSets.append(set)
+        
+        let data: LineChartData = LineChartData(dataSets: dataSets)
+        
+        chart.data = data
  
     }
 

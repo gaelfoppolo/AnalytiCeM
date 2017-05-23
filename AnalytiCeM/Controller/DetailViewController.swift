@@ -68,6 +68,10 @@ class DetailViewController: UIViewController, MKMapViewDelegate {
         
         // the view to display
         let pageViewController = PagingMenuViewController()
+        
+        let dataOrder = self.currentSession.data.sorted(byKeyPath: "timestamp", ascending: true)
+        
+        pageViewController.datas = dataOrder
         self.addChildViewController(pageViewController)
         self.pagingMenu.layout(child: pageViewController.view)
         self.pagingMenu.addSubview(pageViewController.view)

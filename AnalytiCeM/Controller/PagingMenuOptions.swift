@@ -7,16 +7,49 @@
 //
 
 import Foundation
+
 import PagingMenuController
+import RealmSwift
 
 struct PagingMenuOptions: PagingMenuControllerCustomizable {
+    
+    var datas: Results<Data>!
+    
+    init(datas: Results<Data>) {
+        self.datas = datas
+    }
     
     var componentType: ComponentType {
         return .all(menuOptions: MenuOptions(), pagingControllers: pagingControllers)
     }
     
     var pagingControllers: [UIViewController] {
-        return [EEGChartViewController(), EEGChartViewController(), EEGChartViewController(), EEGChartViewController(), EEGChartViewController()]
+        
+        let eeg = EEGChartViewController()
+        eeg.color = .black
+        eeg.data = datas.map({ $0.eeg })
+        
+        let alpha = EEGChartViewController()
+        alpha.color = .green
+        alpha.data = datas.map({ $0.alpha })
+        
+        let beta = EEGChartViewController()
+        beta.color = .orange
+        beta.data = datas.map({ $0.beta })
+        
+        let delta = EEGChartViewController()
+        delta.color = .blue
+        delta.data = datas.map({ $0.delta })
+        
+        let gamma = EEGChartViewController()
+        gamma.color = .red
+        gamma.data = datas.map({ $0.gamma })
+        
+        let theta = EEGChartViewController()
+        theta.color = .purple
+        theta.data = datas.map({ $0.theta })
+        
+        return [eeg, alpha, beta, delta, gamma, theta]
     }
     
     struct MenuOptions: MenuViewCustomizable {
@@ -24,36 +57,41 @@ struct PagingMenuOptions: PagingMenuControllerCustomizable {
             return .infinite(widthMode: .fixed(width: 80), scrollingMode: .scrollEnabled)
         }
         var itemsOptions: [MenuItemViewCustomizable] {
-            return [MenuItem1(), MenuItem2(), MenuItem3(), MenuItem4(), MenuItem5()]
+            return [MenuEEG(), MenuAlpha(), MenuBeta(), MenuDelta(), MenuGamma(), MenuTheta()]
         }
         var focusMode: MenuFocusMode {
             return .underline(height: 3, color: Theme.current.mainColor, horizontalPadding: 0, verticalPadding: 0)
         }
     }
     
-    struct MenuItem1: MenuItemViewCustomizable {
+    struct MenuEEG: MenuItemViewCustomizable {
         var displayMode: MenuItemDisplayMode {
-            return .text(title: MenuItemText(text: "First Menu"))
+            return .text(title: MenuItemText(text: "EEG"))
         }
     }
-    struct MenuItem2: MenuItemViewCustomizable {
+    struct MenuAlpha: MenuItemViewCustomizable {
         var displayMode: MenuItemDisplayMode {
-            return .text(title: MenuItemText(text: "Second Menu"))
+            return .text(title: MenuItemText(text: "Relax"))
         }
     }
-    struct MenuItem3: MenuItemViewCustomizable {
+    struct MenuBeta: MenuItemViewCustomizable {
         var displayMode: MenuItemDisplayMode {
-            return .text(title: MenuItemText(text: "3 Menu"))
+            return .text(title: MenuItemText(text: "Casual"))
         }
     }
-    struct MenuItem4: MenuItemViewCustomizable {
+    struct MenuDelta: MenuItemViewCustomizable {
         var displayMode: MenuItemDisplayMode {
-            return .text(title: MenuItemText(text: "4 Menu"))
+            return .text(title: MenuItemText(text: "Sleep"))
         }
     }
-    struct MenuItem5: MenuItemViewCustomizable {
+    struct MenuGamma: MenuItemViewCustomizable {
         var displayMode: MenuItemDisplayMode {
-            return .text(title: MenuItemText(text: "5 Menu"))
+            return .text(title: MenuItemText(text: "Thinking"))
+        }
+    }
+    struct MenuTheta: MenuItemViewCustomizable {
+        var displayMode: MenuItemDisplayMode {
+            return .text(title: MenuItemText(text: "Relax++"))
         }
     }
 }
