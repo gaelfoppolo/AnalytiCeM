@@ -66,6 +66,10 @@
 		93CB361D1ED4881E0033A1CA /* PagingMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CB361C1ED4881E0033A1CA /* PagingMenuViewController.swift */; };
 		93CB36231ED494830033A1CA /* EEGChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CB36211ED494830033A1CA /* EEGChartViewController.swift */; };
 		93CB36241ED494830033A1CA /* EEGChartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93CB36221ED494830033A1CA /* EEGChartViewController.xib */; };
+		93CB36271ED4F06A0033A1CA /* CountChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CB36251ED4F06A0033A1CA /* CountChartViewController.swift */; };
+		93CB36281ED4F06A0033A1CA /* CountChartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93CB36261ED4F06A0033A1CA /* CountChartViewController.xib */; };
+		93CB362B1ED4F5720033A1CA /* SynthesisChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CB36291ED4F5720033A1CA /* SynthesisChartViewController.swift */; };
+		93CB362C1ED4F5720033A1CA /* SynthesisChartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93CB362A1ED4F5720033A1CA /* SynthesisChartViewController.xib */; };
 		93D3373C1EC65CAE00AF7A8E /* HeyUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D3373B1EC65CAE00AF7A8E /* HeyUILabel.swift */; };
 		93D3373E1EC6645B00AF7A8E /* StartStopSessionUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D3373D1EC6645B00AF7A8E /* StartStopSessionUIButton.swift */; };
 		93D337401EC67AEB00AF7A8E /* FillRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D3373F1EC67AEB00AF7A8E /* FillRealm.swift */; };
@@ -144,6 +148,10 @@
 		93CB361C1ED4881E0033A1CA /* PagingMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingMenuViewController.swift; sourceTree = "<group>"; };
 		93CB36211ED494830033A1CA /* EEGChartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EEGChartViewController.swift; sourceTree = "<group>"; };
 		93CB36221ED494830033A1CA /* EEGChartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EEGChartViewController.xib; sourceTree = "<group>"; };
+		93CB36251ED4F06A0033A1CA /* CountChartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountChartViewController.swift; sourceTree = "<group>"; };
+		93CB36261ED4F06A0033A1CA /* CountChartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CountChartViewController.xib; sourceTree = "<group>"; };
+		93CB36291ED4F5720033A1CA /* SynthesisChartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynthesisChartViewController.swift; sourceTree = "<group>"; };
+		93CB362A1ED4F5720033A1CA /* SynthesisChartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SynthesisChartViewController.xib; sourceTree = "<group>"; };
 		93D3373B1EC65CAE00AF7A8E /* HeyUILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeyUILabel.swift; sourceTree = "<group>"; };
 		93D3373D1EC6645B00AF7A8E /* StartStopSessionUIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartStopSessionUIButton.swift; sourceTree = "<group>"; };
 		93D3373F1EC67AEB00AF7A8E /* FillRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FillRealm.swift; sourceTree = "<group>"; };
@@ -269,6 +277,10 @@
 				93B93D471ED232650043BD16 /* DetailViewController.swift */,
 				93CB361C1ED4881E0033A1CA /* PagingMenuViewController.swift */,
 				93CB36211ED494830033A1CA /* EEGChartViewController.swift */,
+				93CB36251ED4F06A0033A1CA /* CountChartViewController.swift */,
+				93CB36291ED4F5720033A1CA /* SynthesisChartViewController.swift */,
+				93CB362A1ED4F5720033A1CA /* SynthesisChartViewController.xib */,
+				93CB36261ED4F06A0033A1CA /* CountChartViewController.xib */,
 				93CB36221ED494830033A1CA /* EEGChartViewController.xib */,
 				93B93D481ED232650043BD16 /* DetailViewController.xib */,
 				93C6D3571EA375D000A21FB4 /* SessionViewController.xib */,
@@ -443,6 +455,7 @@
 				937D66B01EA6C85400A8E3DC /* AddMuseViewController.xib in Resources */,
 				934098231EB7786F0079B7C2 /* LoginViewController.xib in Resources */,
 				9374B3181E9D80DB00052AA5 /* LaunchScreen.storyboard in Resources */,
+				93CB362C1ED4F5720033A1CA /* SynthesisChartViewController.xib in Resources */,
 				93D3374C1EC6835900AF7A8E /* SessionParametersViewController.xib in Resources */,
 				93CB36241ED494830033A1CA /* EEGChartViewController.xib in Resources */,
 				9357A0541EC36F1B00C704A8 /* WeatherView.xib in Resources */,
@@ -451,6 +464,7 @@
 				93D337481EC67DDD00AF7A8E /* NewSessionViewController.xib in Resources */,
 				93C0FED41EB557020035D66A /* DeviceViewController.xib in Resources */,
 				937D66A11EA67A0700A8E3DC /* SettingsTableViewCell.xib in Resources */,
+				93CB36281ED4F06A0033A1CA /* CountChartViewController.xib in Resources */,
 				936564D31EB8BADD007F469E /* UserProfileViewController.xib in Resources */,
 				937D66B41EA6CF4F00A8E3DC /* AddMuseTableViewCell.xib in Resources */,
 				9374B3151E9D80DB00052AA5 /* Assets.xcassets in Resources */,
@@ -519,7 +533,9 @@
 			files = (
 				93774D481EAB98D900B11A00 /* Muse.swift in Sources */,
 				939085BC1EA270CE007495D1 /* WaveView.swift in Sources */,
+				93CB362B1ED4F5720033A1CA /* SynthesisChartViewController.swift in Sources */,
 				93D337401EC67AEB00AF7A8E /* FillRealm.swift in Sources */,
+				93CB36271ED4F06A0033A1CA /* CountChartViewController.swift in Sources */,
 				937D66A51EA69DF600A8E3DC /* UserViewController.swift in Sources */,
 				937D66AF1EA6C85400A8E3DC /* AddMuseViewController.swift in Sources */,
 				937933BD1EC0ADBC00A1FFE1 /* GPSView.swift in Sources */,
