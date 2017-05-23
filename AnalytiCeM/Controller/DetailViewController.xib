@@ -16,6 +16,7 @@
                 <outlet property="dateLabel" destination="h5S-8d-6bb" id="oSz-a8-9Og"/>
                 <outlet property="distance" destination="NSE-2C-JnB" id="Dpp-FJ-yPy"/>
                 <outlet property="durationLabel" destination="GYQ-l7-har" id="49Y-c7-sKp"/>
+                <outlet property="mapView" destination="VXO-Oi-WY1" id="LLd-f3-qJs"/>
                 <outlet property="mentalState" destination="4ym-kx-kvT" id="w8e-Md-Xfa"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="weatherView" destination="Tjc-Oo-ItD" id="uLY-UT-DJ5"/>
@@ -42,7 +43,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Activity types" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nGk-1c-REX" userLabel="Activity types">
-                                    <rect key="frame" x="192" y="61" width="168.5" height="45"/>
+                                    <rect key="frame" x="192.5" y="61" width="168.5" height="45"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="45" id="tFD-zN-hGt"/>
                                     </constraints>
@@ -51,7 +52,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mental state" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4ym-kx-kvT" userLabel="Mental state">
-                                    <rect key="frame" x="192" y="114" width="168.5" height="45"/>
+                                    <rect key="frame" x="192.5" y="114" width="168.5" height="45"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="45" id="XwL-j3-oi2"/>
                                     </constraints>
@@ -59,24 +60,30 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Length" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NSE-2C-JnB">
+                                    <rect key="frame" x="192.5" y="167" width="168.5" height="45"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="45" id="GYl-t2-aff"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tjc-Oo-ItD" customClass="WeatherView" customModule="AnalytiCeM" customModuleProvider="target">
+                                    <rect key="frame" x="14" y="61" width="168.5" height="151"/>
+                                </view>
+                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="VXO-Oi-WY1">
+                                    <rect key="frame" x="0.0" y="220" width="375" height="160"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="160" id="bA3-DZ-9TI"/>
+                                    </constraints>
+                                </mapView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h5S-8d-6bb" userLabel="Date Label">
                                     <rect key="frame" x="14" y="8" width="168.5" height="45"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="45" id="kSM-vc-apg"/>
                                     </constraints>
                                     <edgeInsets key="layoutMargins" top="8" left="8" bottom="10" right="8"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tjc-Oo-ItD" customClass="WeatherView" customModule="AnalytiCeM" customModuleProvider="target">
-                                    <rect key="frame" x="14" y="61" width="169" height="151"/>
-                                </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Length" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NSE-2C-JnB">
-                                    <rect key="frame" x="192" y="167" width="168.5" height="45"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="45" id="GYl-t2-aff"/>
-                                    </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -90,9 +97,12 @@
                                 <constraint firstItem="Tjc-Oo-ItD" firstAttribute="leading" secondItem="BEL-2y-Xqg" secondAttribute="leading" constant="14" id="8DE-D0-2lQ"/>
                                 <constraint firstAttribute="trailing" secondItem="nGk-1c-REX" secondAttribute="trailing" constant="14" id="8KU-jK-Hwq"/>
                                 <constraint firstItem="Tjc-Oo-ItD" firstAttribute="top" secondItem="h5S-8d-6bb" secondAttribute="bottom" constant="8" id="DMg-BP-kmn"/>
+                                <constraint firstItem="VXO-Oi-WY1" firstAttribute="top" secondItem="Tjc-Oo-ItD" secondAttribute="bottom" constant="8" id="GR8-xm-ksd"/>
+                                <constraint firstItem="NSE-2C-JnB" firstAttribute="leading" secondItem="Tjc-Oo-ItD" secondAttribute="trailing" constant="10" id="IQd-AB-G0G"/>
                                 <constraint firstItem="NSE-2C-JnB" firstAttribute="top" secondItem="4ym-kx-kvT" secondAttribute="bottom" constant="8" id="JX5-JC-8oo"/>
                                 <constraint firstAttribute="trailing" secondItem="4ym-kx-kvT" secondAttribute="trailing" constant="14" id="NEp-VG-5OK"/>
                                 <constraint firstItem="NSE-2C-JnB" firstAttribute="bottom" secondItem="Tjc-Oo-ItD" secondAttribute="bottom" id="Q2E-ir-tgV"/>
+                                <constraint firstItem="4ym-kx-kvT" firstAttribute="leading" secondItem="Tjc-Oo-ItD" secondAttribute="trailing" constant="10" id="QOQ-bi-kb0"/>
                                 <constraint firstItem="4ym-kx-kvT" firstAttribute="top" secondItem="nGk-1c-REX" secondAttribute="bottom" constant="8" id="Rif-T7-OP3"/>
                                 <constraint firstItem="h5S-8d-6bb" firstAttribute="top" secondItem="BEL-2y-Xqg" secondAttribute="top" constant="8" id="SFs-Kb-maG"/>
                                 <constraint firstItem="h5S-8d-6bb" firstAttribute="width" secondItem="BEL-2y-Xqg" secondAttribute="width" multiplier="0.45" id="a08-mF-fun"/>
@@ -102,9 +112,12 @@
                                 <constraint firstItem="NSE-2C-JnB" firstAttribute="width" secondItem="BEL-2y-Xqg" secondAttribute="width" multiplier="0.45" id="hST-hK-iP6"/>
                                 <constraint firstItem="GYQ-l7-har" firstAttribute="baseline" secondItem="h5S-8d-6bb" secondAttribute="baseline" id="hl9-GS-QgX"/>
                                 <constraint firstAttribute="height" constant="667" id="lpr-wQ-xsi"/>
+                                <constraint firstItem="nGk-1c-REX" firstAttribute="leading" secondItem="Tjc-Oo-ItD" secondAttribute="trailing" constant="10" id="mYu-ff-DzE"/>
                                 <constraint firstItem="Tjc-Oo-ItD" firstAttribute="width" secondItem="BEL-2y-Xqg" secondAttribute="width" multiplier="0.45" id="pmj-24-bwL"/>
                                 <constraint firstItem="4ym-kx-kvT" firstAttribute="width" secondItem="BEL-2y-Xqg" secondAttribute="width" multiplier="0.45" id="rdV-cH-HJl"/>
                                 <constraint firstAttribute="trailing" secondItem="GYQ-l7-har" secondAttribute="trailing" constant="14" id="uda-Vi-8gl"/>
+                                <constraint firstAttribute="trailing" secondItem="VXO-Oi-WY1" secondAttribute="trailing" id="z8V-bT-prJ"/>
+                                <constraint firstItem="VXO-Oi-WY1" firstAttribute="leading" secondItem="BEL-2y-Xqg" secondAttribute="leading" id="zZU-6w-ajM"/>
                             </constraints>
                         </view>
                     </subviews>
