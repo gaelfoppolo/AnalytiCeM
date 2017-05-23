@@ -18,20 +18,21 @@
                 <outlet property="durationLabel" destination="GYQ-l7-har" id="49Y-c7-sKp"/>
                 <outlet property="mapView" destination="VXO-Oi-WY1" id="LLd-f3-qJs"/>
                 <outlet property="mentalState" destination="4ym-kx-kvT" id="w8e-Md-Xfa"/>
+                <outlet property="pagingMenu" destination="NED-3i-bdW" id="7Ci-rU-Dst"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="weatherView" destination="Tjc-Oo-ItD" id="uLY-UT-DJ5"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="700"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pw0-3D-oVP">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="700"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BEL-2y-Xqg">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="700"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Duration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GYQ-l7-har" userLabel="Duration Label">
                                     <rect key="frame" x="192.5" y="8" width="168.5" height="45"/>
@@ -88,14 +89,20 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NED-3i-bdW" userLabel="Graph">
+                                    <rect key="frame" x="0.0" y="388" width="375" height="312"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </view>
                             </subviews>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="NSE-2C-JnB" secondAttribute="trailing" constant="14" id="0pE-Vp-5ds"/>
                                 <constraint firstItem="GYQ-l7-har" firstAttribute="top" secondItem="BEL-2y-Xqg" secondAttribute="top" constant="8" id="2pO-x5-512"/>
                                 <constraint firstItem="GYQ-l7-har" firstAttribute="width" secondItem="BEL-2y-Xqg" secondAttribute="width" multiplier="0.45" id="537-fA-t9H"/>
+                                <constraint firstAttribute="bottom" secondItem="NED-3i-bdW" secondAttribute="bottom" id="5fE-1C-jvm"/>
                                 <constraint firstItem="h5S-8d-6bb" firstAttribute="leading" secondItem="BEL-2y-Xqg" secondAttribute="leading" constant="14" id="74r-NI-ySs"/>
                                 <constraint firstItem="Tjc-Oo-ItD" firstAttribute="leading" secondItem="BEL-2y-Xqg" secondAttribute="leading" constant="14" id="8DE-D0-2lQ"/>
                                 <constraint firstAttribute="trailing" secondItem="nGk-1c-REX" secondAttribute="trailing" constant="14" id="8KU-jK-Hwq"/>
+                                <constraint firstItem="NED-3i-bdW" firstAttribute="leading" secondItem="BEL-2y-Xqg" secondAttribute="leading" id="Aie-MD-dgn"/>
                                 <constraint firstItem="Tjc-Oo-ItD" firstAttribute="top" secondItem="h5S-8d-6bb" secondAttribute="bottom" constant="8" id="DMg-BP-kmn"/>
                                 <constraint firstItem="VXO-Oi-WY1" firstAttribute="top" secondItem="Tjc-Oo-ItD" secondAttribute="bottom" constant="8" id="GR8-xm-ksd"/>
                                 <constraint firstItem="NSE-2C-JnB" firstAttribute="leading" secondItem="Tjc-Oo-ItD" secondAttribute="trailing" constant="10" id="IQd-AB-G0G"/>
@@ -108,14 +115,16 @@
                                 <constraint firstItem="h5S-8d-6bb" firstAttribute="width" secondItem="BEL-2y-Xqg" secondAttribute="width" multiplier="0.45" id="a08-mF-fun"/>
                                 <constraint firstItem="GYQ-l7-har" firstAttribute="leading" secondItem="h5S-8d-6bb" secondAttribute="trailing" constant="10" id="aPC-zd-yky"/>
                                 <constraint firstItem="nGk-1c-REX" firstAttribute="width" secondItem="BEL-2y-Xqg" secondAttribute="width" multiplier="0.45" id="aeA-Fn-IZi"/>
+                                <constraint firstItem="NED-3i-bdW" firstAttribute="top" secondItem="VXO-Oi-WY1" secondAttribute="bottom" constant="8" id="arE-ME-bD5"/>
                                 <constraint firstItem="nGk-1c-REX" firstAttribute="top" secondItem="GYQ-l7-har" secondAttribute="bottom" constant="8" id="gxy-E7-J8L"/>
                                 <constraint firstItem="NSE-2C-JnB" firstAttribute="width" secondItem="BEL-2y-Xqg" secondAttribute="width" multiplier="0.45" id="hST-hK-iP6"/>
                                 <constraint firstItem="GYQ-l7-har" firstAttribute="baseline" secondItem="h5S-8d-6bb" secondAttribute="baseline" id="hl9-GS-QgX"/>
-                                <constraint firstAttribute="height" constant="667" id="lpr-wQ-xsi"/>
+                                <constraint firstAttribute="height" constant="700" id="lpr-wQ-xsi"/>
                                 <constraint firstItem="nGk-1c-REX" firstAttribute="leading" secondItem="Tjc-Oo-ItD" secondAttribute="trailing" constant="10" id="mYu-ff-DzE"/>
                                 <constraint firstItem="Tjc-Oo-ItD" firstAttribute="width" secondItem="BEL-2y-Xqg" secondAttribute="width" multiplier="0.45" id="pmj-24-bwL"/>
                                 <constraint firstItem="4ym-kx-kvT" firstAttribute="width" secondItem="BEL-2y-Xqg" secondAttribute="width" multiplier="0.45" id="rdV-cH-HJl"/>
                                 <constraint firstAttribute="trailing" secondItem="GYQ-l7-har" secondAttribute="trailing" constant="14" id="uda-Vi-8gl"/>
+                                <constraint firstAttribute="trailing" secondItem="NED-3i-bdW" secondAttribute="trailing" id="yku-fG-3KE"/>
                                 <constraint firstAttribute="trailing" secondItem="VXO-Oi-WY1" secondAttribute="trailing" id="z8V-bT-prJ"/>
                                 <constraint firstItem="VXO-Oi-WY1" firstAttribute="leading" secondItem="BEL-2y-Xqg" secondAttribute="leading" id="zZU-6w-ajM"/>
                             </constraints>

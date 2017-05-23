@@ -62,6 +62,8 @@
 		93C6D3591EA375D000A21FB4 /* SessionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93C6D3571EA375D000A21FB4 /* SessionViewController.xib */; };
 		93C6D35C1EA3761900A21FB4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C6D35A1EA3761900A21FB4 /* MainViewController.swift */; };
 		93C6D35D1EA3761900A21FB4 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93C6D35B1EA3761900A21FB4 /* MainViewController.xib */; };
+		93CB36191ED486270033A1CA /* PagingMenuOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CB36181ED486270033A1CA /* PagingMenuOptions.swift */; };
+		93CB361D1ED4881E0033A1CA /* PagingMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CB361C1ED4881E0033A1CA /* PagingMenuViewController.swift */; };
 		93D3373C1EC65CAE00AF7A8E /* HeyUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D3373B1EC65CAE00AF7A8E /* HeyUILabel.swift */; };
 		93D3373E1EC6645B00AF7A8E /* StartStopSessionUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D3373D1EC6645B00AF7A8E /* StartStopSessionUIButton.swift */; };
 		93D337401EC67AEB00AF7A8E /* FillRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D3373F1EC67AEB00AF7A8E /* FillRealm.swift */; };
@@ -136,6 +138,8 @@
 		93C6D3571EA375D000A21FB4 /* SessionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SessionViewController.xib; sourceTree = "<group>"; };
 		93C6D35A1EA3761900A21FB4 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		93C6D35B1EA3761900A21FB4 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		93CB36181ED486270033A1CA /* PagingMenuOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingMenuOptions.swift; sourceTree = "<group>"; };
+		93CB361C1ED4881E0033A1CA /* PagingMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingMenuViewController.swift; sourceTree = "<group>"; };
 		93D3373B1EC65CAE00AF7A8E /* HeyUILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeyUILabel.swift; sourceTree = "<group>"; };
 		93D3373D1EC6645B00AF7A8E /* StartStopSessionUIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartStopSessionUIButton.swift; sourceTree = "<group>"; };
 		93D3373F1EC67AEB00AF7A8E /* FillRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FillRealm.swift; sourceTree = "<group>"; };
@@ -257,7 +261,9 @@
 			isa = PBXGroup;
 			children = (
 				93C6D3561EA375D000A21FB4 /* SessionViewController.swift */,
+				93CB36181ED486270033A1CA /* PagingMenuOptions.swift */,
 				93B93D471ED232650043BD16 /* DetailViewController.swift */,
+				93CB361C1ED4881E0033A1CA /* PagingMenuViewController.swift */,
 				93B93D481ED232650043BD16 /* DetailViewController.xib */,
 				93C6D3571EA375D000A21FB4 /* SessionViewController.xib */,
 				93A7D94B1ED105320072C2A2 /* SessionTableViewCell.swift */,
@@ -518,6 +524,7 @@
 				939085BA1EA22610007495D1 /* EEGSnapshot.swift in Sources */,
 				938D77251EC7B321005C707A /* Activity.swift in Sources */,
 				93D3374B1EC6835900AF7A8E /* SessionParametersViewController.swift in Sources */,
+				93CB36191ED486270033A1CA /* PagingMenuOptions.swift in Sources */,
 				93E4721B1EC05B1A006C6F9E /* AnalytiCeMUIViewExtension.swift in Sources */,
 				93C0FED21EB551E90035D66A /* DeviceViewController.swift in Sources */,
 				932B76761EBF9F8100562FD1 /* ConnectivityManager.swift in Sources */,
@@ -534,6 +541,7 @@
 				93B93D491ED232650043BD16 /* DetailViewController.swift in Sources */,
 				932B767A1EBFB6F700562FD1 /* Weather.swift in Sources */,
 				9340981E1EB76E780079B7C2 /* User.swift in Sources */,
+				93CB361D1ED4881E0033A1CA /* PagingMenuViewController.swift in Sources */,
 				93D3373E1EC6645B00AF7A8E /* StartStopSessionUIButton.swift in Sources */,
 				939A3CF81EB0AA0400031C03 /* AnalytiCeMNotificatioNameExtension.swift in Sources */,
 				93C6D3541EA375AA00A21FB4 /* SettingsViewController.swift in Sources */,

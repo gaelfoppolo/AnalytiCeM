@@ -29,6 +29,7 @@ class DetailViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mentalState: UILabel!
     @IBOutlet weak var distance: UILabel!
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var pagingMenu: UIView!
     
     // MARK: - UIView
     
@@ -64,6 +65,13 @@ class DetailViewController: UIViewController, MKMapViewDelegate {
         self.activityTypes.cornerRoundedWithThinBorder()
         self.mentalState.cornerRoundedWithThinBorder()
         self.distance.cornerRoundedWithThinBorder()
+        
+        // the view to display
+        let pageViewController = PagingMenuViewController()
+        self.addChildViewController(pageViewController)
+        self.pagingMenu.layout(child: pageViewController.view)
+        self.pagingMenu.addSubview(pageViewController.view)
+        pageViewController.didMove(toParentViewController: self)
         
     }
     

@@ -21,5 +21,6 @@ target 'AnalytiCeM' do
     pod 'AlamofireSwiftyJSON'
     pod 'LocationManagerSwift', '~> 1.1'
     pod 'Sparrow/Modules/RequestPermission', :git => 'https://github.com/IvanVorobei/Sparrow.git'
+    pod 'PagingMenuController'
 end
 

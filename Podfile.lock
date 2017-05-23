@@ -12,6 +12,7 @@ PODS:
   - NotificationBannerSwift (1.2.0):
     - MarqueeLabel/Swift
     - SnapKit (~> 3.2.0)
+  - PagingMenuController (2.2.0)
   - pop (1.0.9)
   - Realm (2.7.0):
     - Realm/Headers (= 2.7.0)
@@ -35,6 +36,7 @@ DEPENDENCIES:
   - Eureka
   - LocationManagerSwift (~> 1.1)
   - NotificationBannerSwift
+  - PagingMenuController
   - pop (~> 1.0)
   - RealmSwift (~> 2.6)
   - Sparrow/Modules/RequestPermission (from `https://github.com/IvanVorobei/Sparrow.git`)
@@ -67,6 +69,7 @@ SPEC CHECKSUMS:
   LocationManagerSwift: b3d520b26788f5c2213bfd6a8699967937a81f58
   MarqueeLabel: 8a25b2cf02cf52165022f01369e63536c58fcc00
   NotificationBannerSwift: 77f96e1c418309600aad70b21247d9b3cbc360e3
+  PagingMenuController: 6176618987bb170096664f2da097313e45ed9c31
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   Realm: 07e5d3a9e0e41d65fd5f9f05150ed6295d0f093b
   RealmSwift: 6d06425d3900c86473c4f323bf6949b43fca22bc
@@ -76,6 +79,6 @@ SPEC CHECKSUMS:
   SwiftSpinner: 62a28bbb4035f252a1e91b0e17fc40bdbbfa0aab
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 45aafcd7d3d07c159cd297135a3ec0116a36d088
+PODFILE CHECKSUM: aa468f52ce8b7478ac4dc85238757bfc929efe92
 
 COCOAPODS: 1.2.1
