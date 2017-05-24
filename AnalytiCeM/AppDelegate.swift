@@ -99,19 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // select the main view by default
         tabBarController?.selectedIndex = 1
         
-        // login controller
-        let lLoginVC = LoginViewController(
-            nibName: "LoginViewController",
-            bundle: nil)
-        
-        // login navigation controller
-        navLoginController = UINavigationController(rootViewController: lLoginVC)
-        
-        // on top of the parent view
-        navLoginController?.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
-        
-        // and nice transition style
-        navLoginController?.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        configLogin()
         
         // retrieve current user
         let realm = try! Realm()
@@ -159,7 +147,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: - Custom
     
+    func configLogin() {
+        
+        // login controller
+        let lLoginVC = LoginViewController(
+            nibName: "LoginViewController",
+            bundle: nil)
+        
+        // login navigation controller
+        navLoginController = UINavigationController(rootViewController: lLoginVC)
+        
+        // on top of the parent view
+        navLoginController?.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
+        
+        // and nice transition style
+        navLoginController?.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        
+    }
+    
     func displayLogin() {
+        
+        configLogin()
         
         window?.rootViewController = navLoginController
     }
