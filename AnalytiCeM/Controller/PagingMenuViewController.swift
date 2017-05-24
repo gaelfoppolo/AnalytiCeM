@@ -24,7 +24,8 @@ class PagingMenuViewController: UIViewController {
 
         let options = PagingMenuOptions(datas: datas)
         
-        let pagingMenuController = PagingMenuController(options: options)        
+        let pagingMenuController = PagingMenuController(options: options)
+        
         addChildViewController(pagingMenuController)
         view.layout(child: pagingMenuController.view)
         view.addSubview(pagingMenuController.view)

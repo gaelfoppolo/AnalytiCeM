@@ -49,6 +49,10 @@ class CountChartViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        chart.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
+    }
+    
     
     // MARK: - Logic
     

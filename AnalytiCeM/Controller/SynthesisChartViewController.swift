@@ -51,11 +51,14 @@ class SynthesisChartViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        chart.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     
     // MARK: - Logic
     
