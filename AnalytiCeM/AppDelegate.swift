@@ -24,10 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        // realm, delete the data if the DB scheme changed
-        // prevent crashes, remove when go prod
-        //let config = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
-        //Realm.Configuration.defaultConfiguration = config
+        // encryption
+        let config = Realm.Configuration(encryptionKey: getKey() as Foundation.Data)
+        Realm.Configuration.defaultConfiguration = config
         
         // fill database
         FillRealm.defaults()
@@ -176,6 +175,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window?.rootViewController = tabBarController
         
+    }
+    
+    // MARK: - Realm
+    
+    func getKey() -> NSData {
+        
+        // identifier for our keychain entry - should be unique for your application
+        let keychainIdentifier = Bundle.main.bundleIdentifier!
+        let keychainIdentifierData = keychainIdentifier.data(using: String.Encoding.utf8, allowLossyConversion: false)
+        
+        // first check in the keychain for an existing key
+        var query: [NSString: AnyObject] = [
+            kSecClass: kSecClassKey,
+            kSecAttrApplicationTag: keychainIdentifierData as AnyObject,
+            kSecAttrKeySizeInBits: 512 as AnyObject,
+            kSecReturnData: true as AnyObject
+        ]
+        
+        // to avoid Swift optimization bug, should use withUnsafeMutablePointer() function to retrieve the keychain item
+        // see also: http://stackoverflow.com/questions/24145838/querying-ios-keychain-using-swift/27721328#27721328
+        var dataTypeRef: AnyObject?
+        var status = withUnsafeMutablePointer(to: &dataTypeRef) { SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0)) }
+        if status == errSecSuccess {
+            return dataTypeRef as! NSData
+        }
+        
+        // no pre-existing key from this application, so generate a new one
+        let keyData = NSMutableData(length: 64)!
+        let result = SecRandomCopyBytes(kSecRandomDefault, 64, keyData.mutableBytes.bindMemory(to: UInt8.self, capacity: 64))
+        assert(result == 0, "Failed to get random bytes")
+        
+        // store the key in the keychain
+        query = [
+            kSecClass: kSecClassKey,
+            kSecAttrApplicationTag: keychainIdentifierData as AnyObject,
+            kSecAttrKeySizeInBits: 512 as AnyObject,
+            kSecValueData: keyData
+        ]
+        
+        status = SecItemAdd(query as CFDictionary, nil)
+        assert(status == errSecSuccess, "Failed to insert the new key in the keychain")
+        
+        return keyData
     }
 
 }
