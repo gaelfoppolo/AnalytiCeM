@@ -17,6 +17,8 @@
 		934098231EB7786F0079B7C2 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 934098211EB7786E0079B7C2 /* LoginViewController.xib */; };
 		934098261EB7F1BD0079B7C2 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934098241EB7F1BC0079B7C2 /* RegisterViewController.swift */; };
 		934098271EB7F1BD0079B7C2 /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 934098251EB7F1BD0079B7C2 /* RegisterViewController.xib */; };
+		9343540E1ED7112400A057BF /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9343540C1ED7112400A057BF /* EditProfileViewController.swift */; };
+		9343540F1ED7112400A057BF /* EditProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9343540D1ED7112400A057BF /* EditProfileViewController.xib */; };
 		9357A0541EC36F1B00C704A8 /* WeatherView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9357A0531EC36F1B00C704A8 /* WeatherView.xib */; };
 		9357A0571EC36F3400C704A8 /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9357A0561EC36F3400C704A8 /* WeatherView.swift */; };
 		936564D21EB8BADD007F469E /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936564D01EB8BADD007F469E /* UserProfileViewController.swift */; };
@@ -31,8 +33,6 @@
 		937933BB1EC0AC6A00A1FFE1 /* GPSView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937933BA1EC0AC6A00A1FFE1 /* GPSView.xib */; };
 		937933BD1EC0ADBC00A1FFE1 /* GPSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937933BC1EC0ADBC00A1FFE1 /* GPSView.swift */; };
 		937D66A11EA67A0700A8E3DC /* SettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937D66A01EA67A0700A8E3DC /* SettingsTableViewCell.xib */; };
-		937D66A51EA69DF600A8E3DC /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937D66A31EA69DF600A8E3DC /* UserViewController.swift */; };
-		937D66A61EA69DF600A8E3DC /* UserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937D66A41EA69DF600A8E3DC /* UserViewController.xib */; };
 		937D66AF1EA6C85400A8E3DC /* AddMuseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937D66AD1EA6C85400A8E3DC /* AddMuseViewController.swift */; };
 		937D66B01EA6C85400A8E3DC /* AddMuseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937D66AE1EA6C85400A8E3DC /* AddMuseViewController.xib */; };
 		937D66B31EA6CF4F00A8E3DC /* AddMuseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937D66B11EA6CF4F00A8E3DC /* AddMuseTableViewCell.swift */; };
@@ -96,6 +96,8 @@
 		934098211EB7786E0079B7C2 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		934098241EB7F1BC0079B7C2 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		934098251EB7F1BD0079B7C2 /* RegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterViewController.xib; sourceTree = "<group>"; };
+		9343540C1ED7112400A057BF /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		9343540D1ED7112400A057BF /* EditProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditProfileViewController.xib; sourceTree = "<group>"; };
 		9357A0531EC36F1B00C704A8 /* WeatherView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeatherView.xib; sourceTree = "<group>"; };
 		9357A0561EC36F3400C704A8 /* WeatherView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
 		936564D01EB8BADD007F469E /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
@@ -113,8 +115,6 @@
 		937933BA1EC0AC6A00A1FFE1 /* GPSView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GPSView.xib; path = AnalytiCeM/View/GPSView.xib; sourceTree = SOURCE_ROOT; };
 		937933BC1EC0ADBC00A1FFE1 /* GPSView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GPSView.swift; path = AnalytiCeM/View/GPSView.swift; sourceTree = SOURCE_ROOT; };
 		937D66A01EA67A0700A8E3DC /* SettingsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsTableViewCell.xib; sourceTree = "<group>"; };
-		937D66A31EA69DF600A8E3DC /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
-		937D66A41EA69DF600A8E3DC /* UserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserViewController.xib; sourceTree = "<group>"; };
 		937D66AD1EA6C85400A8E3DC /* AddMuseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMuseViewController.swift; sourceTree = "<group>"; };
 		937D66AE1EA6C85400A8E3DC /* AddMuseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddMuseViewController.xib; sourceTree = "<group>"; };
 		937D66B11EA6CF4F00A8E3DC /* AddMuseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMuseTableViewCell.swift; sourceTree = "<group>"; };
@@ -307,8 +307,8 @@
 				937D66A01EA67A0700A8E3DC /* SettingsTableViewCell.xib */,
 				93C6D3521EA375AA00A21FB4 /* SettingsViewController.swift */,
 				93C6D3531EA375AA00A21FB4 /* SettingsViewController.xib */,
-				937D66A31EA69DF600A8E3DC /* UserViewController.swift */,
-				937D66A41EA69DF600A8E3DC /* UserViewController.xib */,
+				9343540C1ED7112400A057BF /* EditProfileViewController.swift */,
+				9343540D1ED7112400A057BF /* EditProfileViewController.xib */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -450,7 +450,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				937D66A61EA69DF600A8E3DC /* UserViewController.xib in Resources */,
 				937933BB1EC0AC6A00A1FFE1 /* GPSView.xib in Resources */,
 				937D66B01EA6C85400A8E3DC /* AddMuseViewController.xib in Resources */,
 				934098231EB7786F0079B7C2 /* LoginViewController.xib in Resources */,
@@ -470,6 +469,7 @@
 				9374B3151E9D80DB00052AA5 /* Assets.xcassets in Resources */,
 				93C6D3591EA375D000A21FB4 /* SessionViewController.xib in Resources */,
 				93C6D35D1EA3761900A21FB4 /* MainViewController.xib in Resources */,
+				9343540F1ED7112400A057BF /* EditProfileViewController.xib in Resources */,
 				93C6D3551EA375AA00A21FB4 /* SettingsViewController.xib in Resources */,
 				934098271EB7F1BD0079B7C2 /* RegisterViewController.xib in Resources */,
 				93A7D94E1ED105320072C2A2 /* SessionTableViewCell.xib in Resources */,
@@ -536,7 +536,6 @@
 				93CB362B1ED4F5720033A1CA /* SynthesisChartViewController.swift in Sources */,
 				93D337401EC67AEB00AF7A8E /* FillRealm.swift in Sources */,
 				93CB36271ED4F06A0033A1CA /* CountChartViewController.swift in Sources */,
-				937D66A51EA69DF600A8E3DC /* UserViewController.swift in Sources */,
 				937D66AF1EA6C85400A8E3DC /* AddMuseViewController.swift in Sources */,
 				937933BD1EC0ADBC00A1FFE1 /* GPSView.swift in Sources */,
 				938D77271EC7BA6F005C707A /* GPS.swift in Sources */,
@@ -563,6 +562,7 @@
 				938F222C1EBF2B9000FF5C70 /* OWMManager.swift in Sources */,
 				93AD2AC81EBBD6FD00803122 /* BounceContentView.swift in Sources */,
 				93B93D491ED232650043BD16 /* DetailViewController.swift in Sources */,
+				9343540E1ED7112400A057BF /* EditProfileViewController.swift in Sources */,
 				932B767A1EBFB6F700562FD1 /* Weather.swift in Sources */,
 				9340981E1EB76E780079B7C2 /* User.swift in Sources */,
 				93CB361D1ED4881E0033A1CA /* PagingMenuViewController.swift in Sources */,

@@ -121,7 +121,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         
         // select the view do display
         if (indexPath.section == kSectionUser) {
-            viewController = UserViewController(nibName: "UserViewController", bundle: nil)
+            viewController = EditProfileViewController(nibName: "EditProfileViewController", bundle: nil)
         } else if (indexPath.section == kSectionDevice) {
             viewController = DeviceViewController(nibName: "DeviceViewController", bundle: nil)
         }

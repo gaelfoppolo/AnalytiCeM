@@ -65,7 +65,7 @@ class RegisterViewController: UIViewController, UserProfileDelegate {
         DispatchQueue.global(qos: .background).async {
             
             // try to create the hash
-            let saltAndPassword = self.passwordManager.createHash(password: user.password)
+            let saltAndPassword = self.passwordManager.createHash(password: user.password!)
             
             // creation succeed
             if let saltAndPassword = saltAndPassword {

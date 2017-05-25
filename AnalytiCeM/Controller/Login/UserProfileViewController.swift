@@ -19,7 +19,8 @@ protocol UserProfileDelegate {
 
 typealias UserProfil = (
                         email: String,
-                        password: String,
+                        oldPassword: String?,
+                        password: String?,
                         firstName: String,
                         lastName: String,
                         birthday: Date,
@@ -34,6 +35,7 @@ class UserProfileViewController: FormViewController {
     
     let kSectionTagAccount = "account"
     let kSectionAccountTagEmail = "account.email"
+    let kSectionAccountTagCurrentPassword = "account.currentPassword"
     let kSectionAccountTagPassword = "account.password"
     
     let kSectionTagUser = "user"
@@ -76,6 +78,10 @@ class UserProfileViewController: FormViewController {
         self.dateFormatter.dateStyle = .long
         
         setupUI()
+        
+        if editionMode {
+            fill()
+        }
 
     }
 
@@ -200,7 +206,7 @@ class UserProfileViewController: FormViewController {
         }
         
         // email
-        accountSection  <<< EmailRow() { (row : EmailRow) -> Void in
+        accountSection <<< EmailRow() { (row : EmailRow) -> Void in
             row.title = "Email"
             row.placeholder = "you@mail.com"
             // rules
@@ -228,21 +234,49 @@ class UserProfileViewController: FormViewController {
             row.add(rule: ruleCheckEmailViaClosure)
             row.tag = kSectionAccountTagEmail
         }
+        
+        // edit the profil
+        if editionMode {
+            
+            // old password
+            accountSection <<< PasswordRow() {
+                $0.title = "Current password"
+                // rules
+                $0.add(rule: RuleMinLength(minLength: kMinLenghtPassword))
+                $0.add(rule: RuleMaxLength(maxLength: kMaxLenghtPassword))
+                $0.add(rule: RuleRequired())
+                $0.tag = kSectionAccountTagCurrentPassword
+            }
+        }
             
         // password
-        <<< PasswordRow() {
-            $0.title = "Password"
+        accountSection <<< PasswordRow() {
+            
+            // edit profil
+            if editionMode {
+                $0.title = "New password"
+            }
+            else {
+                $0.title = "Password"
+                $0.add(rule: RuleRequired())
+            }
+            
             // rules
             $0.add(rule: RuleMinLength(minLength: kMinLenghtPassword))
             $0.add(rule: RuleMaxLength(maxLength: kMaxLenghtPassword))
-            $0.add(rule: RuleRequired())
-            // todo: password check if current user, aka edition mode
-            // but how to change it? problem
             $0.tag = kSectionAccountTagPassword
         }
             
         <<< PasswordRow() {
-           $0.title = "Confirm password"
+            
+            // edit profil
+            if editionMode {
+                $0.title = "Confirm new password"
+            }
+            else {
+                $0.title = "New password"
+            }
+            
            $0.add(rule: RuleEqualsToRow(form: form, tag: kSectionAccountTagPassword))
         }
             
@@ -343,7 +377,15 @@ class UserProfileViewController: FormViewController {
         form +++ validateSection
         
         validateSection <<< ButtonRow() {
-            $0.title = "Register"
+            
+            // edit profile
+            if editionMode {
+                $0.title = "Update"
+            }
+            else {
+                $0.title = "Register"
+            }
+            
             $0.tag = kSectionValidateTagRegister
         }
         .onCellSelection { cell, row in
@@ -353,7 +395,14 @@ class UserProfileViewController: FormViewController {
             // no error, then validate
             if errors.count == 0 {
                 
-                self.validate()
+                // edition -> update
+                if self.editionMode {
+                    self.validateUpdate()
+                }
+                // creation -> register
+                else {
+                    self.validateRegister()
+                }
             }
         }
     }
@@ -363,15 +412,31 @@ class UserProfileViewController: FormViewController {
         self.topLayoutGuide.co = self.parent?.topLayoutGuide.length
     }*/
 
+    private func fill() {
+        
+        // get the current user
+        let realm = try! Realm()
+        let currentUser = realm.objects(User.self).filter("isCurrent == true").first
+        
+        // fill rows
+        (form.rowBy(tag: kSectionAccountTagEmail) as! EmailRow).value = currentUser?.email
+        (form.rowBy(tag: kSectionUserTagFirstName) as! TextRow).value = currentUser?.firstName
+        (form.rowBy(tag: kSectionUserTagLastName) as! TextRow).value = currentUser?.lastName
+        (form.rowBy(tag: kSectionUserTagBirthday) as! DateRow).value = currentUser?.birth
+        (form.rowBy(tag: kSectionUserTagGender) as! SegmentedRow<String>).value = currentUser?.gender
+        (form.rowBy(tag: kSectionUserTagWeight) as! PickerInlineRow<Int>).value = currentUser?.weight
+        (form.rowBy(tag: kSectionUserTagSize) as! PickerInlineRow<Int>).value = currentUser?.size
+        
+    }
     
-    private func validate() {
+    private func validateRegister() {
     
         // if delegate
         if (self.delegate != nil) {
             
             // retrieve values
             let emailValue = (form.rowBy(tag: kSectionAccountTagEmail) as! EmailRow).value!
-            let passwordValue = (form.rowBy(tag: kSectionAccountTagPassword) as! PasswordRow).value!
+            let passwordValue = (form.rowBy(tag: kSectionAccountTagPassword) as! PasswordRow).value
             let firstNameValue = (form.rowBy(tag: kSectionUserTagFirstName) as! TextRow).value!
             let lastNameValue = (form.rowBy(tag: kSectionUserTagLastName) as! TextRow).value!
             let birthdayValue = (form.rowBy(tag: kSectionUserTagBirthday) as! DateRow).value!
@@ -380,6 +445,7 @@ class UserProfileViewController: FormViewController {
             let sizeValue = (form.rowBy(tag: kSectionUserTagSize) as! PickerInlineRow<Int>).value!
             
             let userProfil: UserProfil = (email: emailValue,
+                                        oldPassword: nil,
                                         password: passwordValue,
                                         firstName: firstNameValue,
                                         lastName: lastNameValue,
@@ -393,6 +459,38 @@ class UserProfileViewController: FormViewController {
             
         }
         
+    }
+    
+    private func validateUpdate() {
+        
+        // if delegate
+        if (self.delegate != nil) {
+            
+            // retrieve values
+            let emailValue = (form.rowBy(tag: kSectionAccountTagEmail) as! EmailRow).value!
+            let oldPasswordValue = (form.rowBy(tag: kSectionAccountTagCurrentPassword) as! PasswordRow).value
+            let passwordValue = (form.rowBy(tag: kSectionAccountTagPassword) as! PasswordRow).value
+            let firstNameValue = (form.rowBy(tag: kSectionUserTagFirstName) as! TextRow).value!
+            let lastNameValue = (form.rowBy(tag: kSectionUserTagLastName) as! TextRow).value!
+            let birthdayValue = (form.rowBy(tag: kSectionUserTagBirthday) as! DateRow).value!
+            let genderValue = (form.rowBy(tag: kSectionUserTagGender) as! SegmentedRow<String>).value!
+            let weightValue = (form.rowBy(tag: kSectionUserTagWeight) as! PickerInlineRow<Int>).value!
+            let sizeValue = (form.rowBy(tag: kSectionUserTagSize) as! PickerInlineRow<Int>).value!
+            
+            let userProfil: UserProfil = (email: emailValue,
+                                          oldPassword: oldPasswordValue,
+                                          password: passwordValue,
+                                          firstName: firstNameValue,
+                                          lastName: lastNameValue,
+                                          birthday: birthdayValue,
+                                          gender: genderValue,
+                                          weight: weightValue,
+                                          size: sizeValue)
+            
+            // call delegate
+            self.delegate!.validate(user: userProfil)
+            
+        }
     }
 
 }
