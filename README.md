@@ -8,7 +8,7 @@
 
 ## About
 
-AnalytiCeM is an mobile application that retrieve and analyse brain data. The app works with an IoT device, [Muse](http://choosemuse.com/), that monitor brain activity.
+AnalytiCeM is a mobile application that retrieve and analyze brain data. The app works with an IoT device, [Muse](http://choosemuse.com/), that monitor brain activity.
 
 |            Main             |          Synthesis          |
 | :-------------------------: | :-------------------------: |
@@ -33,7 +33,7 @@ AnalytiCeM is an mobile application that retrieve and analyse brain data. The ap
 
 ### CocoaPods
 
-This project use [CocoaPods](http://cocoapods.org), a dependency manager for Cocoa projects. You can install it with the following command:
+This project uses [CocoaPods](http://cocoapods.org), a dependency manager for Cocoa projects. You can install it with the following command:
 
 ```bash
 $ gem install cocoapods
@@ -48,7 +48,7 @@ $ pod install
 ```
 ### OpenWeatherMap
 
-This project use [OpenWeatherMap](https://openweathermap.org/), to query the weather data. You'll need an API key in order to make it work. You can get it [here from free](http://openweathermap.org/appid).
+This project uses [OpenWeatherMap](https://openweathermap.org/), to query the weather data. You'll need an API key in order to make it work. You can get it [here from free](http://openweathermap.org/appid).
 
 Then create a file `Keys.plist` in the project folder, containing this:
 
