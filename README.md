@@ -1,16 +1,18 @@
-# AnalytiCeM
+<h1 align="center">
+​    <img src="logo.png" width="200"/>
+​    <br />
+​    AnalytiCeM
+</h1>
 
-![Logo](https://raw.githubusercontent.com/gaelfoppolo/AnalytiCeM/master/logo.png)
-
-![Platform](https://img.shields.io/badge/platform-ios-lightgrey.svg) ![Language](https://img.shields.io/badge/language-swift 3-orange.svg) ![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Platform](https://img.shields.io/badge/platform-ios-lightgrey.svg) ![Language](https://img.shields.io/badge/language-swift-orange.svg) ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
 ## About
 
 AnalytiCeM is an mobile application that retrieve and analyse brain data. The app works with an IoT device, [Muse](http://choosemuse.com/), that monitor brain activity.
 
-|                   Main                   |                Synthesis                 |
-| :--------------------------------------: | :--------------------------------------: |
-| ![Screen1](https://raw.githubusercontent.com/gaelfoppolo/AnalytiCeM/master/screenshot1.jpg) | ![Screen2](https://raw.githubusercontent.com/gaelfoppolo/AnalytiCeM/master/screenshot2.jpg) |
+|            Main             |          Synthesis          |
+| :-------------------------: | :-------------------------: |
+| ![Screen1](screenshot1.jpg) | ![Screen2](screenshot2.jpg) |
 
 ##### Demo available here: https://www.youtube.com/watch?v=522_h5welp8
 
