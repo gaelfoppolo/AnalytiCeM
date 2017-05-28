@@ -31,11 +31,8 @@ class StartStopSessionUIButton: UIButton {
     // Performs the initial setup.
     private func setupView() {
         
-        // corner
-        self.layer.cornerRadius = 5
-        // border
-        self.layer.borderColor = Theme.current.mainColor.cgColor
-        self.layer.borderWidth = 1
+        // corner & border
+        cornerRoundedWithThinBorder()
         // title color
         self.setTitleColor(Theme.current.mainColor, for: .normal)
         self.setTitleColor(.lightGray, for: .disabled)

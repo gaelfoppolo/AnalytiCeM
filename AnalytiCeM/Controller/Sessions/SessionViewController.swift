@@ -41,7 +41,9 @@ class SessionViewController: UIViewController, UITableViewDelegate, UITableViewD
         // register the cell
         self.tableView.register(UINib(nibName: "SessionTableViewCell", bundle: nil), forCellReuseIdentifier: kCellIdentifier)
         
-        // get the sessions of the current user, descending order
+        // get the sessions of the current user
+        // session that ended
+        // in descending order
         let currentUser = realm.objects(User.self).filter("isCurrent == true").first!
         sessions = realm
             .objects(Session.self)

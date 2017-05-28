@@ -44,6 +44,7 @@ class DetailViewController: UIViewController, MKMapViewDelegate {
         durationFormatter.allowedUnits = [.day, .hour, .minute, .second]
         durationFormatter.unitsStyle = .abbreviated
         
+        // distance formateer
         distanceFormatter.unitStyle = .abbreviated
         
         setupUI()

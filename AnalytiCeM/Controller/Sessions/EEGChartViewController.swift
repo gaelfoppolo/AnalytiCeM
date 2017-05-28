@@ -14,7 +14,9 @@ class EEGChartViewController: UIViewController {
     
     // MARK: - Properties
     
+    // the color of the line
     var color: UIColor!
+    // the data
     var data: [Double]!
     
     // MARK: IBOutlets
@@ -26,19 +28,18 @@ class EEGChartViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // config
         chart.chartDescription?.enabled = false
-        
         chart.dragEnabled = false
         chart.setScaleEnabled(false)
         chart.pinchZoomEnabled = false
         chart.drawGridBackgroundEnabled = false
         chart.maxHighlightDistance = 300.0
-        
         chart.xAxis.enabled = false
-        
         chart.rightAxis.enabled = false
         chart.legend.enabled = false
         
+        // display data
         setChart(dataPoints: data)
 
         // Do any additional setup after loading the view.
@@ -67,6 +68,7 @@ class EEGChartViewController: UIViewController {
         
         let set: LineChartDataSet = LineChartDataSet(values: dataEntries, label: "")
         
+        // config line display
         set.mode = .horizontalBezier
         set.cubicIntensity = 0
         set.drawCirclesEnabled = false

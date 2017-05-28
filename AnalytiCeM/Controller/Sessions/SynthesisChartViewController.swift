@@ -14,7 +14,9 @@ class SynthesisChartViewController: UIViewController {
 
     // MARK: - Properties
     
+    // the colors of the pie chart
     var colors: [UIColor]!
+    // the relative data
     var alpha: [Double]!
     var beta: [Double]!
     var delta: [Double]!
@@ -30,14 +32,14 @@ class SynthesisChartViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // config
         chart.chartDescription?.enabled = false
         chart.maxHighlightDistance = 300.0
-        
         chart.usePercentValuesEnabled = true
         chart.drawSlicesUnderHoleEnabled = false
-        
         chart.legend.enabled = false
         
+        // prepare data
         let alphaSum = alpha.reduce(0.0, +)
         let betaSum = beta.reduce(0.0, +)
         let deltaSum = delta.reduce(0.0, +)
@@ -46,6 +48,7 @@ class SynthesisChartViewController: UIViewController {
         
         let data = [alphaSum, betaSum, deltaSum, gammaSum, thetaSum]
         
+        // set data
         setChart(dataPoints: data)
         
         // Do any additional setup after loading the view.
@@ -78,6 +81,7 @@ class SynthesisChartViewController: UIViewController {
         set.drawValuesEnabled = true
         
         let data: PieChartData = PieChartData(dataSet: set)
+        // formatter to display percentage
         let pFormatter = NumberFormatter()
         pFormatter.numberStyle = .percent
         pFormatter.maximumFractionDigits = 1;

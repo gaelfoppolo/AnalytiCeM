@@ -86,10 +86,9 @@ public struct EEGSnapshot {
         
         let returnn: Double
         
-        // si aucune valeur
+        // no value
         if (count == 0 || sum == 0) {
             returnn = 0
-        // s'il y a des valeurs
         } else  {
             returnn = sum/count
         }

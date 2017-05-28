@@ -14,7 +14,9 @@ class CountChartViewController: UIViewController {
 
     // MARK: - Properties
     
+    // the color of the bars
     var color: UIColor!
+    // the data to be displayed
     var data: [Double]!
     
     // MARK: IBOutlets
@@ -26,19 +28,18 @@ class CountChartViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // config
         chart.chartDescription?.enabled = false
-        
         chart.dragEnabled = false
         chart.setScaleEnabled(false)
         chart.pinchZoomEnabled = false
         chart.drawGridBackgroundEnabled = false
         chart.maxHighlightDistance = 300.0
-        
         chart.xAxis.enabled = false
-        
         chart.rightAxis.enabled = false
         chart.legend.enabled = false
         
+        // display data
         setChart(dataPoints: data)
         
         // Do any additional setup after loading the view.

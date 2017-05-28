@@ -50,11 +50,8 @@ class WeatherView: UIView {
     
     private func setupUI() {
         
-        // corner
-        self.layer.cornerRadius = 5
-        // border
-        self.layer.borderColor = Theme.current.mainColor.cgColor
-        self.layer.borderWidth = 1
+        // corner & border
+        cornerRoundedWithThinBorder()
         
         // activity
         self.activityIndicator.hidesWhenStopped = true

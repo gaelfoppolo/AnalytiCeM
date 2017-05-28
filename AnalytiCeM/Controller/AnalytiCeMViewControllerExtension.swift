@@ -15,7 +15,6 @@ extension UIViewController {
     public enum APIKey: String {
         case openWeatherMap = "OpenWeatherMap"
         
-        
         private func keyPlist(index: String) -> String?  {
             
             guard let path = Bundle.main.path(forResource: "Keys", ofType: "plist"),
